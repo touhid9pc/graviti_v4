@@ -7,7 +7,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 import TextComponent from "../textComponent/TextComponent";
-import { TextAnimate } from "../magicui/text-animate";
 
 interface CarouselCardData {
   id: number;
@@ -121,7 +120,7 @@ const DraggableCarousel: React.FC = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
-  const [selectedCard, setSelectedCard] = useState([]);
+  const [selectedCard, setSelectedCard] = useState<CarouselCardData[]>([]);
   const [swipeCount, setSwipeCount] = useState(0);
 
   const visibleCount = 5;
@@ -164,6 +163,16 @@ const DraggableCarousel: React.FC = () => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
     setSwipeCount((prev) => prev + 1);
     new Audio("/assets/sounds/swipe.mp3").play();
+  };
+
+  const toggleCardSelection = (card: CarouselCardData) => {
+    setSelectedCard((prev) => {
+      const isAlreadySelected = prev.some((c) => c.id === card.id);
+      if (isAlreadySelected) {
+        return prev.filter((c) => c.id !== card.id);
+      }
+      return [...prev, card];
+    });
   };
 
   if (!isMounted) {
@@ -381,32 +390,32 @@ const DraggableCarousel: React.FC = () => {
             })}
 
             <div className=" absolute -bottom-30 left-[50%] translate-x-[-50%]">
-              {/* {selectedCard?.length >= 3 ? ( */}
-              <div className="flex justify-center items-center">
-                <AnimatedButton name="Reveal" />
-              </div>
-              {/* ) : (
-            <p className="text-center text-5xl text-gray-600">
-              Select atleast 3 Cards
-            </p>
-          )} */}
+              {selectedCard?.length >= 3 ? (
+                <div className="flex justify-center items-center">
+                  <AnimatedButton name="Reveal" />
+                </div>
+              ) : (
+                <p className="text-center text-5xl text-gray-600">
+                  Select atleast 3 Cards
+                </p>
+              )}
             </div>
           </div>
 
           {/* Indicators */}
-          {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
-          {carouselData.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentIndex(index)}
-              className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                index === currentIndex
-                  ? "bg-slate-600 scale-125"
-                  : "bg-slate-300 hover:bg-slate-400"
-              }`}
-            />
-          ))}
-        </div> */}
+          <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
+            {carouselData.map((_, index) => (
+              <button
+                key={index}
+                onClick={() => setCurrentIndex(index)}
+                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
+                  index === currentIndex
+                    ? "bg-slate-600 scale-125"
+                    : "bg-slate-300 hover:bg-slate-400"
+                }`}
+              />
+            ))}
+          </div>
         </motion.div>
       </div>
     </>
