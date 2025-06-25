@@ -3,16 +3,18 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-interface AnimatedButtonProps {
+interface AnimatedButtonProps
+  extends React.ButtonHTMLAttributes<HTMLButtonElement> {
   name?: string;
   className?: string;
-  children?: any;
+  children?: React.ReactNode;
 }
 
 export default function AnimatedButton({
   name,
-  className,
+  className = "",
   children,
+  disabled,
   ...props
 }: AnimatedButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -21,20 +23,12 @@ export default function AnimatedButton({
   useEffect(() => {
     const btn = btnRef.current;
     const text = textRef.current;
-    if (!btn || !text) return;
+    if (!btn || !text || disabled) return;
 
-    // const wiggle = () => {
-    //   gsap
-    //     .timeline()
-    //     .to(btn, { rotate: 5, duration: 0.1 })
-    //     .to(btn, { rotate: -5, duration: 0.1 })
-    //     .to(btn, { rotate: 0, duration: 0.1 });
-    // };
-
-    const moveText = (e: MouseEvent) => {
+    const move = (x: number, y: number) => {
       const bounds = btn.getBoundingClientRect();
-      const offsetX = e.clientX - bounds.left - bounds.width / 2;
-      const offsetY = e.clientY - bounds.top - bounds.height / 2;
+      const offsetX = x - bounds.left - bounds.width / 2;
+      const offsetY = y - bounds.top - bounds.height / 2;
 
       gsap.to(text, {
         x: offsetX * 0.2,
@@ -42,6 +36,7 @@ export default function AnimatedButton({
         duration: 0.3,
         ease: "power3.out",
       });
+
       gsap.to(btn, {
         x: offsetX * 0.2,
         y: offsetY * 0.2,
@@ -50,15 +45,8 @@ export default function AnimatedButton({
       });
     };
 
-    const resetText = () => {
-      gsap.to(text, {
-        x: 0,
-        y: 0,
-        duration: 0.4,
-        ease: "elastic.out(1, 0.4)",
-      });
-
-      gsap.to(btn, {
+    const reset = () => {
+      gsap.to([btn, text], {
         x: 0,
         y: 0,
         duration: 0.4,
@@ -66,25 +54,47 @@ export default function AnimatedButton({
       });
     };
 
-    // btn.addEventListener("mouseenter", wiggle);
-    btn.addEventListener("mousemove", moveText);
-    btn.addEventListener("mouseleave", resetText);
+    const onMouseMove = (e: MouseEvent) => move(e.clientX, e.clientY);
+    const onTouchMove = (e: TouchEvent) => {
+      if (e.touches.length > 0) {
+        const touch = e.touches[0];
+        move(touch.clientX, touch.clientY);
+      }
+    };
+
+    const onMouseLeave = reset;
+    const onTouchEnd = reset;
+
+    btn.addEventListener("mousemove", onMouseMove);
+    btn.addEventListener("mouseleave", onMouseLeave);
+    btn.addEventListener("touchmove", onTouchMove);
+    btn.addEventListener("touchend", onTouchEnd);
 
     return () => {
-      //   btn.removeEventListener("mouseenter", wiggle);
-      btn.removeEventListener("mousemove", moveText);
-      btn.removeEventListener("mouseleave", resetText);
+      btn.removeEventListener("mousemove", onMouseMove);
+      btn.removeEventListener("mouseleave", onMouseLeave);
+      btn.removeEventListener("touchmove", onTouchMove);
+      btn.removeEventListener("touchend", onTouchEnd);
     };
-  }, []);
+  }, [disabled]);
 
   return (
     <button
       ref={btnRef}
-      className={`${className} group relative w-max rounded-full 
-              backdrop-blur-md border border-white/20 ring-1 ring-white/10 
-              bg-[#e3e0da] text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 
-              px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 text-black 
-              transition-colors duration-300`}
+      disabled={disabled}
+      className={`
+        group relative w-max rounded-full 
+        px-4 sm:px-6 md:px-8 py-2 sm:py-3 md:py-4 
+        text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl 
+        font-medium backdrop-blur-md border border-white/20 
+        ring-1 ring-white/10 transition-all duration-300 
+        bg-[#e3e0da] text-black 
+        hover:bg-[#f0efec] hover:shadow-xl hover:ring-white/20
+        active:scale-95 active:ring-white/30
+        focus:outline-none focus:ring-2 focus:ring-white/30
+        disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+        ${className}
+      `}
       {...props}
     >
       <span ref={textRef} className="block relative z-10">

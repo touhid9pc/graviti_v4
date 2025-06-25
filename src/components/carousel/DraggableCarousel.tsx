@@ -116,7 +116,11 @@ const carouselData: CarouselCardData[] = [
   },
 ];
 
-const DraggableCarousel: React.FC = () => {
+interface DraggableCarouselProps {
+  nextStep: () => void;
+}
+
+const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
@@ -160,6 +164,15 @@ const DraggableCarousel: React.FC = () => {
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
     playSwipeSound();
+  };
+
+  const handleReveal = () => {
+    if (selectedCard?.length === 4) {
+      nextStep();
+    }
+    if (selectedCard?.length < 4 || selectedCard?.length > 4) {
+      alert("Please Select 4 Cards");
+    }
   };
 
   if (!isMounted) {
@@ -313,13 +326,13 @@ const DraggableCarousel: React.FC = () => {
                     {isSelected && (
                       <motion.div
                         key={`overlay-${item.id}`}
-                        initial={{ opacity: 0, scale: 0.95 }}
-                        animate={{ opacity: 1, scale: 1 }}
-                        exit={{ opacity: 0, scale: 0.9 }}
+                        initial={{ opacity: 0, scale: 0 }}
+                        animate={{ opacity: 1, scale: 2 }}
+                        exit={{ opacity: 0, scale: 0 }}
                         transition={{ duration: 0.1, ease: "linear" }}
-                        className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center rounded-2xl sm:rounded-3xl"
+                        className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center rounded-full"
                       >
-                        <Check size={80} />
+                        <Check size={40} color="white" />
                       </motion.div>
                     )}
                   </AnimatePresence>
@@ -380,7 +393,11 @@ const DraggableCarousel: React.FC = () => {
           <div className="absolute -bottom-30 left-[50%] translate-x-[-50%]">
             {/* {selectedCard?.length >= 3 ? ( */}
             <div className="flex justify-center items-center">
-              <AnimatedButton name="Reveal" />
+              <AnimatedButton
+                name="Reveal"
+                onClick={handleReveal}
+                disabled={selectedCard?.length < 4}
+              />
             </div>
             {/* ) : (
               <p className="text-center text-5xl text-gray-600">

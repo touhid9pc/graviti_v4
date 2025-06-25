@@ -1,3 +1,5 @@
+"use client";
+
 import React, { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -16,7 +18,6 @@ const TextComponent: React.FC = () => {
 
     checkScreenSize();
     window.addEventListener("resize", checkScreenSize);
-
     return () => window.removeEventListener("resize", checkScreenSize);
   }, []);
 
@@ -28,19 +29,17 @@ const TextComponent: React.FC = () => {
       const words = headingEl.querySelectorAll<HTMLSpanElement>(".word");
 
       gsap.set(words, {
-        x: -120,
         opacity: 0,
-        // filter: "blur(10px)"
+        filter: "blur(6px)",
       });
 
       gsap.to(words, {
-        x: 0,
         opacity: 1,
-        // filter: "blur(0px)",
-        ease: "power4.out",
-        stagger: isMobile ? 0.12 : 0.15,
-        duration: 1.8,
-        delay: 0.5,
+        filter: "blur(0px)",
+        ease: "power2.out",
+        stagger: isMobile ? 0.08 : 0.12,
+        duration: 1.2,
+        delay: 0.3,
         scrollTrigger: {
           trigger: headingEl,
           start: "top 80%",
