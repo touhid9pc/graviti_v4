@@ -4,7 +4,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { AnimatePresence, motion } from "framer-motion";
 import { Check } from "lucide-react";
 import Image from "next/image";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 import TextComponent from "../textComponent/TextComponent";
 
@@ -121,13 +121,14 @@ const DraggableCarousel: React.FC = () => {
   const [windowWidth, setWindowWidth] = useState(0);
   const [isMounted, setIsMounted] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CarouselCardData[]>([]);
-  const [swipeCount, setSwipeCount] = useState(0);
+  const swipeSoundRef = useRef<HTMLAudioElement | null>(null);
 
-  const visibleCount = 5;
   const total = carouselData.length;
 
   useEffect(() => {
     setIsMounted(true);
+    swipeSoundRef.current = new Audio("/assets/sounds/swipe.mp3");
+
     const updateWidth = () => setWindowWidth(window.innerWidth);
     updateWidth();
     window.addEventListener("resize", updateWidth);
@@ -135,44 +136,30 @@ const DraggableCarousel: React.FC = () => {
   }, []);
 
   // Responsive arc radius and spacing
-  const getArcRadius = () => {
-    // if (windowWidth < 480) return 3; // Mobile
-    // if (windowWidth < 768) return 5; // Small tablet
-    // if (windowWidth < 1024) return 7; // Tablet
-    // if (windowWidth < 1440) return 9; // Desktop
-    return 15; // Large desktop
+  const getVisibleCount = () => {
+    if (windowWidth < 768) return 3; // Mobile
+    return 5; // Tablet and desktop
   };
 
-  const getAngleSpread = () => {
-    // if (windowWidth < 480) return 18; // Mobile - tighter spread
-    // if (windowWidth < 768) return 22; // Small tablet
-    // if (windowWidth < 1024) return 25; // Tablet
-    return 28; // Desktop and above
-  };
+  const visibleCount = getVisibleCount();
+  const radius = 15;
+  const angleSpread = 28;
 
-  const radius = getArcRadius();
-  const angleSpread = getAngleSpread();
+  const playSwipeSound = () => {
+    if (swipeSoundRef.current) {
+      swipeSoundRef.current.currentTime = 0;
+      swipeSoundRef.current.play().catch(() => {});
+    }
+  };
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % total);
-    setSwipeCount((prev) => prev + 1);
-    new Audio("/assets/sounds/swipe.mp3").play();
+    playSwipeSound();
   };
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
-    setSwipeCount((prev) => prev + 1);
-    new Audio("/assets/sounds/swipe.mp3").play();
-  };
-
-  const toggleCardSelection = (card: CarouselCardData) => {
-    setSelectedCard((prev) => {
-      const isAlreadySelected = prev.some((c) => c.id === card.id);
-      if (isAlreadySelected) {
-        return prev.filter((c) => c.id !== card.id);
-      }
-      return [...prev, card];
-    });
+    playSwipeSound();
   };
 
   if (!isMounted) {
@@ -184,226 +171,226 @@ const DraggableCarousel: React.FC = () => {
   }
 
   return (
-    <>
-      <div className="w-full h-screen flex justify-center items-center flex-col overflow-hidden relative">
-        <div className="absolute top-8 left-[50%] translate-x-[-50%] w-full ">
-          <TextComponent />
-        </div>
-        {/* Animated radial background tint from center */}
-        <motion.div
-          key={carouselData[currentIndex].id}
-          initial={{ scale: 0, opacity: 0.2 }}
-          animate={{ scale: 3, opacity: 0.35 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5, ease: "easeOut" }}
-          className="absolute inset-0 pointer-events-none z-10"
+    <div className="w-full h-screen flex justify-center items-center flex-col overflow-hidden relative">
+      <div className="absolute top-8 left-[50%] translate-x-[-50%] w-full">
+        <TextComponent />
+      </div>
+
+      {/* Animated radial background tint from center */}
+      <motion.div
+        key={carouselData[currentIndex].id}
+        initial={{ scale: 0.5, opacity: 0.1 }}
+        animate={{ scale: 2, opacity: 0.25 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0 pointer-events-none z-10 will-change-transform"
+      >
+        <div
+          className={`absolute top-1/2 left-1/2 w-[50%] h-[50%] rounded-full blur-3xl ${carouselData[currentIndex].tintColorClass}`}
+          style={{
+            transform: "translate(-50%, -50%)",
+            backgroundImage:
+              "radial-gradient(circle at center, var(--tw-gradient-from), transparent 100%)",
+          }}
+        />
+      </motion.div>
+
+      {/* Navigation buttons */}
+      <button
+        onClick={handlePrev}
+        className="hidden absolute left-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 lg:flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-white/90"
+      >
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <div
-            className={`absolute top-1/2 left-1/2 w-[50%] h-[50%] rounded-full blur-3xl ${carouselData[currentIndex].tintColorClass}`}
-            style={{
-              transform: "translate(-50%, -50%)",
-              backgroundImage:
-                "radial-gradient(circle at center, var(--tw-gradient-from), transparent 100%)",
-            }}
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M15 19l-7-7 7-7"
           />
-        </motion.div>
+        </svg>
+      </button>
 
-        {/* Navigation buttons */}
-        <button
-          onClick={handlePrev}
-          className="hidden absolute left-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 lg:flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-white/90"
+      <button
+        onClick={handleNext}
+        className="hidden absolute right-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 lg:flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-white/90"
+      >
+        <svg
+          className="w-5 h-5 sm:w-6 sm:h-6"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
         >
-          <svg
-            className="w-5 h-5 sm:w-6 sm:h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M15 19l-7-7 7-7"
-            />
-          </svg>
-        </button>
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M9 5l7 7-7 7"
+          />
+        </svg>
+      </button>
 
-        <button
-          onClick={handleNext}
-          className="hidden absolute right-10 top-1/2 -translate-y-1/2 z-50 w-12 h-12 sm:w-14 sm:h-14 bg-white/80 backdrop-blur-sm rounded-full shadow-lg hover:shadow-xl transition-all duration-300 lg:flex items-center justify-center text-slate-700 hover:text-slate-900 hover:bg-white/90"
-        >
-          <svg
-            className="w-5 h-5 sm:w-6 sm:h-6"
-            fill="none"
-            stroke="currentColor"
-            viewBox="0 0 24 24"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M9 5l7 7-7 7"
-            />
-          </svg>
-        </button>
+      {/* Main carousel container */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.9 }}
+        animate={{ opacity: 1, scale: 1 }}
+        transition={{ duration: 0.2, ease: "easeOut" }}
+        className="relative w-full"
+      >
+        <div className="relative w-full h-[24rem] sm:h-[28rem] md:h-[32rem] xl:h-[36rem] flex justify-center items-center">
+          {/* Carousel cards */}
+          {[...Array(visibleCount)].map((_, i) => {
+            const offset = i - Math.floor(visibleCount / 2);
+            const cardIndex = (currentIndex + offset + total) % total;
+            const item = carouselData[cardIndex];
 
-        {/* Main carousel container */}
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.1, ease: "easeOut" }}
-          // className="relative w-full px-4 sm:px-6 lg:px-8"
-          className="relative w-full"
-        >
-          <div className="relative w-full h-[24rem] sm:h-[28rem] md:h-[32rem] xl:h-[36rem] flex justify-center items-center">
-            {[...Array(visibleCount)].map((_, i) => {
-              const offset = i - Math.floor(visibleCount / 2);
-              const cardIndex = (currentIndex + offset + total) % total;
-              const item = carouselData[cardIndex];
+            const angleDeg = offset * angleSpread;
+            const angleRad = (angleDeg * Math.PI) / 180;
 
-              const angleDeg = offset * angleSpread;
-              const angleRad = (angleDeg * Math.PI) / 180;
+            const xOffset = Math.sin(angleRad) * radius;
+            // const yOffset = Math.cos(angleRad) * radius * -0.4;
+            const yOffset = 0;
 
-              const xOffset = Math.sin(angleRad) * radius;
-              // const yOffset = Math.cos(angleRad) * radius * -0.4;
-              const yOffset = 0;
+            const isCenter = offset === 0;
+            const scale = isCenter
+              ? 1
+              : Math.max(0.7, 1 - Math.abs(offset) * 0.15);
+            const rotate = angleDeg * 0.4;
+            const zIndex = 100 - Math.abs(offset);
+            const opacity = isCenter
+              ? 1
+              : Math.max(0.5, 1 - Math.abs(offset) * 0.25);
 
-              const isCenter = offset === 0;
-              const scale = isCenter
-                ? 1
-                : Math.max(0.7, 1 - Math.abs(offset) * 0.15);
-              const rotate = angleDeg * 0.4;
-              const zIndex = 100 - Math.abs(offset);
-              const opacity = isCenter
-                ? 1
-                : Math.max(0.5, 1 - Math.abs(offset) * 0.25);
+            const isSelected = selectedCard.some((c) => c.id === item.id);
 
-              const isSelected = selectedCard.some((c) => c.id === item.id);
-
-              return (
-                <motion.div
-                  key={`${item.id}-${cardIndex}`}
-                  drag={isCenter ? "x" : false}
-                  dragConstraints={{ left: 0, right: 0 }}
-                  dragElastic={0.1}
-                  whileDrag={{ scale: 1.05 }}
-                  onDragEnd={(e, info) => {
-                    const threshold = windowWidth < 768 ? 50 : 80;
-                    if (info.offset.x < -threshold) {
-                      handleNext();
-                    } else if (info.offset.x > threshold) {
-                      handlePrev();
-                    }
-                  }}
-                  animate={{
-                    x: `${xOffset}rem`,
-                    y: `${yOffset}rem`,
-                    rotate,
-                    scale,
-                    opacity,
-                  }}
-                  transition={{
-                    type: "spring",
-                    stiffness: 300,
-                    damping: 30,
-                    mass: 0.8,
-                  }}
-                  className="absolute cursor-grab active:cursor-grabbing h-full"
-                  style={{ zIndex }}
-                  onClick={() =>
-                    setSelectedCard((prev) => {
-                      if (isSelected) {
-                        return prev.filter((card) => card?.id !== item?.id);
-                      } else {
-                        return [...prev, item];
-                      }
-                    })
+            return (
+              <motion.div
+                key={`${item.id}-${cardIndex}`}
+                drag={isCenter ? "x" : false}
+                dragConstraints={{ left: 0, right: 0 }}
+                dragElastic={0.1}
+                whileDrag={{ scale: 1.05 }}
+                onDragEnd={(e, info) => {
+                  const threshold = windowWidth < 768 ? 50 : 80;
+                  if (info.offset.x < -threshold) {
+                    handleNext();
+                  } else if (info.offset.x > threshold) {
+                    handlePrev();
                   }
+                }}
+                animate={{
+                  x: `${xOffset}rem`,
+                  y: `${yOffset}rem`,
+                  rotate,
+                  scale,
+                  opacity,
+                }}
+                transition={{
+                  type: "spring",
+                  stiffness: 300,
+                  damping: 30,
+                  mass: 0.8,
+                }}
+                className="absolute cursor-grab active:cursor-grabbing h-full"
+                style={{ zIndex }}
+                onClick={() =>
+                  setSelectedCard((prev) => {
+                    if (isSelected) {
+                      return prev.filter((card) => card?.id !== item?.id);
+                    } else {
+                      return [...prev, item];
+                    }
+                  })
+                }
+              >
+                <Card
+                  className={`${item.bgColor} ${item.textColor} border-0 shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden relative backdrop-blur-sm w-[15rem] h-full sm:w-[18rem] md:w-[20rem] md:h-full lg:w-[21rem] lg:h-full xl:w-[26rem]`}
                 >
-                  <Card
-                    className={`${item.bgColor} ${item.textColor} border-0 shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden relative backdrop-blur-sm w-[15rem] h-full sm:w-[18rem] md:w-[20rem] md:h-full lg:w-[21rem] lg:h-full xl:w-[26rem]`}
-                  >
-                    <AnimatePresence>
-                      {isSelected && (
-                        <motion.div
-                          key={`overlay-${item.id}`}
-                          initial={{ opacity: 0, scale: 0.95 }}
-                          animate={{ opacity: 1, scale: 1 }}
-                          exit={{ opacity: 0, scale: 0.9 }}
-                          transition={{ duration: 0.1, ease: "linear" }}
-                          className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center rounded-2xl sm:rounded-3xl"
-                        >
-                          <Check size={80} />
-                        </motion.div>
-                      )}
-                    </AnimatePresence>
-
-                    <CardContent className="p-4 sm:p-6 md:p-8 h-full flex flex-col items-center justify-center relative">
-                      {/* Subtle pattern overlay */}
-                      {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" /> */}
-
-                      {/* Icon container */}
+                  <AnimatePresence>
+                    {isSelected && (
                       <motion.div
-                        initial={{ y: -100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{
-                          duration: 0.3,
-                          type: "spring",
-                          stiffness: 200,
-                        }}
-                        className="mb-4 sm:mb-6 relative z-10"
+                        key={`overlay-${item.id}`}
+                        initial={{ opacity: 0, scale: 0.95 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        exit={{ opacity: 0, scale: 0.9 }}
+                        transition={{ duration: 0.1, ease: "linear" }}
+                        className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center rounded-2xl sm:rounded-3xl"
                       >
-                        <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 flex justify-center items-center bg-white/20 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-inner">
-                          <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl filter drop-shadow-lg">
-                            <Image
-                              src={item.icon}
-                              alt="logo"
-                              width={100}
-                              height={100}
-                              className="w-full h-full"
-                            />
-                          </span>
-                        </div>
+                        <Check size={80} />
                       </motion.div>
+                    )}
+                  </AnimatePresence>
 
-                      {/* Title */}
-                      <motion.h3
-                        initial={{ y: 100, opacity: 0 }}
-                        animate={{ y: 0, opacity: 1 }}
-                        transition={{ duration: 0.5, delay: 0.1 }}
-                        className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center relative z-10 tracking-wide drop-shadow-md"
-                      >
-                        {item.title}
-                      </motion.h3>
+                  <CardContent className="p-4 sm:p-6 md:p-8 h-full flex flex-col items-center justify-center relative">
+                    {/* Subtle pattern overlay */}
+                    {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" /> */}
 
-                      {/* Subtle accent line */}
-                      <motion.div
-                        initial={{ scaleX: 0 }}
-                        animate={{ scaleX: 1 }}
-                        transition={{ duration: 0.6, delay: 0.2 }}
-                        className="w-12 sm:w-16 h-0.5 bg-white/40 mt-3 sm:mt-4 rounded-full"
-                      />
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              );
-            })}
+                    {/* Icon container */}
+                    <motion.div
+                      initial={{ y: -100, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{
+                        duration: 0.3,
+                        type: "spring",
+                        stiffness: 200,
+                      }}
+                      className="mb-4 sm:mb-6 relative z-10"
+                    >
+                      <div className="w-16 h-16 sm:w-20 sm:h-20 md:w-24 md:h-24 lg:w-32 lg:h-32 flex justify-center items-center bg-white/20 backdrop-blur-sm rounded-2xl sm:rounded-3xl shadow-inner">
+                        <span className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl filter drop-shadow-lg">
+                          <Image
+                            src={item.icon}
+                            alt="logo"
+                            width={100}
+                            height={100}
+                            className="w-full h-full"
+                            loading="lazy"
+                            priority={false}
+                          />
+                        </span>
+                      </div>
+                    </motion.div>
 
-            <div className=" absolute -bottom-30 left-[50%] translate-x-[-50%]">
-              {/* {selectedCard?.length >= 3 ? ( */}
-              <div className="flex justify-center items-center">
-                <AnimatedButton name="Reveal" />
-              </div>
-              {/* ) : (
-                <p className="text-center text-5xl text-gray-600">
-                  Select atleast 3 Cards
-                </p>
-              )} */}
+                    {/* Title */}
+                    <motion.h3
+                      initial={{ y: 100, opacity: 0 }}
+                      animate={{ y: 0, opacity: 1 }}
+                      transition={{ duration: 0.5, delay: 0.1 }}
+                      className="text-base sm:text-lg md:text-xl lg:text-2xl font-bold text-center relative z-10 tracking-wide drop-shadow-md"
+                    >
+                      {item.title}
+                    </motion.h3>
+
+                    {/* Subtle accent line */}
+                    <motion.div
+                      initial={{ scaleX: 0 }}
+                      animate={{ scaleX: 1 }}
+                      transition={{ duration: 0.6, delay: 0.2 }}
+                      className="w-12 sm:w-16 h-0.5 bg-white/40 mt-3 sm:mt-4 rounded-full"
+                    />
+                  </CardContent>
+                </Card>
+              </motion.div>
+            );
+          })}
+
+          <div className="absolute -bottom-30 left-[50%] translate-x-[-50%]">
+            {/* {selectedCard?.length >= 3 ? ( */}
+            <div className="flex justify-center items-center">
+              <AnimatedButton name="Reveal" />
             </div>
+            {/* ) : (
+              <p className="text-center text-5xl text-gray-600">
+                Select atleast 3 Cards
+              </p>
+            )} */}
           </div>
-
-          {/* Indicators */}
-          {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
+        </div>
+        {/* Indicators */}
+        {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
             {carouselData.map((_, index) => (
               <button
                 key={index}
@@ -416,9 +403,8 @@ const DraggableCarousel: React.FC = () => {
               />
             ))}
           </div> */}
-        </motion.div>
-      </div>
-    </>
+      </motion.div>
+    </div>
   );
 };
 
