@@ -390,20 +390,20 @@ const DraggableCarousel: React.FC = () => {
             })}
 
             <div className=" absolute -bottom-30 left-[50%] translate-x-[-50%]">
-              {selectedCard?.length >= 3 ? (
-                <div className="flex justify-center items-center">
-                  <AnimatedButton name="Reveal" />
-                </div>
-              ) : (
+              {/* {selectedCard?.length >= 3 ? ( */}
+              <div className="flex justify-center items-center">
+                <AnimatedButton name="Reveal" />
+              </div>
+              {/* ) : (
                 <p className="text-center text-5xl text-gray-600">
                   Select atleast 3 Cards
                 </p>
-              )}
+              )} */}
             </div>
           </div>
 
           {/* Indicators */}
-          <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
+          {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
             {carouselData.map((_, index) => (
               <button
                 key={index}
@@ -415,7 +415,7 @@ const DraggableCarousel: React.FC = () => {
                 }`}
               />
             ))}
-          </div>
+          </div> */}
         </motion.div>
       </div>
     </>

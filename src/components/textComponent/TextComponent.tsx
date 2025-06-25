@@ -60,7 +60,7 @@ const TextComponent: React.FC = () => {
         <h1
           ref={headingRef}
           className="
-            text-2xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl
+            text-2xl sm:text-4xl md:text-5xl lg:text-6xl
             font-extrabold text-black
             flex flex-wrap justify-center items-center
             leading-tight max-w-7xl tracking-tight
