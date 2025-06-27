@@ -113,7 +113,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
     setInterestsData({
       companies: selectedCard,
       triviaScore: 49,
-      uid: `${user?.uid}1`,
+      // uid: `${user?.uid}`,
       timestamp: new Date(),
     })
 

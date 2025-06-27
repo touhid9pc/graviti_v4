@@ -5,7 +5,7 @@ import { persist } from "zustand/middleware";
 export interface InterestsData {
   companies: CarouselCardData[];
   triviaScore: number;
-  uid: string | undefined;
+  // uid: string | undefined;
   timestamp: Date;
 }
 
