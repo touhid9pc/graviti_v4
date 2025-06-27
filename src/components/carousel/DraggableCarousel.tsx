@@ -2,119 +2,18 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ChevronLeft, Shuffle } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 import TextComponent from "../textComponent/TextComponent";
-
-interface CarouselCardData {
-  id: number;
-  title: string;
-  icon: string;
-  bgColor: string;
-  textColor: string;
-  tintColorClass: string;
-}
-
-const carouselData: CarouselCardData[] = [
-  {
-    id: 1,
-    title: "Amazon",
-    icon: "/assets/stocks/1.png",
-    bgColor: "bg-gradient-to-br from-yellow-200 to-yellow-300",
-    textColor: "text-black",
-    tintColorClass: "from-yellow-400",
-  },
-  {
-    id: 2,
-    title: "Walmart",
-    icon: "/assets/stocks/2.png",
-    bgColor: "bg-gradient-to-br from-indigo-200 to-indigo-300",
-    textColor: "text-black",
-    tintColorClass: "from-indigo-400",
-  },
-  {
-    id: 3,
-    title: "Tesla",
-    icon: "/assets/stocks/3.png",
-    bgColor: "bg-gradient-to-br from-rose-200 to-rose-300",
-    textColor: "text-black",
-    tintColorClass: "from-rose-400",
-  },
-  {
-    id: 4,
-    title: "Hp",
-    icon: "/assets/stocks/4.png",
-    bgColor: "bg-gradient-to-br from-green-200 to-green-300",
-    textColor: "text-black",
-    tintColorClass: "from-green-400",
-  },
-  {
-    id: 5,
-    title: "Intel",
-    icon: "/assets/stocks/5.png",
-    bgColor: "bg-gradient-to-br from-sky-200 to-sky-300",
-    textColor: "text-black",
-    tintColorClass: "from-sky-400",
-  },
-  {
-    id: 6,
-    title: "JP Morgan",
-    icon: "/assets/stocks/6.png",
-    bgColor: "bg-gradient-to-br from-purple-200 to-purple-300",
-    textColor: "text-black",
-    tintColorClass: "from-purple-400",
-  },
-  {
-    id: 7,
-    title: "Microsoft",
-    icon: "/assets/stocks/7.png",
-    bgColor: "bg-gradient-to-br from-pink-200 to-pink-300",
-    textColor: "text-black",
-    tintColorClass: "from-pink-400",
-  },
-  {
-    id: 8,
-    title: "Nvidia",
-    icon: "/assets/stocks/8.png",
-    bgColor: "bg-gradient-to-br from-red-200 to-red-300",
-    textColor: "text-black",
-    tintColorClass: "from-red-400",
-  },
-  {
-    id: 9,
-    title: "Chevron",
-    icon: "/assets/stocks/9.png",
-    bgColor: "bg-gradient-to-br from-teal-200 to-teal-300",
-    textColor: "text-black",
-    tintColorClass: "from-teal-400",
-  },
-  {
-    id: 10,
-    title: "Visa",
-    icon: "/assets/stocks/10.png",
-    bgColor: "bg-gradient-to-br from-lime-200 to-lime-300",
-    textColor: "text-black",
-    tintColorClass: "from-lime-400",
-  },
-  {
-    id: 11,
-    title: "Apple",
-    icon: "/assets/stocks/11.png",
-    bgColor: "bg-gradient-to-br from-blue-200 to-blue-300",
-    textColor: "text-black",
-    tintColorClass: "from-blue-400",
-  },
-  {
-    id: 12,
-    title: "Coca Cola",
-    icon: "/assets/stocks/12.png",
-    bgColor: "bg-gradient-to-br from-orange-200 to-orange-300",
-    textColor: "text-black",
-    tintColorClass: "from-orange-400",
-  },
-];
+import toast from "react-hot-toast";
+import { signInWithPopup } from "firebase/auth";
+import { auth, firebaseDb, googleAuthProvider } from "@/firebase/firebase";
+import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
+import { shuffleArray } from "@/utils/common";
+import { CarouselCardData, carouselData } from "@/constants/constant";
+import { useAppStore } from "@/store/useStore";
 
 interface DraggableCarouselProps {
   nextStep: () => void;
@@ -123,26 +22,39 @@ interface DraggableCarouselProps {
 const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [isMounted, setIsMounted] = useState(false);
   const [selectedCard, setSelectedCard] = useState<CarouselCardData[]>([]);
+  const [showLoader, setShowLoader] = useState(true);
+  const [shuffledData, setShuffledData] = useState(() =>
+    shuffleArray(carouselData)
+  );
+
+  const { prevStep } = useAppStore();
+
   const swipeSoundRef = useRef<HTMLAudioElement | null>(null);
 
-  const total = carouselData.length;
+  const isDraggingRef = useRef<boolean>(false);
+
+  const total = shuffledData.length;
 
   useEffect(() => {
-    setIsMounted(true);
     swipeSoundRef.current = new Audio("/assets/sounds/swipe.mp3");
-
     const updateWidth = () => setWindowWidth(window.innerWidth);
     updateWidth();
     window.addEventListener("resize", updateWidth);
-    return () => window.removeEventListener("resize", updateWidth);
+
+    const loaderTimeout = setTimeout(() => {
+      setShowLoader(false);
+    }, 100);
+
+    return () => {
+      window.removeEventListener("resize", updateWidth);
+      clearTimeout(loaderTimeout);
+    };
   }, []);
 
-  // Responsive arc radius and spacing
   const getVisibleCount = () => {
-    if (windowWidth < 768) return 3; // Mobile
-    return 5; // Tablet and desktop
+    // if (windowWidth < 768) return 3;
+    return 5;
   };
 
   const visibleCount = getVisibleCount();
@@ -166,39 +78,92 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
     playSwipeSound();
   };
 
-  const handleReveal = () => {
-    if (selectedCard?.length === 4) {
-      nextStep();
+  const handleReveal = async () => {
+    // if (selectedCard?.length !== 4) {
+    //   return toast.error("Please select exactly 4 cards");
+    // }
+
+    // try {
+    const result = await signInWithPopup(auth, googleAuthProvider);
+    const user = result.user;
+
+    if (!user) {
+      return toast.error("Authentication failed.");
     }
-    if (selectedCard?.length < 4 || selectedCard?.length > 4) {
-      alert("Please Select 4 Cards");
-    }
+
+    const userRef = doc(firebaseDb, "users", user.uid);
+    const userSnap = await getDoc(userRef);
+
+    // if (userSnap.exists()) {
+    //   return toast.error("You have already signed in once. Access denied.");
+    // }
+
+    await setDoc(userRef, {
+      uid: user?.uid,
+      email: user?.email,
+      name: user?.displayName,
+      createdAt: new Date(),
+      referredBy: null,
+    });
+
+    await addDoc(collection(firebaseDb, "interests"), {
+      companies: selectedCard,
+      triviaScore: 49,
+      uid: `${user?.uid}1`,
+      timestamp: new Date(),
+    });
+
+    toast.success("Signed in successfully. Great to have you here 🙌.");
+    nextStep();
+    // } catch (error) {
+    //   console.error("Firebase error:", error);
+    //   toast.error("Error during sign-up. Please try again.");
+    // }
   };
 
-  if (!isMounted) {
+  if (showLoader) {
     return (
-      <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100">
-        <div className="animate-pulse text-slate-600 text-lg">Loading...</div>
+      <div className="w-full h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
+        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
+          💸 Manifesting market gains...
+        </div>
       </div>
     );
   }
 
   return (
-    <div className="w-full h-screen flex justify-center items-center flex-col overflow-hidden relative">
-      <div className="absolute top-8 left-[50%] translate-x-[-50%] w-full">
+    <div className="w-full h-screen flex justify-center items-center flex-col overflow-hidden relative px-4 sm:px-8">
+      {/* Header */}
+      <div className="absolute top-10 lg:top-[6rem] left-1/2 -translate-x-1/2 w-full flex flex-col items-center z-40">
         <TextComponent />
+
+        <div className="flex gap-4 mt-6 flex-wrap justify-center">
+          <button
+            className="px-5 py-4 text-sm sm:text-base font-semibold rounded-xl bg-white text-black border border-gray-200"
+            onClick={prevStep}
+          >
+            <ChevronLeft />
+          </button>
+
+          <button
+            className="px-5 py-2 text-sm sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
+            onClick={() => setShuffledData(shuffleArray(carouselData))}
+          >
+            <Shuffle className="mr-2" /> Surprise Me
+          </button>
+        </div>
       </div>
 
       {/* Animated radial background tint from center */}
       <motion.div
-        key={carouselData[currentIndex].id}
+        key={shuffledData[currentIndex].id}
         initial={{ scale: 0.5, opacity: 0.1 }}
         animate={{ scale: 2, opacity: 0.25 }}
         transition={{ duration: 0.5 }}
         className="absolute inset-0 pointer-events-none z-10 will-change-transform"
       >
         <div
-          className={`absolute top-1/2 left-1/2 w-[50%] h-[50%] rounded-full blur-3xl ${carouselData[currentIndex].tintColorClass}`}
+          className={`absolute top-1/2 left-1/2 w-[50%] h-[50%] rounded-full blur-3xl ${shuffledData[currentIndex].tintColorClass}`}
           style={{
             transform: "translate(-50%, -50%)",
             backgroundImage:
@@ -251,21 +216,21 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{ opacity: 1, scale: 1 }}
         transition={{ duration: 0.2, ease: "easeOut" }}
-        className="relative w-full"
+        className="relative w-full pt-[10rem] sm:pt-[12rem]" // push carousel down to avoid overlap
       >
         <div className="relative w-full h-[24rem] sm:h-[28rem] md:h-[32rem] xl:h-[36rem] flex justify-center items-center">
           {/* Carousel cards */}
           {[...Array(visibleCount)].map((_, i) => {
             const offset = i - Math.floor(visibleCount / 2);
             const cardIndex = (currentIndex + offset + total) % total;
-            const item = carouselData[cardIndex];
+            const item = shuffledData[cardIndex];
 
             const angleDeg = offset * angleSpread;
             const angleRad = (angleDeg * Math.PI) / 180;
 
             const xOffset = Math.sin(angleRad) * radius;
-            // const yOffset = Math.cos(angleRad) * radius * -0.4;
-            const yOffset = 0;
+            const yOffset = Math.cos(angleRad) * radius * -0.4;
+            // const yOffset = 0;
 
             const isCenter = offset === 0;
             const scale = isCenter
@@ -277,7 +242,9 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
               ? 1
               : Math.max(0.5, 1 - Math.abs(offset) * 0.25);
 
-            const isSelected = selectedCard.some((c) => c.id === item.id);
+            const isSelected = selectedCard.some(
+              (card) => card?.id === item?.id
+            );
 
             return (
               <motion.div
@@ -286,7 +253,12 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
                 dragConstraints={{ left: 0, right: 0 }}
                 dragElastic={0.1}
                 whileDrag={{ scale: 1.05 }}
+                onDragStart={() => {
+                  isDraggingRef.current = true;
+                }}
                 onDragEnd={(e, info) => {
+                  isDraggingRef.current = false;
+
                   const threshold = windowWidth < 768 ? 50 : 80;
                   if (info.offset.x < -threshold) {
                     handleNext();
@@ -309,15 +281,22 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
                 }}
                 className="absolute cursor-grab active:cursor-grabbing h-full"
                 style={{ zIndex }}
-                onClick={() =>
+                onClick={() => {
+                  if (isDraggingRef.current) return;
+
+                  if (!isSelected && selectedCard.length === 4) {
+                    toast.error("Please select only 4 cards");
+                    return;
+                  }
+
                   setSelectedCard((prev) => {
                     if (isSelected) {
-                      return prev.filter((card) => card?.id !== item?.id);
+                      return prev.filter((card) => card.id !== item.id);
                     } else {
                       return [...prev, item];
                     }
-                  })
-                }
+                  });
+                }}
               >
                 <Card
                   className={`${item.bgColor} ${item.textColor} border-0 shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden relative backdrop-blur-sm w-[15rem] h-full sm:w-[18rem] md:w-[20rem] md:h-full lg:w-[21rem] lg:h-full xl:w-[26rem]`}
@@ -339,8 +318,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
 
                   <CardContent className="p-4 sm:p-6 md:p-8 h-full flex flex-col items-center justify-center relative">
                     {/* Subtle pattern overlay */}
-                    {/* <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" /> */}
-
+                    <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" />
                     {/* Icon container */}
                     <motion.div
                       initial={{ y: -100, opacity: 0 }}
@@ -366,7 +344,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
                         </span>
                       </div>
                     </motion.div>
-
                     {/* Title */}
                     <motion.h3
                       initial={{ y: 100, opacity: 0 }}
@@ -376,7 +353,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
                     >
                       {item.title}
                     </motion.h3>
-
                     {/* Subtle accent line */}
                     <motion.div
                       initial={{ scaleX: 0 }}
@@ -391,24 +367,24 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
           })}
 
           <div className="absolute -bottom-30 left-[50%] translate-x-[-50%]">
-            {/* {selectedCard?.length >= 3 ? ( */}
-            <div className="flex justify-center items-center">
-              <AnimatedButton
-                name="Reveal"
-                onClick={handleReveal}
-                disabled={selectedCard?.length < 4}
-              />
-            </div>
-            {/* ) : (
-              <p className="text-center text-5xl text-gray-600">
-                Select atleast 3 Cards
+            {selectedCard?.length >= 4 ? (
+              <div className="flex justify-center items-center">
+                <AnimatedButton
+                  name="Reveal"
+                  onClick={handleReveal}
+                  // disabled={selectedCard?.length < 4}
+                />
+              </div>
+            ) : (
+              <p className="text-center text-xl sm:text-3xl md:text-3xl lg:text-5xl text-[#1a1a1a]">
+                {`Selected ${selectedCard?.length}/4`}
               </p>
-            )} */}
+            )}
           </div>
         </div>
         {/* Indicators */}
         {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
-            {carouselData.map((_, index) => (
+            {shuffledData.map((_, index) => (
               <button
                 key={index}
                 onClick={() => setCurrentIndex(index)}

@@ -1,39 +1,45 @@
 "use client";
 
 import SectionOne from "@/components/sections/SectionOne";
+import SectionThree from "@/components/sections/SectionThree";
 import SectionTwo from "@/components/sections/SectionTwo";
-import { useState } from "react";
+import { auth } from "@/firebase/firebase";
+import { useAppStore } from "@/store/useStore";
+import { User } from "firebase/auth";
+import { useEffect, useState } from "react";
 
 export default function Home() {
-  const [step, setStep] = useState(1);
-  const nextStep = () => setStep((prev) => Math.min(prev + 1, 3));
-  const prevStep = () => setStep((prev) => Math.max(prev - 1, 1));
+  const { step, setStep } = useAppStore();
+
+  const [user, setUser] = useState<User | null>(null);
+
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged((user) => {
+      if (!user) {
+        setStep(1);
+      } else {
+        setUser(user);
+      }
+    });
+    return unsubscribe;
+  }, []);
 
   const renderStepComponent = (currentStep: number) => {
     switch (currentStep) {
       case 1:
-        return <SectionOne nextStep={nextStep} />;
+        return <SectionOne />;
       case 2:
-        return <SectionTwo nextStep={nextStep} />;
+        return <SectionTwo />;
       case 3:
-        return <div>3 Section</div>;
+        return <SectionThree />;
       default:
-        return <SectionOne nextStep={nextStep} />;
+        return <SectionOne />;
     }
   };
 
   return (
     <main className="flex flex-col items-center space-y-4">
       <div className="w-full">{renderStepComponent(step)}</div>
-
-      {/* <div className="flex space-x-4">
-        <button onClick={prevStep} className="">
-          Previous
-        </button>
-        <button onClick={nextStep} className="">
-          Next
-        </button>
-      </div> */}
     </main>
   );
 }
