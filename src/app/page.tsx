@@ -14,7 +14,6 @@ export default function Home() {
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      console.log(user)
       if (!user) {
         setStep(1);
       } else {
