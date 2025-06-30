@@ -51,7 +51,7 @@ const SectionOne = () => {
   }, []);
 
   return (
-    <BlobBackground>
+    <>
       {/* <CustomCursor /> */}
 
       <section
@@ -84,7 +84,7 @@ const SectionOne = () => {
           </div>
         </div>
       </section>
-    </BlobBackground>
+    </>
   );
 };
 

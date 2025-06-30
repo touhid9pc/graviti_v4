@@ -44,7 +44,7 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center space-y-4">
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
-      {/* <SectionOne /> */}
+      <SectionOne />
       <SectionTwo scrollToSection={scrollToSection} />
       <SectionThree sectionRef={sectionRef} />
     </main>

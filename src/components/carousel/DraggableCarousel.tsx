@@ -210,7 +210,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
       className="w-full h-screen !mb-0 flex justify-center items-center flex-col overflow-x-hidden relative max-w-9xl"
       style={{ backfaceVisibility: "hidden" }}
     >
-      <div
+      <motion.div
         className={`absolute top-1/2 left-1/2 w-full h-full z-10 pointer-events-none`}
         style={{
           transform: "translate(-50%, -50%)",
@@ -318,7 +318,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                           animate={{ opacity: 1 }}
                           exit={{ opacity: 0 }}
                           transition={{ duration: 0.1, ease: "linear" }}
-                          className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center rounded-full"
+                          className="absolute inset-0 bg-green-500/20 backdrop-blur-sm z-20 flex items-center justify-center "
                         >
                           <Check size={40} color="white" />
                         </motion.div>
@@ -344,7 +344,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                               alt={item.title}
                               width={100}
                               height={100}
-                              className="w-16 h-16"
                               loading="lazy"
                               priority={false}
                             />
