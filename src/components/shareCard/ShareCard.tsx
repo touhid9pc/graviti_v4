@@ -23,7 +23,7 @@ export function ShareCard() {
         </h2>
         {user && (
           <p className="text-sm sm:text-base text-slate-600 font-medium">
-            Share your result on WhatsApp or X
+            Share your result
           </p>
         )}
       </div>
