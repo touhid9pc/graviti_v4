@@ -192,15 +192,15 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     });
   }, [visibleCount, currentIndex, total, shuffledData, angleSpread, radius]);
 
-  // if (showLoader) {
-  //   return (
-  //     <div className="w-full h-screen !mb-0 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
-  //       <div className="text-xl lg:text-2xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
-  //         💸 Manifesting market gains...
-  //       </div>
-  //     </div>
-  //   );
-  // }
+  if (showLoader) {
+    return (
+      <div className="w-full h-screen !mb-0 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
+        <div className="text-xl lg:text-2xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
+          💸 Manifesting market gains...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <motion.div
@@ -211,13 +211,21 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
       style={{ backfaceVisibility: "hidden" }}
     >
       <motion.div
-        className={`absolute top-1/2 left-1/2 w-full h-full z-10 pointer-events-none`}
-        style={{
-          transform: "translate(-50%, -50%)",
-          background: `radial-gradient(circle at center, ${shuffledData[currentIndex].bgColor}, #F9F6EE 100%)`,
-          opacity: 0.15,
-        }}
-      />
+        key={shuffledData[currentIndex].id}
+        initial={{ scale: 0, opacity: 0.1 }}
+        animate={{ scale: 1, opacity: 0.25 }}
+        transition={{ duration: 0.5 }}
+        className="absolute inset-0 pointer-events-none will-change-transform z-10 w-screen h-screen"
+      >
+        <div
+          className={`absolute top-1/2 left-1/2 w-full h-full rounded-full blur-3xl ${shuffledData[currentIndex].tintColorClass}`}
+          style={{
+            transform: "translate(-50%, -50%)",
+            backgroundImage:
+              "radial-gradient(circle at center, var(--tw-gradient-from), #F9F6EE 100%)",
+          }}
+        />
+      </motion.div>
 
       {/* Header */}
       <div className="w-full h-full flex flex-col items-center z-20 gap-3">
