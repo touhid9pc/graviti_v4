@@ -25,16 +25,19 @@ export function calculateStockProfit(
     }
   }
 
-  const individualInvestment = totalInvestment / 4;
+  const individualInvestment = totalInvestment / selectedStocks.length;
 
   const totalProfit = selectedStocks.reduce((sum, stock) => {
     const profit = individualInvestment * (stock.growth / 100);
     return sum + (Number.isFinite(profit) ? profit : 0);
   }, 0);
 
+  const percentageGrowth = (totalProfit / totalInvestment) * 100;
+
   return {
     profit: Number(totalProfit.toFixed(2)),
     totalAmountInvested: totalInvestment,
+    percentageGrowth: Number(percentageGrowth.toFixed(2)),
   };
 }
 

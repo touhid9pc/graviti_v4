@@ -4,15 +4,18 @@ import TextComponent from "../textComponent/TextComponent";
 import { useAppStore } from "@/store/useStore";
 
 interface SectionTwoProps {
-  nextStep: () => void;
+  scrollToSection: () => void;
 }
 
-const SectionTwo = () => {
+const SectionTwo: React.FC<SectionTwoProps> = ({ scrollToSection }) => {
   const { nextStep } = useAppStore();
 
   return (
     <>
-      <DraggableCarousel nextStep={nextStep} />
+      <DraggableCarousel
+        nextStep={nextStep}
+        scrollToSection={scrollToSection}
+      />
     </>
   );
 };

@@ -17,9 +17,13 @@ import { useAppStore } from "@/store/useStore";
 
 interface DraggableCarouselProps {
   nextStep: () => void;
+  scrollToSection: () => void;
 }
 
-const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
+const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
+  nextStep,
+  scrollToSection,
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [selectedCard, setSelectedCard] = useState<CarouselCardData[]>([]);
@@ -70,12 +74,12 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
 
   const handleNext = () => {
     setCurrentIndex((prev) => (prev + 1) % total);
-    playSwipeSound();
+    // playSwipeSound();
   };
 
   const handlePrev = () => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
-    playSwipeSound();
+    // playSwipeSound();
   };
 
   const handleReveal = async () => {
@@ -119,6 +123,8 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
       timestamp: new Date(),
     });
 
+    scrollToSection();
+
     // await addDoc(collection(firebaseDb, "interests"), {
     //   companies: selectedCard,
     //   triviaScore: 49,
@@ -126,7 +132,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
     //   timestamp: new Date(),
     // });
 
-    nextStep();
+    // nextStep();
     // } catch (error) {
     //   console.error("Firebase error:", error);
     //   toast.error("Error during sign-up. Please try again.");
@@ -135,7 +141,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
 
   if (showLoader) {
     return (
-      <div className="w-full h-screen flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
+      <div className="w-full h-screen !mb-0 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
         <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
           💸 Manifesting market gains...
         </div>
@@ -144,7 +150,12 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
   }
 
   return (
-    <div className="w-full h-screen flex justify-center items-center flex-col overflow-   max-w-9xl">
+    <motion.div
+      initial={{ opacity: 0.1, y: 50 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.5 }}
+      className="w-full h-screen !mb-0 flex justify-center items-center flex-col overflow-x-hidden relative max-w-9xl"
+    >
       {/* Animated radial background tint from center */}
       <motion.div
         key={shuffledData[currentIndex].id}
@@ -164,38 +175,38 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
       </motion.div>
 
       {/* Header */}
-      <div className="w-full h-full flex flex-col items-center z-20 p-4 gap-3">
-        <div className="flex justify-center items-start lg:items-center space-x-2">
-          <button
+      <div className="w-full h-full flex flex-col items-center z-20 gap-3">
+        <div className="flex justify-center items-start lg:items-center space-x-2 pt-10">
+          {/* <button
             className="p-2 lg:p-4 text-sm sm:text-base font-semibold rounded-xl bg-white text-black border border-gray-200 hidden md:block"
             onClick={prevStep}
           >
             <ChevronLeft className="text-2xl lg:text-3xl" />
-          </button>
+          </button> */}
           <TextComponent />
         </div>
 
-        <div className="flex flex-wrap justify-center space-x-2">
-          <button
+        {/* <div className="flex flex-wrap justify-center space-x-2"> */}
+        {/* <button
             className="p-2 lg:p-4 text-sm sm:text-base font-semibold rounded-xl bg-white text-black border border-gray-200 block md:hidden"
             onClick={prevStep}
           >
             <ChevronLeft className="text-2xl lg:text-3xl" />
-          </button>
-          <button
-            className="px-5 py-2 text-sm sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
-            onClick={() => setShuffledData(shuffleArray(carouselData))}
-          >
-            <Shuffle className="mr-2" /> Surprise Me
-          </button>
-        </div>
+          </button> */}
+        <button
+          className="mt-10 px-5 py-2 text-sm z-20 sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
+          onClick={() => setShuffledData(shuffleArray(carouselData))}
+        >
+          <Shuffle className="mr-2" /> Surprise Me
+        </button>
+        {/* </div> */}
 
         {/* Main carousel container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="relative w-full h-full"
+          className="absolute w-full h-full"
         >
           <div className=" w-full h-full flex justify-center items-center">
             {/* Carousel cards */}
@@ -345,7 +356,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
                 </motion.div>
               );
             })}
-            <div className="absolute bottom-0">
+            <div className="absolute bottom-[10em] md:bottom-[11em]  lg:bottom-[8em] z-30">
               {selectedCard?.length >= 4 ? (
                 <div className="flex justify-center items-center bg-">
                   <AnimatedButton
@@ -416,7 +427,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({ nextStep }) => {
           </div> */}
         </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

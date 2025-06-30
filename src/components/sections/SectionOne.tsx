@@ -52,11 +52,11 @@ const SectionOne = () => {
 
   return (
     <BlobBackground>
-      <CustomCursor />
+      {/* <CustomCursor /> */}
 
       <section
         ref={containerRef}
-        className="w-full h-screen flex items-center justify-center relative z-20"
+        className="w-full h-screen flex items-center justify-center relative z-20 !my-0"
         onClick={nextStep}
       >
         <div

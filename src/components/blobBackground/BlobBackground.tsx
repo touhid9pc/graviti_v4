@@ -49,7 +49,7 @@ const BlobBackground: React.FC<FloatingBlobBackgroundProps> = ({
   };
 
   return (
-    <div className="relative min-h-screen w-full overflow-hidden bg-gradient-to-br from-slate-500 via-[#1E3A8A] via-[#32bdaf] via-[#FFFFFF]  to-slate-700">
+    <div className="relative  min-h-screen !mb-0 w-full overflow-hidden bg-gradient-to-br from-slate-500 via-[#1E3A8A] via-[#32bdaf] via-[#FFFFFF]  to-slate-700">
       {/* Blob 1 */}
       <motion.svg
         viewBox="0 0 1000 1000"
