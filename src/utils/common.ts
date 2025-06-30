@@ -17,7 +17,7 @@ export function shuffleArray<T>(array: T[]): T[] {
 }
 
 export function calculateStockProfit(
-  selectedStocks: CarouselCardData[],
+  selectedStocks: Company[],
   totalInvestment: number
 ) {
   if (!Number.isFinite(totalInvestment) || totalInvestment <= 0) {
@@ -26,14 +26,14 @@ export function calculateStockProfit(
 
   for (const stock of selectedStocks) {
     if (!stock || typeof stock !== "object" || !Number.isFinite(stock.growth)) {
-      toast.error(`Invalid stock data for ${stock?.title || "unknown stock"}`);
+      toast.error(`Invalid stock data for ${stock?.name || "unknown stock"}`);
     }
   }
 
   const individualInvestment = totalInvestment / selectedStocks.length;
 
   const totalProfit = selectedStocks.reduce((sum, stock) => {
-    const profit = individualInvestment * (stock.growth / 100);
+    const profit = individualInvestment * (parseFloat(stock?.growth) / 100);
     return sum + (Number.isFinite(profit) ? profit : 0);
   }, 0);
 
