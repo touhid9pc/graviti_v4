@@ -56,19 +56,19 @@ const SectionOne = () => {
 
       <section
         ref={containerRef}
-        className="w-full h-screen flex items-center justify-center relative z-20 !my-0 px-5"
+        className="w-full h-screen flex items-center justify-center relative z-20 !my-0 px-4 sm:px-5"
         onClick={nextStep}
       >
         <div
           ref={textRef}
-          className="text-xl md:text-3xl lg:text-5xl font-black text-slate-950 text-center z-25 drop-shadow-xl relative"
+          className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-black text-slate-950 text-center z-25 drop-shadow-xl relative"
         >
           <div className="inline">
             Is the{" "}
-            <div className="relative inline-block px-1 sm:px-2">
+            <div className="relative inline-block px-1 sm:px-1.5">
               <div
                 ref={usStockRef}
-                className="relative z-10 px-2 sm:px-3 py-1 sm:py-2 inline-block text-slate-950"
+                className="relative z-10 px-1.5 sm:px-2 py-0.5 sm:py-1 inline-block text-slate-950"
               >
                 US stock
               </div>

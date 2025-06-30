@@ -66,7 +66,7 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl text-center space-y-6 py-12 sm:py-20"
+          className="w-full max-w-2xl text-center space-y-6 "
         >
           {/* Heading */}
           <div className="flex justify-center items-center space-x-4">
