@@ -207,8 +207,8 @@ export type Company = {
   priceUSD: number;
   openingPrice: number;
   closingPrice: number;
-  highestPrice: string;
-  lowestPrice: string;
+  highestPrice: string | number;
+  lowestPrice: string | number;
   growth: string;
   marketCap: string;
   topProducts: string[];

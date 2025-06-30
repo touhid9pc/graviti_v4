@@ -3,6 +3,7 @@ import CustomCursor from "../customCursor/CustomCursor";
 import gsap from "gsap";
 import { useAppStore } from "@/store/useStore";
 import BlobBackground from "../blobBackground/BlobBackground";
+import AnimatedButton from "../animatedButton/AnimatedButton";
 
 const SectionOne = () => {
   const { nextStep } = useAppStore();
@@ -56,7 +57,7 @@ const SectionOne = () => {
 
       <section
         ref={containerRef}
-        className="w-full h-screen flex items-center justify-center relative z-20 !my-0 px-4 sm:px-5"
+        className="w-full h-screen flex flex-col items-center justify-center relative z-20 !my-0 px-4 sm:px-5 gap-6"
         onClick={nextStep}
       >
         <div
@@ -83,6 +84,8 @@ const SectionOne = () => {
             market relevant for your wealth portfolio?
           </div>
         </div>
+
+        <AnimatedButton>Proceed</AnimatedButton>
       </section>
     </>
   );

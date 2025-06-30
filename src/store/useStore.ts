@@ -1,9 +1,13 @@
-import { CarouselCardData, CompanyDataset } from "@/constants/constant";
+import {
+  CarouselCardData,
+  Company,
+  CompanyDataset,
+} from "@/constants/constant";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface InterestsData {
-  companies: CompanyDataset[];
+  companies: Company[];
   triviaScore: number;
   // uid: string | undefined;
   timestamp: Date;

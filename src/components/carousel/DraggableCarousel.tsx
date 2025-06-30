@@ -28,24 +28,26 @@ import { useAppStore } from "@/store/useStore";
 interface DraggableCarouselProps {
   nextStep: () => void;
   scrollToSection: () => void;
-  randomStyle: {};
-  setRandomStyle: () => void;
 }
 
 const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   nextStep,
   scrollToSection,
-  randomStyle,
-  setRandomStyle,
 }) => {
-  const extractedCompanyData = selectCompaniesByNumber(companyData, 2);
+  const extractedCompanyData = selectCompaniesByNumber(companyData as any, 2);
+
+  const enhanceWithStyle = (companies: Company[]) =>
+    companies.map((company) => ({
+      ...company,
+      style: getRandomStyleObject(),
+    }));
 
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
   const [showLoader, setShowLoader] = useState(true);
   const [shuffledData, setShuffledData] = useState(() =>
-    shuffleArray(extractedCompanyData)
+    enhanceWithStyle(extractedCompanyData)
   );
 
   const { prevStep, setInterestsData, interestsData, user, setUser } =
@@ -62,7 +64,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   }, []);
 
   useEffect(() => {
-    swipeSoundRef.current = new Audio("/assets/sounds/swipe.mp3");
     handleResize();
     window.addEventListener("resize", handleResize);
 
@@ -157,8 +158,8 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   }, []);
 
   const handleShuffle = useCallback(() => {
-    setShuffledData(shuffleArray(extractedCompanyData));
-  }, []);
+    setShuffledData(enhanceWithStyle(shuffleArray(extractedCompanyData)));
+  }, [extractedCompanyData]);
 
   const cardCalculations = useMemo(() => {
     return Array.from({ length: visibleCount }, (_, i) => {
@@ -212,14 +213,14 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     >
       {/* Background overlay */}
       <motion.div
-        key={randomStyle?.id}
+        key={shuffledData[currentIndex]?.style.id}
         initial={{ scale: 0.8, opacity: 0.1 }}
         animate={{ scale: 1, opacity: 0.2 }}
         transition={{ duration: 0.5 }}
         className="absolute inset-0 pointer-events-none z-10"
       >
         <div
-          className={`absolute top-1/2 left-1/2 w-full h-full rounded-full blur-3xl ${randomStyle?.tintColorClass}`}
+          className={`absolute top-1/2 left-1/2 w-full h-full rounded-full blur-3xl ${shuffledData[currentIndex]?.style?.tintColorClass}`}
           style={{
             transform: "translate(-50%, -50%)",
             backgroundImage:
@@ -275,7 +276,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
               opacity,
             }) => {
               const isSelected = selectedCardIds.has(item.symbol);
-              setRandomStyle(getRandomStyleObject());
+
               return (
                 <motion.div
                   key={`${item.symbol}-${cardIndex}`}
@@ -316,9 +317,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                   }}
                 >
                   <Card
-                    className={`${randomStyle?.bgColor} ${
-                      getRandomStyleObject()?.textColor
-                    } border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:w-[17rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 `}
+                    className={`${item?.style?.bgColor} ${item?.style?.textColor} border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 `}
                   >
                     {isSelected && (
                       <motion.div
@@ -347,7 +346,8 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                       >
                         <div className="flex w-full h-24 sm:h-28 md:h-32 bg-white/20 p-3 rounded-2xl justify-center items-center">
                           <Image
-                            src={item.icon}
+                            // src={item.icon}
+                            src={"/assets/stocks/1.png"}
                             alt={item?.name}
                             width={100}
                             height={100}

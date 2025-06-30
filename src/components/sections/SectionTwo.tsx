@@ -10,15 +10,12 @@ interface SectionTwoProps {
 
 const SectionTwo: React.FC<SectionTwoProps> = ({ scrollToSection }) => {
   const { nextStep } = useAppStore();
-  const [randomStyle, setRandomStyle] = useState(getRandomStyleObject());
 
   return (
     <>
       <DraggableCarousel
         nextStep={nextStep}
         scrollToSection={scrollToSection}
-        randomStyle={randomStyle}
-        setRandomStyle={setRandomStyle}
       />
     </>
   );

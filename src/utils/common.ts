@@ -46,9 +46,9 @@ export function calculateStockProfit(
   };
 }
 
-export function getRandomStyleObject() {
+export function getRandomStyleObject(idx?: number) {
   const randomIndex = Math.floor(Math.random() * carouselStyleData.length);
-  return carouselStyleData[randomIndex];
+  return carouselStyleData[idx ? idx : randomIndex];
 }
 
 export function selectCompaniesByNumber(
