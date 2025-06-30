@@ -9,9 +9,7 @@ import { User } from "firebase/auth";
 import { useEffect, useState } from "react";
 
 export default function Home() {
-  const { step, setStep } = useAppStore();
-
-  const [user, setUser] = useState<User | null>(null);
+  const { step, setStep, user, setUser } = useAppStore();
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {

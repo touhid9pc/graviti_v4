@@ -1,34 +1,52 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import { motion } from "framer-motion";
+import { calculateStockProfit } from "@/utils/common";
+import { useAppStore } from "@/store/useStore";
+import { ChevronLeft } from "lucide-react";
 
-// Custom debounce hook
-function useDebounce<T>(value: T, delay: number): T {
-  const [debouncedValue, setDebouncedValue] = useState(value);
-  useEffect(() => {
-    const handler = setTimeout(() => setDebouncedValue(value), delay);
-    return () => clearTimeout(handler);
-  }, [value, delay]);
-  return debouncedValue;
-}
-
-// Main profit result page
+type stockResultProps = {
+  profit: number;
+  totalAmountInvested: number;
+};
 const SectionThree = () => {
   const [investment, setInvestment] = useState(1000);
-  const debouncedInvestment = useDebounce(investment, 800);
+  const [stockResult, setStockResult] = useState<stockResultProps>({
+    profit: 0,
+    totalAmountInvested: 0,
+  });
 
-  const calculateProfit = (amount: number) => {
-    const profitPercent = 0.15;
-    return amount * profitPercent;
-  };
+  const { interestsData, prevStep } = useAppStore();
 
-  const profit = calculateProfit(debouncedInvestment);
+  const debounceTimeout = useRef<NodeJS.Timeout | null>(null);
+
+  useEffect(() => {
+    const stockResult = calculateStockProfit(interestsData?.companies, 1000);
+    setStockResult(stockResult);
+  }, []);
+
+  const profit = stockResult?.profit;
   const total = investment + profit;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const val = parseInt(e.target.value || "0");
     setInvestment(val);
+
+    if (debounceTimeout.current) {
+      clearTimeout(debounceTimeout.current);
+    }
+
+    if (val == 0) {
+      return setStockResult({
+        profit: 0,
+        totalAmountInvested: 0,
+      });
+    }
+    debounceTimeout.current = setTimeout(() => {
+      const result = calculateStockProfit(interestsData?.companies, val);
+      setStockResult(result);
+    }, 300);
   };
 
   return (
@@ -40,21 +58,28 @@ const SectionThree = () => {
         className="w-full max-w-2xl text-center space-y-6 py-12 sm:py-20"
       >
         {/* Heading */}
-        <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug tracking-tight text-[#1a1a1a]">
-          🎉 Solid move!
-        </h1>
-
+        <div className="flex justify-center items-center space-x-4">
+          <button
+            className="p-2 lg:p-4 text-sm sm:text-base  font-semibold rounded-xl bg-white text-black border border-gray-200"
+            onClick={prevStep}
+          >
+            <ChevronLeft />
+          </button>
+          <h1 className="text-3xl sm:text-4xl md:text-5xl font-extrabold leading-snug tracking-tight text-[#1a1a1a] ">
+            Solid move! 🎉
+          </h1>
+        </div>
         {/* Main message */}
         <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
           Your stock choices?{" "}
           <span className="font-semibold text-purple-600">Impressive</span>. If
-          you’d invested{" "}
+          you’d invested
           <input
             type="number"
             value={investment}
             onChange={handleChange}
             className="mx-1 w-[80px] sm:w-[100px] bg-transparent border-b-2 border-[#888] text-black font-semibold text-center focus:outline-none focus:border-black transition-all"
-          />{" "}
+          />
           rupees, you'd have earned{" "}
           <span className="text-green-600 font-bold">₹{profit.toFixed(2)}</span>{" "}
           by now.
@@ -68,9 +93,9 @@ const SectionThree = () => {
         </p>
 
         {/* Fine print */}
-        <p className="text-xs sm:text-sm text-[#888]">
+        {/* <p className="text-xs sm:text-sm text-[#888]">
           *(This is just a projection — real profits vary with market swings.)
-        </p>
+        </p> */}
       </motion.div>
     </main>
   );
