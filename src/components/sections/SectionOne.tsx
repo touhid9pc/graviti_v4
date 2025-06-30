@@ -56,7 +56,7 @@ const SectionOne = () => {
 
       <section
         ref={containerRef}
-        className="w-full h-screen flex items-center justify-center relative z-20 !my-0"
+        className="w-full h-screen flex items-center justify-center relative z-20 !my-0 px-5"
         onClick={nextStep}
       >
         <div

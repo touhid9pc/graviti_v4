@@ -2,7 +2,7 @@
 
 import { Card, CardContent } from "@/components/ui/card";
 import { AnimatePresence, motion } from "framer-motion";
-import { Check, ChevronLeft, Shuffle } from "lucide-react";
+import { Check, ChevronLeft, RotateCcw, Shuffle } from "lucide-react";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import AnimatedButton from "../animatedButton/AnimatedButton";
@@ -32,7 +32,8 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     shuffleArray(carouselData)
   );
 
-  const { prevStep, setInterestsData, user, setUser } = useAppStore();
+  const { prevStep, setInterestsData, interestsData, user, setUser } =
+    useAppStore();
 
   const swipeSoundRef = useRef<HTMLAudioElement | null>(null);
 
@@ -142,7 +143,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   if (showLoader) {
     return (
       <div className="w-full h-screen !mb-0 flex items-center justify-center relative overflow-hidden bg-gradient-to-br from-yellow-100 via-pink-100 to-purple-200">
-        <div className="text-2xl sm:text-3xl md:text-4xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
+        <div className="text-xl lg:text-2xl font-bold text-black animate-pulse drop-shadow-xl tracking-wide">
           💸 Manifesting market gains...
         </div>
       </div>
@@ -186,29 +187,29 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
           <TextComponent />
         </div>
 
-        {/* <div className="flex flex-wrap justify-center space-x-2"> */}
-        {/* <button
-            className="p-2 lg:p-4 text-sm sm:text-base font-semibold rounded-xl bg-white text-black border border-gray-200 block md:hidden"
-            onClick={prevStep}
+        <div className="flex flex-wrap justify-center space-x-4">
+          <button
+            className="mt-10 px-5 py-2 text-sm z-20 sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
+            onClick={() => setSelectedCard([])}
           >
-            <ChevronLeft className="text-2xl lg:text-3xl" />
-          </button> */}
-        <button
-          className="mt-10 px-5 py-2 text-sm z-20 sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
-          onClick={() => setShuffledData(shuffleArray(carouselData))}
-        >
-          <Shuffle className="mr-2" /> Surprise Me
-        </button>
-        {/* </div> */}
+            <RotateCcw className="mr-2" /> Reset
+          </button>
+          <button
+            className="mt-10 px-5 py-2 text-sm z-20 sm:text-base font-semibold rounded-full bg-gradient-to-r from-purple-500 to-indigo-500 text-white shadow-md hover:scale-105 transition-all flex justify-center items-center"
+            onClick={() => setShuffledData(shuffleArray(carouselData))}
+          >
+            <Shuffle className="mr-2" /> Surprise Me
+          </button>
+        </div>
 
         {/* Main carousel container */}
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.2, ease: "easeOut" }}
-          className="absolute w-full h-full"
+          className="relative w-full h-full"
         >
-          <div className=" w-full h-full flex justify-center items-center">
+          <div className="w-full h-full flex justify-center items-center">
             {/* Carousel cards */}
             {[...Array(visibleCount)].map((_, i) => {
               const offset = i - Math.floor(visibleCount / 2);
@@ -280,18 +281,27 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                     }
 
                     setSelectedCard((prev) => {
+                      let updated: CarouselCardData[];
+
                       if (isSelected) {
-                        return prev.filter((card) => card.id !== item.id);
+                        updated = prev.filter((card) => card.id !== item.id);
                       } else {
-                        return [...prev, item];
+                        updated = [...prev, item];
                       }
+
+                      setInterestsData({
+                        ...interestsData,
+                        companies: updated,
+                        timestamp: new Date(),
+                      });
+
+                      return updated;
                     });
                   }}
                 >
                   <Card
                     className={`${item.bgColor} ${item.textColor} border-0 shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden relative backdrop-blur-sm w-[15em] h-[20em] md:w-[16em]  md:h-[22em]  lg:w-[22em] lg:h-[30em]`}
                   >
-                    {/* className={`${item.bgColor} ${item.textColor} border-0 shadow-2xl rounded-2xl sm:rounded-3xl overflow-hidden relative backdrop-blur-sm w-[15rem] h-full sm:w-[18rem] md:w-[20rem] md:h-full lg:w-[21rem] lg:h-full xl:w-[26rem]`} */}
                     <AnimatePresence>
                       {isSelected && (
                         <motion.div
@@ -356,21 +366,21 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                 </motion.div>
               );
             })}
-            <div className="absolute bottom-[10em] md:bottom-[11em]  lg:bottom-[8em] z-30">
-              {selectedCard?.length >= 4 ? (
-                <div className="flex justify-center items-center bg-">
-                  <AnimatedButton
-                    name="Reveal"
-                    onClick={handleReveal}
-                    // disabled={selectedCard?.length < 4}
-                  />
-                </div>
-              ) : (
-                <p className="text-center text-xl lg:text-2xl font-semibold text-[#1a1a1a]">
-                  {`Selected ${selectedCard?.length}/4`}
-                </p>
-              )}
-            </div>
+          </div>
+          <div className="absolute  left-[50%] -translate-x-[50%] bottom-[5em]  z-30">
+            {selectedCard?.length >= 4 ? (
+              <div className="flex justify-center items-center">
+                <AnimatedButton
+                  name="Reveal"
+                  onClick={handleReveal}
+                  // disabled={selectedCard?.length < 4}
+                />
+              </div>
+            ) : (
+              <p className="text-center text-xl lg:text-2xl font-semibold text-[#1a1a1a]">
+                {`Selected ${selectedCard?.length}/4`}
+              </p>
+            )}
           </div>
 
           {/* Navigation buttons */}
@@ -411,20 +421,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
               />
             </svg>
           </button>
-          {/* Indicators */}
-          {/* <div className="flex justify-center mt-6 sm:mt-8 space-x-2">
-            {shuffledData.map((_, index) => (
-              <button
-                key={index}
-                onClick={() => setCurrentIndex(index)}
-                className={`w-2 h-2 sm:w-3 sm:h-3 rounded-full transition-all duration-300 ${
-                  index === currentIndex
-                    ? "bg-slate-600 scale-125"
-                    : "bg-slate-300 hover:bg-slate-400"
-                }`}
-              />
-            ))}
-          </div> */}
         </motion.div>
       </div>
     </motion.div>

@@ -46,7 +46,7 @@ export default function Home() {
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
       <SectionOne />
       <SectionTwo scrollToSection={scrollToSection} />
-      {stateUser && <SectionThree sectionRef={sectionRef} />}
+      <SectionThree sectionRef={sectionRef} />
     </main>
   );
 }
