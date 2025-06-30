@@ -1,9 +1,9 @@
-import { CarouselCardData } from "@/constants/constant";
+import { CarouselCardData, CompanyDataset } from "@/constants/constant";
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 
 export interface InterestsData {
-  companies: CarouselCardData[];
+  companies: CompanyDataset[];
   triviaScore: number;
   // uid: string | undefined;
   timestamp: Date;

@@ -1,4 +1,9 @@
-import { CarouselCardData } from "@/constants/constant";
+import {
+  CarouselCardData,
+  carouselStyleData,
+  Company,
+  CompanyDataset,
+} from "@/constants/constant";
 import toast from "react-hot-toast";
 
 export function shuffleArray<T>(array: T[]): T[] {
@@ -41,25 +46,23 @@ export function calculateStockProfit(
   };
 }
 
-/**
- */
-// function testCalculateStockProfit() {
-//   // Select 4 stocks: Amazon, Walmart, Tesla, Hp
-//   const selectedStocks = [
-//     carouselData[5], // Amazon
-//     carouselData[6], // Walmart
-//     carouselData[7], // Tesla
-//     carouselData[8], // Hp
-//   ];
+export function getRandomStyleObject() {
+  const randomIndex = Math.floor(Math.random() * carouselStyleData.length);
+  return carouselStyleData[randomIndex];
+}
 
-//   const totalInvestment = 1000; // 1000 rupees
+export function selectCompaniesByNumber(
+  data: CompanyDataset,
+  count: number
+): Company[] {
+  const selected: Company[] = [];
 
-//   try {
-//     const result = calculateStockProfit(selectedStocks, totalInvestment);
-//     console.log("Selected Stocks:", selectedStocks.map(stock => stock.title));
-//     console.log("Total Investment:", totalInvestment);
-//     console.log("Result:", result);
-//   } catch (error) {
-//     console.error("Error:", error instanceof Error ? error.message : error);
-//   }
-// }
+  for (const category in data) {
+    const companies = data[category];
+    if (Array.isArray(companies) && companies.length) {
+      selected.push(...companies.slice(0, count));
+    }
+  }
+
+  return selected;
+}

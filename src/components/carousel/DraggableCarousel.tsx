@@ -17,25 +17,35 @@ import toast from "react-hot-toast";
 import { signInWithPopup } from "firebase/auth";
 import { auth, firebaseDb, googleAuthProvider } from "@/firebase/firebase";
 import { addDoc, collection, doc, getDoc, setDoc } from "firebase/firestore";
-import { shuffleArray } from "@/utils/common";
-import { CarouselCardData, carouselData } from "@/constants/constant";
+import {
+  getRandomStyleObject,
+  selectCompaniesByNumber,
+  shuffleArray,
+} from "@/utils/common";
+import { Company, carouselData, companyData } from "@/constants/constant";
 import { useAppStore } from "@/store/useStore";
 
 interface DraggableCarouselProps {
   nextStep: () => void;
   scrollToSection: () => void;
+  randomStyle: {};
+  setRandomStyle: () => void;
 }
 
 const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   nextStep,
   scrollToSection,
+  randomStyle,
+  setRandomStyle,
 }) => {
+  const extractedCompanyData = selectCompaniesByNumber(companyData, 2);
+
   const [currentIndex, setCurrentIndex] = useState(0);
   const [windowWidth, setWindowWidth] = useState(0);
-  const [selectedCard, setSelectedCard] = useState<CarouselCardData[]>([]);
+  const [selectedCard, setSelectedCard] = useState<Company[]>([]);
   const [showLoader, setShowLoader] = useState(true);
   const [shuffledData, setShuffledData] = useState(() =>
-    shuffleArray(carouselData)
+    shuffleArray(extractedCompanyData)
   );
 
   const { prevStep, setInterestsData, interestsData, user, setUser } =
@@ -67,40 +77,33 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   }, [handleResize]);
 
   const visibleCount = useMemo(() => {
-    if (windowWidth < 640) return 5; // Mobile
-    if (windowWidth < 1024) return 5; // Tablet
+    // if (windowWidth < 640) return 5; // Mobile
+    // if (windowWidth < 1024) return 5; // Tablet
     return 5; // Desktop
   }, [windowWidth]);
 
-  const radius = windowWidth < 640 ? 30 : windowWidth < 1024 ? 40 : 50;
-  const angleSpread = windowWidth < 640 ? 12 : windowWidth < 1024 ? 15 : 20;
-
-  const playSwipeSound = useCallback(() => {
-    if (swipeSoundRef.current) {
-      swipeSoundRef.current.currentTime = 0;
-      swipeSoundRef.current.play().catch(() => {});
-    }
-  }, []);
+  const radius = 50;
+  const angleSpread = 20;
 
   const handleNext = useCallback(() => {
     setCurrentIndex((prev) => (prev + 1) % total);
-    playSwipeSound();
-  }, [total, playSwipeSound]);
+    // playSwipeSound();
+  }, [total]);
 
   const handlePrev = useCallback(() => {
     setCurrentIndex((prev) => (prev - 1 + total) % total);
-    playSwipeSound();
-  }, [total, playSwipeSound]);
+    // playSwipeSound();
+  }, [total]);
 
   // Memoize selected card IDs
   const selectedCardIds = useMemo(
-    () => new Set(selectedCard.map((card) => card.id)),
+    () => new Set(selectedCard.map((card) => card.symbol)),
     [selectedCard]
   );
 
   const handleCardSelect = useCallback(
-    (item: CarouselCardData) => {
-      const isSelected = selectedCardIds.has(item.id);
+    (item: Company) => {
+      const isSelected = selectedCardIds.has(item.symbol);
 
       if (!isSelected && selectedCard.length === 4) {
         toast.error("Please select only 4 cards");
@@ -109,7 +112,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
 
       setSelectedCard((prev) => {
         if (isSelected) {
-          return prev.filter((card) => card.id !== item.id);
+          return prev.filter((card) => card.symbol !== item.symbol);
         } else {
           return [...prev, item];
         }
@@ -154,10 +157,9 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   }, []);
 
   const handleShuffle = useCallback(() => {
-    setShuffledData(shuffleArray(carouselData));
+    setShuffledData(shuffleArray(extractedCompanyData));
   }, []);
 
-  // Memoize card calculations
   const cardCalculations = useMemo(() => {
     return Array.from({ length: visibleCount }, (_, i) => {
       const offset = i - Math.floor(visibleCount / 2);
@@ -210,14 +212,14 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     >
       {/* Background overlay */}
       <motion.div
-        key={shuffledData[currentIndex].id}
+        key={randomStyle?.id}
         initial={{ scale: 0.8, opacity: 0.1 }}
         animate={{ scale: 1, opacity: 0.2 }}
         transition={{ duration: 0.5 }}
         className="absolute inset-0 pointer-events-none z-10"
       >
         <div
-          className={`absolute top-1/2 left-1/2 w-full h-full rounded-full blur-3xl ${shuffledData[currentIndex].tintColorClass}`}
+          className={`absolute top-1/2 left-1/2 w-full h-full rounded-full blur-3xl ${randomStyle?.tintColorClass}`}
           style={{
             transform: "translate(-50%, -50%)",
             backgroundImage:
@@ -229,7 +231,12 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
       {/* Header */}
       <div className="w-full flex flex-col items-center z-20 gap-4 mb-6 md:mb-8">
         <TextComponent />
-        <div className="flex justify-center gap-3">
+        <motion.div
+          initial={{ y: 50, opacity: 0.1 }}
+          animate={{ y: 0, opacity: 1 }}
+          transition={{ duration: 1 }}
+          className="flex flex-wrap justify-center gap-4"
+        >
           <button
             className="px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
             onClick={handleReset}
@@ -242,7 +249,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
           >
             <Shuffle className="mr-1.5 h-4 w-4" /> Surprise Me
           </button>
-        </div>
+        </motion.div>
       </div>
 
       {/* Main carousel container */}
@@ -267,11 +274,11 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
               zIndex,
               opacity,
             }) => {
-              const isSelected = selectedCardIds.has(item.id);
-
+              const isSelected = selectedCardIds.has(item.symbol);
+              setRandomStyle(getRandomStyleObject());
               return (
                 <motion.div
-                  key={`${item.id}-${cardIndex}`}
+                  key={`${item.symbol}-${cardIndex}`}
                   drag={isCenter ? "x" : false}
                   dragConstraints={{ left: 0, right: 0 }}
                   dragElastic={0.1}
@@ -309,11 +316,13 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                   }}
                 >
                   <Card
-                    className={`${item.bgColor} ${item.textColor} border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:w-[17rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 `}
+                    className={`${randomStyle?.bgColor} ${
+                      getRandomStyleObject()?.textColor
+                    } border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:w-[17rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 `}
                   >
                     {isSelected && (
                       <motion.div
-                        key={`overlay-${item.id}`}
+                        key={`overlay-${item.symbol}`}
                         initial={{ opacity: 0 }}
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
@@ -328,7 +337,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                       </motion.div>
                     )}
 
-                    <CardContent className="p-4 sm:p-5 md:p-6 h-full flex flex-col items-center justify-between relative">
+                    <CardContent className="p-4 sm:p-5 md:p-6 h-full flex flex-col items-center justify-center relative">
                       <div className="absolute inset-0 bg-gradient-to-br from-white/10 via-transparent to-black/10 pointer-events-none" />
                       <motion.div
                         initial={{ y: -30, opacity: 0 }}
@@ -336,10 +345,10 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                         transition={{ duration: 0.3 }}
                         className="mb-4"
                       >
-                        <div className="flex w-full h-24 sm:h-28 md:h-32 bg-white/20 p-3 rounded-lg justify-center items-center">
+                        <div className="flex w-full h-24 sm:h-28 md:h-32 bg-white/20 p-3 rounded-2xl justify-center items-center">
                           <Image
                             src={item.icon}
-                            alt={item.title}
+                            alt={item?.name}
                             width={100}
                             height={100}
                             loading="lazy"
@@ -354,10 +363,15 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                         transition={{ duration: 0.3 }}
                         className="text-sm sm:text-base md:text-lg font-semibold text-center tracking-wide drop-shadow-md"
                       >
-                        {item.title}
+                        {item?.name}
                       </motion.h3>
 
-                      <div className="w-12 h-0.5 bg-white/30 mt-3 rounded-full" />
+                      <motion.div
+                        initial={{ scaleX: 0 }}
+                        animate={{ scaleX: 1 }}
+                        transition={{ duration: 0.6, delay: 0.2 }}
+                        className="w-12 sm:w-16 h-0.5 bg-white/40 mt-3 sm:mt-4 rounded-full"
+                      />
                     </CardContent>
                   </Card>
                 </motion.div>
