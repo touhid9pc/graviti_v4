@@ -204,11 +204,11 @@ export const carouselStyleData: CarouselStyleData[] = [
 export type Company = {
   symbol: string;
   name: string;
-  priceUSD: number;
-  openingPrice: number;
-  closingPrice: number;
-  highestPrice: string | number;
-  lowestPrice: string | number;
+  priceUSD?: number;
+  openingPrice?: number;
+  closingPrice?: number;
+  highestPrice?: string | number;
+  lowestPrice?: string | number;
   growth: string;
   marketCap: string;
   topProducts: string[];

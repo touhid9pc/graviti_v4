@@ -6,9 +6,13 @@ import { getRandomStyleObject } from "@/utils/common";
 
 interface SectionTwoProps {
   scrollToSection: () => void;
+  proceedRef: React.RefObject<HTMLDivElement | null>;
 }
 
-const SectionTwo: React.FC<SectionTwoProps> = ({ scrollToSection }) => {
+const SectionTwo: React.FC<SectionTwoProps> = ({
+  scrollToSection,
+  proceedRef,
+}) => {
   const { nextStep } = useAppStore();
 
   return (
@@ -16,6 +20,7 @@ const SectionTwo: React.FC<SectionTwoProps> = ({ scrollToSection }) => {
       <DraggableCarousel
         nextStep={nextStep}
         scrollToSection={scrollToSection}
+        proceedRef={proceedRef}
       />
     </>
   );

@@ -24,11 +24,11 @@ export function calculateStockProfit(
     throw new Error("Total investment must be a positive number");
   }
 
-  for (const stock of selectedStocks) {
-    if (!stock || typeof stock !== "object" || !Number.isFinite(stock.growth)) {
-      toast.error(`Invalid stock data for ${stock?.name || "unknown stock"}`);
-    }
-  }
+  //   for (const stock of selectedStocks) {
+  //     if (!stock || typeof stock !== "object" || !Number.isFinite(stock.growth)) {
+  //       toast.error(`Invalid stock data for ${stock?.name || "unknown stock"}`);
+  //     }
+  //   }
 
   const individualInvestment = totalInvestment / selectedStocks.length;
 

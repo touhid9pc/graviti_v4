@@ -28,11 +28,13 @@ import { useAppStore } from "@/store/useStore";
 interface DraggableCarouselProps {
   nextStep: () => void;
   scrollToSection: () => void;
+  proceedRef: React.RefObject<HTMLDivElement | null>;
 }
 
 const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   nextStep,
   scrollToSection,
+  proceedRef,
 }) => {
   const extractedCompanyData = selectCompaniesByNumber(companyData as any, 2);
 
@@ -53,7 +55,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   const { prevStep, setInterestsData, interestsData, user, setUser } =
     useAppStore();
 
-  const swipeSoundRef = useRef<HTMLAudioElement | null>(null);
   const isDraggingRef = useRef<boolean>(false);
 
   const total = shuffledData.length;
@@ -126,23 +127,34 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     try {
       if (!user) {
         const result = await signInWithPopup(auth, googleAuthProvider);
-        const userRef = doc(firebaseDb, "users", result?.user.uid);
-        await setDoc(userRef, {
+        const userRef = doc(firebaseDb, "users", result?.user?.uid);
+
+        const searchParams = new URLSearchParams(window.location.search);
+        const ref = searchParams.get("ref");
+
+        const resObject = {
           uid: result?.user?.uid,
           email: result?.user?.email,
           name: result?.user?.displayName,
           createdAt: new Date(),
-          referredBy: null,
-        });
+          referredBy: ref ? ref : null,
+        };
+
+        await setDoc(userRef, resObject);
         setUser(result?.user);
         toast.success(
           `Signed in successfully. Great to have you here ${result?.user?.displayName} 🙌.`
         );
       }
-
       setInterestsData({
         companies: selectedCard,
         triviaScore: 49,
+        timestamp: new Date(),
+      });
+
+      await addDoc(collection(firebaseDb, "interests"), {
+        companies: selectedCard,
+        uid: `${user?.uid}`,
         timestamp: new Date(),
       });
 
@@ -194,15 +206,15 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
     });
   }, [visibleCount, currentIndex, total, shuffledData, angleSpread, radius]);
 
-  if (showLoader) {
-    return (
-      <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
-        <div className="text-xl md:text-2xl font-bold text-gray-800 animate-pulse tracking-wide">
-          loading...
-        </div>
-      </div>
-    );
-  }
+  // if (showLoader) {
+  //   return (
+  //     <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
+  //       <div className="text-xl md:text-2xl font-bold text-gray-800 animate-pulse tracking-wide">
+  //         loading...
+  //       </div>
+  //     </div>
+  //   );
+  // }
 
   return (
     <motion.div
@@ -210,6 +222,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5 }}
       className="w-full max-w-9xl mx-auto min-h-screen relative flex flex-col justify-center items-center px-4 sm:px-6 lg:px-8 py-8 md:py-12"
+      ref={proceedRef}
     >
       {/* Background overlay */}
       <motion.div
@@ -317,7 +330,7 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                   }}
                 >
                   <Card
-                    className={`${item?.style?.bgColor} ${item?.style?.textColor} border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 `}
+                    className={`${item?.style?.bgColor} ${item?.style?.textColor} border-0 shadow-xl rounded-2xl overflow-hidden backdrop-blur-md w-[11rem] h-[15rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] transition-all duration-200 !py-0`}
                   >
                     {isSelected && (
                       <motion.div

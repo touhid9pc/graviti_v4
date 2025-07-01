@@ -5,19 +5,23 @@ import { useAppStore } from "@/store/useStore";
 import BlobBackground from "../blobBackground/BlobBackground";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 
-const SectionOne = () => {
-  const { nextStep } = useAppStore();
+interface SectionOneProps {
+  scrollToSecondSection: () => void;
+}
+const SectionOne: React.FC<SectionOneProps> = ({ scrollToSecondSection }) => {
+  const { nextStep, setIsProceed, isProceed } = useAppStore();
 
   const textRef = useRef<HTMLHeadingElement>(null);
   const usStockRef = useRef<HTMLDivElement>(null);
   const containerRef = useRef<HTMLElement>(null);
   const highlightRef = useRef<HTMLDivElement>(null);
+  const buttonRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const tl = gsap.timeline({ delay: 0.5 });
 
     tl.fromTo(
-      textRef.current,
+      [textRef.current, buttonRef.current],
       {
         opacity: 0,
         y: 50,
@@ -84,8 +88,20 @@ const SectionOne = () => {
             market relevant for your wealth portfolio?
           </div>
         </div>
-
-        <AnimatedButton>Proceed</AnimatedButton>
+        {!isProceed && (
+          <div ref={buttonRef}>
+            <AnimatedButton
+              onClick={() => {
+                setIsProceed(true);
+                setTimeout(() => {
+                  scrollToSecondSection();
+                }, 300);
+              }}
+            >
+              Proceed
+            </AnimatedButton>
+          </div>
+        )}
       </section>
     </>
   );

@@ -1,20 +1,42 @@
 "use client";
 
-import React, { useState, useEffect, useRef } from "react";
-import { calculateStockProfit } from "@/utils/common";
+import React from "react";
 import { useAppStore } from "@/store/useStore";
-import { ChevronLeft } from "lucide-react";
 import { FaXTwitter } from "react-icons/fa6";
 import { SiWhatsapp } from "react-icons/si";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 
 type stockResultProps = {
-  profit: number;
-  totalAmountInvested: number;
+  stockResult: {
+    profit: number;
+    totalAmountInvested: number;
+    percentageGrowth: number;
+  };
 };
 
-export function ShareCard() {
+export function ShareCard({ stockResult }: stockResultProps) {
   const { user } = useAppStore();
+
+  const baseLink = "https://graviti-v4.vercel.app";
+  const fullLink = `${baseLink}?ref=${user?.uid}`;
+
+  const totalProfit = stockResult?.totalAmountInvested + stockResult?.profit;
+
+  const message = `If I had invested ₹${
+    stockResult?.totalAmountInvested
+  }, I would have earned ₹${
+    stockResult?.profit
+  } by now.\n\nThat brings my total to ₹${totalProfit.toFixed(
+    2
+  )} \n\nJust came across this kickass investment app for indians, check yours: ${fullLink}`;
+
+  // const message = `hey <<fname>>, just came across this kickass investment app for indians`
+
+  const encodedMessage = encodeURIComponent(message);
+
+  const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
+  const twitterLink = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
+
   return (
     <div className="relative mx-auto mt-20 w-full max-w-2xl px-8 py-14 rounded-tl-xl rounded-br-xl bg-orange-200/20 border-amber-950/10 shadow-md ">
       <div className="text-center space-y-2 mb-8">
@@ -33,7 +55,7 @@ export function ShareCard() {
         {/* WhatsApp */}
         <AnimatedButton className="!p-4">
           <a
-            href="https://wa.me/?text=Check%20out%20my%20stock%20investment%20results!"
+            href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Share on WhatsApp"
@@ -46,7 +68,7 @@ export function ShareCard() {
         {/* X (Twitter) */}
         <AnimatedButton className="!p-4">
           <a
-            href="https://twitter.com/intent/tweet?text=Check%20out%20my%20stock%20investment%20results!"
+            href={twitterLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Share on Twitter"

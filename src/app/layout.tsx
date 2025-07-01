@@ -3,6 +3,7 @@ import { Geist, Geist_Mono, Manrope } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import ClickTracker from "@/components/clickTracker/ClickTracker";
+import { Suspense } from "react";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,42 +33,52 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} antialiased`}>
-        <ClickTracker />
-        <Toaster
-          position="top-center"
-          toastOptions={{
-            duration: 4000,
-            style: {
-              padding: "1rem 1.5rem",
-              borderRadius: "16px",
-              fontSize: "clamp(0.875rem, 2.5vw, 1rem)",
-              fontWeight: 500,
-              color: "#fff",
-              backdropFilter: "blur(6px)",
-              WebkitBackdropFilter: "blur(6px)",
-              boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
-            },
-            success: {
+        <Suspense
+          fallback={
+            <div className="w-full h-screen flex items-center justify-center bg-gradient-to-br from-gray-50 to-gray-200">
+              <div className="text-xl md:text-2xl font-bold text-gray-800 animate-pulse tracking-wide">
+                loading...
+              </div>
+            </div>
+          }
+        >
+          <ClickTracker />
+          <Toaster
+            position="top-center"
+            toastOptions={{
+              duration: 4000,
               style: {
-                background: "linear-gradient(135deg, #00C9A7, #007B55)",
+                padding: "1rem 1.5rem",
+                borderRadius: "16px",
+                fontSize: "clamp(0.875rem, 2.5vw, 1rem)",
+                fontWeight: 500,
+                color: "#fff",
+                backdropFilter: "blur(6px)",
+                WebkitBackdropFilter: "blur(6px)",
+                boxShadow: "0 8px 30px rgba(0,0,0,0.2)",
               },
-              iconTheme: {
-                primary: "#ffffff",
-                secondary: "#00C9A7",
+              success: {
+                style: {
+                  background: "linear-gradient(135deg, #00C9A7, #007B55)",
+                },
+                iconTheme: {
+                  primary: "#ffffff",
+                  secondary: "#00C9A7",
+                },
               },
-            },
-            error: {
-              style: {
-                background: "linear-gradient(135deg, #FF6B6B, #C9184A)",
+              error: {
+                style: {
+                  background: "linear-gradient(135deg, #FF6B6B, #C9184A)",
+                },
+                iconTheme: {
+                  primary: "#ffffff",
+                  secondary: "#FF6B6B",
+                },
               },
-              iconTheme: {
-                primary: "#ffffff",
-                secondary: "#FF6B6B",
-              },
-            },
-          }}
-        />
-        {children}
+            }}
+          />
+          {children}
+        </Suspense>
       </body>
     </html>
   );

@@ -17,11 +17,14 @@ interface AppState {
   step: number;
   interestsData: InterestsData;
   user: any;
+  isProceed: boolean;
+
   setStep: (step: number) => void;
   nextStep: () => void;
   prevStep: () => void;
   setInterestsData: (data: InterestsData) => void;
   setUser: (user: any) => void;
+  setIsProceed: (data: boolean) => void;
 }
 
 export const useAppStore = create<AppState>()(
@@ -35,6 +38,7 @@ export const useAppStore = create<AppState>()(
         timestamp: new Date(),
       },
       user: null,
+      isProceed: false,
 
       setStep: (step) => set({ step }),
       nextStep: () => set((state) => ({ step: Math.min(state.step + 1, 3) })),
@@ -42,6 +46,8 @@ export const useAppStore = create<AppState>()(
 
       setInterestsData: (data) => set({ interestsData: data }),
       setUser: (user) => set({ user }),
+
+      setIsProceed: (data: boolean) => set({ isProceed: data }),
     }),
     {
       name: "app-storage",
@@ -49,6 +55,7 @@ export const useAppStore = create<AppState>()(
         step: state.step,
         interestsData: state.interestsData,
         user: state.user,
+        isProceed: state.isProceed,
       }),
     }
   )

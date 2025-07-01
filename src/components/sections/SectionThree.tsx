@@ -7,7 +7,7 @@ import { useAppStore } from "@/store/useStore";
 import { ChevronLeft } from "lucide-react";
 import { ShareCard } from "../shareCard/ShareCard";
 
-type stockResultProps = {
+export type stockResultProps = {
   profit: number;
   totalAmountInvested: number;
   percentageGrowth: number;
@@ -111,7 +111,7 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
         </motion.div>
       )}
 
-      <ShareCard />
+      <ShareCard stockResult={stockResult} />
     </div>
   );
 };
