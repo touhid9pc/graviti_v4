@@ -1,6 +1,7 @@
 "use client";
 
 import SectionOne from "@/components/sections/SectionOne";
+import SectionStocks from "@/components/sections/SectionStocks";
 import SectionThree from "@/components/sections/SectionThree";
 import SectionTwo from "@/components/sections/SectionTwo";
 import { auth } from "@/firebase/firebase";
@@ -96,8 +97,9 @@ export default function Home() {
   return (
     <main className="flex flex-col items-center space-y-4">
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
-      <SectionOne scrollToSecondSection={scrollToSecondSection} />
-      {isProceed && (
+      {/* <SectionOne scrollToSecondSection={scrollToSecondSection} /> */}
+      <SectionStocks />
+      {/* {isProceed && (
         <>
           <SectionTwo
             proceedRef={proceedRef}
@@ -105,7 +107,7 @@ export default function Home() {
           />
           <SectionThree sectionRef={sectionRef} />
         </>
-      )}
+      )} */}
     </main>
   );
 }
