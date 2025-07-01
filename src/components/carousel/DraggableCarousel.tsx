@@ -24,6 +24,10 @@ import {
 } from "@/utils/common";
 import { Company, carouselData, companyData } from "@/constants/constant";
 import { useAppStore } from "@/store/useStore";
+import {
+  companiesImages,
+  CompanySymbol,
+} from "@/constants/companyStocksImages";
 
 interface DraggableCarouselProps {
   nextStep: () => void;
@@ -146,19 +150,20 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
           `Signed in successfully. Great to have you here ${result?.user?.displayName} 🙌.`
         );
       }
-      setInterestsData({
-        companies: selectedCard,
-        triviaScore: 49,
-        timestamp: new Date(),
-      });
+      if (user) {
+        setInterestsData({
+          companies: selectedCard,
+          triviaScore: 49,
+          timestamp: new Date(),
+        });
 
-      await addDoc(collection(firebaseDb, "interests"), {
-        companies: selectedCard,
-        uid: `${user?.uid}`,
-        timestamp: new Date(),
-      });
-
-      scrollToSection();
+        await addDoc(collection(firebaseDb, "interests"), {
+          companies: selectedCard,
+          uid: `${user?.uid}`,
+          timestamp: new Date(),
+        });
+        scrollToSection();
+      }
     } catch (error) {
       console.error("Firebase error:", error);
       toast.error("Error during sign-up. Please try again.");
@@ -215,6 +220,39 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   //     </div>
   //   );
   // }
+
+  const arr = [
+    {
+      id: "36",
+      name: "NIO",
+      imageUrl: "/assets/all_stocks/nio.png",
+      symbol: "NIO",
+    },
+    {
+      id: "37",
+      name: "Toyota",
+      imageUrl: "/assets/all_stocks/toyota.png",
+      symbol: "TM",
+    },
+    {
+      id: "38",
+      name: "Honda",
+      imageUrl: "/assets/all_stocks/honda-logo.png",
+      symbol: "HMC",
+    },
+    {
+      id: "39",
+      name: "Hyundai",
+      imageUrl: "/assets/all_stocks/hyundai.png",
+      symbol: "HYMTF",
+    },
+    {
+      id: "40",
+      name: "Aptiv",
+      imageUrl: "/assets/all_stocks/aptiv_logo",
+      symbol: "APTV",
+    },
+  ];
 
   return (
     <motion.div
@@ -359,8 +397,10 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
                       >
                         <div className="flex w-full h-24 sm:h-28 md:h-32 bg-white/20 p-3 rounded-2xl justify-center items-center">
                           <Image
-                            // src={item.icon}
-                            src={"/assets/stocks/1.png"}
+                            src={
+                              companiesImages[item?.symbol as CompanySymbol] ||
+                              "/fallback.webp"
+                            }
                             alt={item?.name}
                             width={100}
                             height={100}
