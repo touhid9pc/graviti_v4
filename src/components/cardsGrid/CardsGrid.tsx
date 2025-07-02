@@ -178,7 +178,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                   </div>
 
                   <h3
-                    className={`text-xl font-bold capitalize ${
+                    className={`text-sm md:text-xl font-bold capitalize ${
                       isSelected ? "text-green-700" : "text-gray-800"
                     }`}
                   >
@@ -191,7 +191,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                   <h4 className="text-lg font-semibold text-gray-700 mb-2 w-full text-center">
                     Top Products
                   </h4>
-                  <ul className="list-disc list-inside text-gray-600 text-sm space-y-1 overflow-y-auto scrollbar-none max-h-[90%]">
+                  <ul className="list-disc list-inside text-gray-600 text-sm space-y-1 overflow-y-auto no-scrollbar max-h-[90%]">
                     {(card.topProducts ?? []).map((product, i) => (
                       <li key={i}>{product}</li>
                     ))}

@@ -135,3 +135,13 @@ body {
     @apply bg-gradient-to-br from-pink-300 via-purple-300 to-blue-400;
   }
 }
+
+/* Add this to your global CSS or component.module.css */
+.no-scrollbar {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* Internet Explorer and Edge */
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none; /* Chrome, Safari, Opera */
+}
