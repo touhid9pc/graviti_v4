@@ -221,39 +221,6 @@ const DraggableCarousel: React.FC<DraggableCarouselProps> = ({
   //   );
   // }
 
-  const arr = [
-    {
-      id: "36",
-      name: "NIO",
-      imageUrl: "/assets/all_stocks/nio.png",
-      symbol: "NIO",
-    },
-    {
-      id: "37",
-      name: "Toyota",
-      imageUrl: "/assets/all_stocks/toyota.png",
-      symbol: "TM",
-    },
-    {
-      id: "38",
-      name: "Honda",
-      imageUrl: "/assets/all_stocks/honda-logo.png",
-      symbol: "HMC",
-    },
-    {
-      id: "39",
-      name: "Hyundai",
-      imageUrl: "/assets/all_stocks/hyundai.png",
-      symbol: "HYMTF",
-    },
-    {
-      id: "40",
-      name: "Aptiv",
-      imageUrl: "/assets/all_stocks/aptiv_logo",
-      symbol: "APTV",
-    },
-  ];
-
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }}

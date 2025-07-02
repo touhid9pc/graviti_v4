@@ -6,6 +6,7 @@ import { calculateStockProfit } from "@/utils/common";
 import { useAppStore } from "@/store/useStore";
 import { ChevronLeft } from "lucide-react";
 import { ShareCard } from "../shareCard/ShareCard";
+import { Company } from "@/constants/constant";
 
 export type stockResultProps = {
   profit: number;
@@ -59,14 +60,14 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
   return (
     <div
       ref={sectionRef}
-      className="min-h-screen w-full flex  flex-col items-center justify-center px-4 sm:px-8 md:px-12 bg-gradient-to-br from-[#fdfbfb] via-[#fce8f7] to-[#e6f5f4]"
+      className="min-h-screen w-full flex  flex-col items-center justify-center px-4 sm:px-8 md:px-12"
     >
       {user && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl text-center space-y-6 "
+          className="w-full max-w-2xl text-center space-y-6  rounded-tl-xl rounded-br-xl bg-orange-200/20 border-amber-950/10 shadow-md px-8 py-14 "
         >
           {/* Heading */}
           <div className="flex justify-center items-center space-x-4">
@@ -83,7 +84,7 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
             </h2>
           </div>
           {/* Main message */}
-          <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
+          {/* <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
             Your stock choices?{" "}
             <span className="font-semibold text-purple-600">Impressive</span>.
             If you’d invested
@@ -98,16 +99,16 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
               ₹{profit.toFixed(2)}
             </span>{" "}
             by now.
-          </p>
+          </p> */}
 
           {/* Total display */}
-          <p className="text-base sm:text-lg text-[#444]">
+          {/* <p className="text-base sm:text-lg text-[#444]">
             That brings your total to{" "}
             <span className="font-semibold text-black">
               ₹{total.toFixed(2)}
             </span>{" "}
             💸
-          </p>
+          </p> */}
         </motion.div>
       )}
 

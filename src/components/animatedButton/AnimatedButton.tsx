@@ -85,10 +85,8 @@ export default function AnimatedButton({
       className={`
         group relative w-max rounded-full 
       py-2 px-6 text-sm sm:text-base
-        font-medium backdrop-blur-md border border-white/20 
-        ring-1 ring-white/10 transition-all duration-300 
-        bg-[#e3e0da] text-black 
-        hover:bg-[#f0efec] hover:shadow-xl hover:ring-white/20
+        font-medium backdrop-blur-md border border-white/20 !bg-[#FAF9F6]
+        ring-1 ring-white/10 transition-all duration-300  text-black hover:shadow-xl hover:ring-white/20
         active:scale-95 active:ring-white/30
         focus:outline-none focus:ring-2 focus:ring-white/30
         disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
@@ -96,7 +94,10 @@ export default function AnimatedButton({
       `}
       {...props}
     >
-      <span ref={textRef} className="block relative z-10">
+      <span
+        ref={textRef}
+        className="flex justify-center items-center relative z-10"
+      >
         {children || name}
       </span>
     </button>

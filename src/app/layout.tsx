@@ -4,6 +4,7 @@ import "./globals.css";
 import { Toaster } from "react-hot-toast";
 import ClickTracker from "@/components/clickTracker/ClickTracker";
 import { Suspense } from "react";
+import { SmoothCursor } from "@/components/ui/smooth-cursor";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -32,8 +33,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${manrope.variable} antialiased`}>
+      <body className={`${manrope.variable} antialiased select-none`}>
         <ClickTracker />
+        {/* <SmoothCursor /> */}
         <Toaster
           position="top-center"
           toastOptions={{
