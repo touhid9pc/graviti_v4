@@ -238,15 +238,16 @@ function Item({
         transition: { duration: 0.1 },
       }}
     >
-      <div className="relative w-3/5 h-3/5 overflow-hidden rounded-lg">
-        <Image
-          src="/assets/stocks/1.png"
-          fill
-          className="object-cover"
-          alt={`Icon ${index + 1}`}
-          sizes="(max-width: 768px) 60px, (max-width: 1024px) 80px, 100px"
-        />
-      </div>
+      {/* <div className="relative w-3/5 h-3/5 overflow-hidden rounded-lg"> */}
+      <Image
+        src="/assets/stocks/1.png"
+        width={100}
+        height={100}
+        className="object-cover"
+        alt={`Icon ${index + 1}`}
+        //   sizes="(max-width: 768px) 60px, (max-width: 1024px) 80px, 100px"
+      />
+      {/* </div> */}
     </motion.div>
   );
 }
@@ -355,7 +356,7 @@ export default function Dock() {
 
   return (
     <div
-      className="relative overflow-hidden rounded-lg shadow-2xl"
+      className="relative overflow-hidden rounded-lg"
       style={{
         width: deviceSize.width,
         height: deviceSize.height,
@@ -363,12 +364,12 @@ export default function Dock() {
         minWidth: 280,
       }}
     >
-      <div className="absolute inset-0 bg-black/20 backdrop-blur-sm" />
+      <div className="absolute inset-0 backdrop-blur-sm" />
 
       {/* Drag instruction for better UX */}
-      <div className="absolute top-4 left-4 z-10 text-white/70 text-sm font-medium">
+      {/* <div className="absolute top-4 left-4 z-10 text-white/70 text-sm font-medium">
         Drag to explore
-      </div>
+      </div> */}
 
       <motion.div
         drag

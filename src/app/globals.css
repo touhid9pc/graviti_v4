@@ -5,6 +5,7 @@
 
 :root {
   --font-manrope: "Manrope", sans-serif;
+  --columns: 3;
 }
 
 body {

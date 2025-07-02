@@ -21,6 +21,8 @@ export default function Home() {
     setIsProceed,
   } = useAppStore();
 
+  const [showReveal, setShowReveal] = useState<Boolean>(false);
+
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(async (user) => {
       if (!user) {
@@ -81,6 +83,8 @@ export default function Home() {
     proceedRef.current?.scrollIntoView({ behavior: "smooth" });
   };
 
+  let proceed = isProceed || false;
+
   // const renderStepComponent = (currentStep: number) => {
   //   switch (currentStep) {
   //     case 1:
@@ -90,24 +94,28 @@ export default function Home() {
   //     case 3:
   //       return <SectionThree />;
   //     default:
-  //       return <SectionOne />;
+  //       return <SectionOne />;ageage
   //   }
   // };
 
   return (
-    <main className="flex flex-col items-center space-y-4">
+    <main className="flex flex-col items-center space-y-4 bg-gradient-to-br from-[#FAF9F6] via-[#FFF] to-[#FAF9F6]">
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
-      {/* <SectionOne scrollToSecondSection={scrollToSecondSection} /> */}
-      <SectionStocks />
-      {/* {isProceed && (
+      <SectionOne scrollToSecondSection={scrollToSecondSection} />
+      {proceed && (
         <>
-          <SectionTwo
+          {/* <SectionTwo
             proceedRef={proceedRef}
             scrollToSection={scrollToSection}
+          /> */}
+          <SectionStocks
+            proceedRef={proceedRef}
+            scrollToSection={scrollToSection}
+            setShowReveal={setShowReveal}
           />
-          <SectionThree sectionRef={sectionRef} />
+          {showReveal && <SectionThree sectionRef={sectionRef} />}
         </>
-      )} */}
+      )}
     </main>
   );
 }

@@ -52,7 +52,7 @@ const TextComponent: React.FC = () => {
     return () => ctx.revert();
   }, [isMobile]);
 
-  const headingText = `Select your favourite brands to see how much wealth you would’ve made`;
+  const headingText = `Select 4 favourite brands to see how much wealth you would’ve made`;
 
   return (
     <div ref={containerRef} className="w-full">

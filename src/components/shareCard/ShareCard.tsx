@@ -22,7 +22,7 @@ export function ShareCard({ stockResult }: stockResultProps) {
 
   const totalProfit = stockResult?.totalAmountInvested + stockResult?.profit;
 
-  const message = `If I had invested ₹${
+  const challengeMessage = `If I had invested ₹${
     stockResult?.totalAmountInvested
   }, I would have earned ₹${
     stockResult?.profit
@@ -30,15 +30,17 @@ export function ShareCard({ stockResult }: stockResultProps) {
     2
   )} \n\nJust came across this kickass investment app for indians, check yours: ${fullLink}`;
 
-  // const message = `hey <<fname>>, just came across this kickass investment app for indians`
+  const referMessage = `refer message`;
 
-  const encodedMessage = encodeURIComponent(message);
+  const encodedMessage = encodeURIComponent(
+    user ? challengeMessage : referMessage
+  );
 
   const whatsappLink = `https://wa.me/?text=${encodedMessage}`;
   const twitterLink = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
 
   return (
-    <div className="relative mx-auto mt-20 w-full max-w-2xl px-8 py-14 rounded-tl-xl rounded-br-xl bg-orange-200/20 border-amber-950/10 shadow-md ">
+    <div className="relative mx-auto mt-20 w-full max-w-2xl ">
       <div className="text-center space-y-2 mb-8">
         <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
           🚀 {user ? "Challenge" : "Refer"} your friends!
