@@ -34,7 +34,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
     shuffleArray(extractedCompanyData)
   );
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
-  const [tooltipIndex, setTooltipIndex] = useState<number | null>(null);
+  const [tooltipIndex, setTooltipIndex] = useState<string | null>(null);
 
   const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -121,8 +121,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
       )}
       <div className="min-h-screen px-2 sm:px-6 lg:px-8">
         <div className="w-full flex flex-col items-center z-20 gap-4 mb-6 md:mb-10">
-          {/* {tooltipIndex === idx && ( */}
-
           <motion.div
             initial={{ y: 50, opacity: 0.1 }}
             animate={{ y: 0, opacity: 1 }}
@@ -164,7 +162,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
               }, 500);
 
               // Show tooltip briefly for short touches
-              setTooltipIndex(idx);
+              setTooltipIndex(card?.id);
               setTimeout(() => setTooltipIndex(null), 1200);
             };
 
