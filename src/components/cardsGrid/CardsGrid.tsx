@@ -35,6 +35,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   );
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
   const [tooltipIndex, setTooltipIndex] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(false);
 
   const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -67,6 +68,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   );
 
   const handleReveal = useCallback(async () => {
+    setLoading(true);
     try {
       if (!user) {
         const result = await signInWithPopup(auth, googleAuthProvider);
@@ -103,14 +105,27 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         });
         setShowReveal(true);
         setTimeout(() => {
+          setLoading(false);
           scrollToSection();
         }, 300);
       }
     } catch (error) {
       console.error("Firebase error:", error);
       toast.error("Error during sign-up. Please try again.");
+    } finally {
+      setLoading(false);
     }
   }, [user, selectedCard, setUser, setInterestsData, scrollToSection]);
+
+  if (loading) {
+    return (
+      <div className="w-full h-screen flex items-center justify-center backdrop-blur-sm">
+        <div className="text-xl md:text-2xl font-bold text-gray-800 animate-pulse tracking-wide">
+          loading...
+        </div>
+      </div>
+    );
+  }
 
   return (
     <>
@@ -273,7 +288,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         <div className="w-full flex justify-center mt-6 md:mt-8 z-30 ">
           {selectedCard?.length >= 4 ? (
             <AnimatedButton
-              name="Reveal"
+              name={loading ? "loading..." : "Reveal"}
               className="text-base sm:text-lg font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
               onClick={handleReveal}
             />

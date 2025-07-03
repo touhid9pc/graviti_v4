@@ -3,11 +3,9 @@
 import SectionOne from "@/components/sections/SectionOne";
 import SectionStocks from "@/components/sections/SectionStocks";
 import SectionThree from "@/components/sections/SectionThree";
-import SectionTwo from "@/components/sections/SectionTwo";
 import { auth } from "@/firebase/firebase";
 import { useAppStore } from "@/store/useStore";
-import { User } from "firebase/auth";
-import { Suspense, useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 
 export default function Home() {

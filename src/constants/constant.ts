@@ -3335,3 +3335,57 @@ export const companyData = {
     },
   ],
 };
+
+export const gravitiFeatures: string[] = [
+  "Regulated Access via GIFT City under India’s LRS",
+  "Invest from ₹1,000 with fractional ownership",
+  "Bitcoin & Ethereum ETFs, U.S. stocks and curated baskets",
+  "Low brokerage and zero hidden charges",
+  "SIPC-insured up to $500,000 for added protection",
+  "Expert-curated strategies for hands-off investing",
+  "User-friendly platform powered by proprietary technology",
+];
+
+interface InvestmentStep {
+  title: string;
+  description: string;
+}
+
+export const investmentSteps: InvestmentStep[] = [
+  {
+    title: "Complete Your KYC",
+    description: "Secure, quick onboarding to unlock full platform access.",
+  },
+  {
+    title: "Add Funds",
+    description: "Easily fund your account in INR via India’s LRS.",
+  },
+  {
+    title: "Start Investing",
+    description:
+      "Choose your own assets or invest in curated baskets designed for performance.",
+  },
+];
+
+export interface InvestmentOptions {
+  title: string;
+  description: string;
+}
+
+export const investmentOptions: InvestmentOptions[] = [
+  {
+    title: "Digital Asset ETFs",
+    description:
+      "Regulated exposure to Bitcoin, Ethereum and tokenized assets, without the complexities of direct ownership.",
+  },
+  {
+    title: "U.S. Stocks & Equities",
+    description:
+      "Invest in global giants like Apple, Tesla and Meta with fractional shares and personalised portfolio creation.",
+  },
+  {
+    title: "Curated Investment Baskets",
+    description:
+      "Expert-built baskets tailored to market themes and strategies, perfect for hands-off investors seeking alpha.",
+  },
+];

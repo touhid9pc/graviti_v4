@@ -5,6 +5,9 @@ import { Toaster } from "react-hot-toast";
 import ClickTracker from "@/components/clickTracker/ClickTracker";
 import { Suspense } from "react";
 import { SmoothCursor } from "@/components/ui/smooth-cursor";
+import HamburgerMenu from "@/components/hamburger/Hamburger";
+import { useAppStore } from "@/store/useStore";
+import ClientRoot from "@/components/clientRoot/ClientRoot";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,6 +37,8 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${manrope.variable} antialiased select-none`}>
+        <ClientRoot />
+
         <ClickTracker />
         {/* <SmoothCursor /> */}
         <Toaster
