@@ -30,7 +30,9 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   const [hoveredCard, setHoveredCard] = useState<number | null>(null);
   const extractedCompanyData = selectCompaniesByNumber(companyData as any, 1);
 
-  const [shuffledData, setShuffledData] = useState(() => extractedCompanyData);
+  const [shuffledData, setShuffledData] = useState(() =>
+    shuffleArray(extractedCompanyData)
+  );
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
   const [tooltipIndex, setTooltipIndex] = useState<number | null>(null);
 
@@ -47,8 +49,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   const handleShuffle = useCallback(() => {
     setShuffledData(shuffleArray(extractedCompanyData));
   }, [extractedCompanyData]);
-
-  console.log(extractedCompanyData);
 
   const handleCardSelect = useCallback(
     (item: Company) => {
@@ -136,7 +136,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             Clear
           </AnimatedButton>
           <AnimatedButton
-            className="text-base sm:text-lg flex justify-center items-center"
+            className="text-base sm:text-lg flex justify-center items-center !bg-[#1a1a1a] !text-[#FAF9F6]"
             onClick={handleShuffle}
           >
             {/* <Shuffle className="mr-1.5 h-4 w-4" /> */}
@@ -153,7 +153,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             longPressTimeout.current = setTimeout(() => {
               setHoveredCard(idx);
               setTooltipIndex(null); // hide tooltip on long press
-            }, 400);
+            }, 500);
 
             // Show tooltip briefly for short touches
             setTooltipIndex(idx);
@@ -171,20 +171,25 @@ const CardsGrid: React.FC<CardsGridProps> = ({
               clearTimeout(longPressTimeout.current);
             setHoveredCard(null);
           };
+
+          console.log(tooltipIndex === idx);
           return (
             <motion.div
               key={idx}
               className="w-[9rem] h-[12rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] perspective-1000"
-              onMouseEnter={() => setHoveredCard(idx)}
+              onMouseEnter={() => {
+                setTimeout(() => {
+                  setHoveredCard(idx);
+                }, 500);
+              }}
               onMouseLeave={() => setHoveredCard(null)}
               onTouchStart={handleTouchStart}
               onTouchEnd={handleTouchEnd}
               onTouchMove={handleTouchMove}
               onClick={() => handleCardSelect(card)}
             >
-              {/* ✅ Tooltip */}
               {tooltipIndex === idx && (
-                <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-20 bg-gray-800 text-white text-xs px-3 py-1 rounded shadow-lg pointer-events-none animate-fadeIn">
+                <div className=" bg-gray-800 text-white text-xs px-3 py-1 w-max rounded shadow-lg pointer-events-none animate-fadeIn">
                   Long press to see products
                 </div>
               )}
@@ -221,7 +226,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                   </div>
 
                   <h3
-                    className={`text-xs sm:text-sm md:text-xl font-bold capitalize ${
+                    className={`text-xs sm:text-sm md:text-xl font-bold capitalize text-center ${
                       isSelected ? "text-green-700" : "text-gray-800"
                     }`}
                   >
@@ -230,7 +235,13 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                 </div>
 
                 {/* BACK */}
-                <div className="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-start justify-center bg-white rounded-xl p-5 shadow">
+                <div
+                  className={`absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-start justify-center  ${
+                    isSelected
+                      ? "bg-green-100/20 border border-green-200"
+                      : "bg-white"
+                  }  rounded-xl p-5 shadow`}
+                >
                   <h4 className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700 mb-2 w-full text-center">
                     Top Products
                   </h4>

@@ -85,7 +85,7 @@ export default function AnimatedButton({
       className={`
         group relative w-max rounded-full 
       py-2 px-6 text-sm sm:text-base
-        font-medium backdrop-blur-md border border-white/20 !bg-[#FAF9F6]
+        font-medium backdrop-blur-md border border-white/20 bg-[#FAF9F6]
         ring-1 ring-white/10 transition-all duration-300  text-black hover:shadow-xl hover:ring-white/20
         active:scale-95 active:ring-white/30
         focus:outline-none focus:ring-2 focus:ring-white/30

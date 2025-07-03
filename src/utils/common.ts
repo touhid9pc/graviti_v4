@@ -7,6 +7,7 @@ import {
 import toast from "react-hot-toast";
 
 export function shuffleArray<T>(array: T[]): T[] {
+  console.log({ array });
   const newArr = [...array];
   for (let i = newArr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
