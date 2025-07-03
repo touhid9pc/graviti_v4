@@ -212,6 +212,7 @@ export type Company = {
   growth: string;
   marketCap: string;
   topProducts: string[];
+  id: string;
 };
 
 export type CompanyDataset = Record<string, Company[]>;
@@ -240,6 +241,7 @@ export const companyData = {
         "Apple TV+",
         "iCloud",
       ],
+      id: "it0",
     },
     {
       symbol: "MSFT",
@@ -263,6 +265,7 @@ export const companyData = {
         "OneDrive",
         "LinkedIn",
       ],
+      id: "it1",
     },
     {
       symbol: "NVDA",
@@ -286,6 +289,7 @@ export const companyData = {
         "NVIDIA AI Enterprise",
         "NVLink",
       ],
+      id: "it2",
     },
     {
       symbol: "ADBE",
@@ -309,6 +313,7 @@ export const companyData = {
         "Adobe Express",
         "Creative Cloud",
       ],
+      id: "it3",
     },
     {
       symbol: "INTC",
@@ -332,6 +337,7 @@ export const companyData = {
         "Intel Foundry",
         "Thunderbolt",
       ],
+      id: "it4",
     },
     {
       symbol: "AMD",
@@ -355,6 +361,7 @@ export const companyData = {
         "FreeSync",
         "AMD Software Suite",
       ],
+      id: "it5",
     },
     {
       symbol: "CRM",
@@ -378,6 +385,7 @@ export const companyData = {
         "Einstein AI",
         "Salesforce Platform",
       ],
+      id: "it6",
     },
     {
       symbol: "NOW",
@@ -401,6 +409,7 @@ export const companyData = {
         "App Engine",
         "Industry-specific solutions",
       ],
+      id: "it7",
     },
     {
       symbol: "CSCO",
@@ -424,6 +433,7 @@ export const companyData = {
         "Cisco SecureX",
         "Security Cloud",
       ],
+      id: "it8",
     },
     {
       symbol: "ORCL",
@@ -447,6 +457,7 @@ export const companyData = {
         "Oracle Middleware",
         "OCI AI Services",
       ],
+      id: "it9",
     },
   ],
   fmcg: [
@@ -464,7 +475,7 @@ export const companyData = {
         "Pepsi",
         "Mountain Dew",
         "Gatorade",
-        "Lay’s",
+        "Lay\u2019s",
         "Doritos",
         "Quaker Oats",
         "Tropicana",
@@ -472,10 +483,11 @@ export const companyData = {
         "Aquafina",
         "Cheetos",
       ],
+      id: "fmcg0",
     },
     {
       symbol: "KO",
-      name: "Coca‑Cola",
+      name: "Coca\u2011Cola",
       priceUSD: 71.02,
       openingPrice: 44.93,
       closingPrice: 70.21,
@@ -495,6 +507,7 @@ export const companyData = {
         "Simply",
         "Gold Peak Tea",
       ],
+      id: "fmcg1",
     },
     {
       symbol: "PG",
@@ -518,6 +531,7 @@ export const companyData = {
         "Vicks",
         "Old Spice",
       ],
+      id: "fmcg2",
     },
     {
       symbol: "MDLZ",
@@ -541,10 +555,11 @@ export const companyData = {
         "Chips Ahoy!",
         "Ritz",
       ],
+      id: "fmcg3",
     },
     {
       symbol: "CL",
-      name: "Colgate‑Palmolive",
+      name: "Colgate\u2011Palmolive",
       priceUSD: 90.26,
       openingPrice: 73.26,
       closingPrice: 88.18,
@@ -559,11 +574,12 @@ export const companyData = {
         "Softsoap",
         "Irish Spring",
         "Suavitel",
-        "Tom’s of Maine",
+        "Tom\u2019s of Maine",
         "Sanex",
         "Protex",
         "Hill's Pet Nutrition",
       ],
+      id: "fmcg4",
     },
     {
       symbol: "MO",
@@ -587,6 +603,7 @@ export const companyData = {
         "MarkTen",
         "Helix Innovations",
       ],
+      id: "fmcg5",
     },
     {
       symbol: "KVUE",
@@ -604,16 +621,17 @@ export const companyData = {
         "Listerine",
         "Neutrogena",
         "Aveeno",
-        "Johnson’s Baby",
+        "Johnson\u2019s Baby",
         "Motrin",
-        "Zarbee’s",
+        "Zarbee\u2019s",
         "Band-Aid",
         "Benadryl",
       ],
+      id: "fmcg6",
     },
     {
       symbol: "KMB",
-      name: "Kimberly‑Clark",
+      name: "Kimberly\u2011Clark",
       priceUSD: 130.84,
       openingPrice: 141.16,
       closingPrice: 129.95,
@@ -633,6 +651,7 @@ export const companyData = {
         "WypAll",
         "Andrex",
       ],
+      id: "fmcg7",
     },
     {
       symbol: "TSN",
@@ -653,13 +672,14 @@ export const companyData = {
         "Aidells",
         "Stewart Sandwiches",
         "State Fair",
-        "Any’tizers",
+        "Any\u2019tizers",
         "NatureRaised Farms",
       ],
+      id: "fmcg8",
     },
     {
       symbol: "PPC",
-      name: "Pilgrim’s Pride",
+      name: "Pilgrim\u2019s Pride",
       priceUSD: 46.14,
       openingPrice: 38.61,
       closingPrice: 46.62,
@@ -668,8 +688,8 @@ export const companyData = {
       growth: "20.75%",
       marketCap: "4B",
       topProducts: [
-        "Pilgrim’s",
-        "Gold’n Plump",
+        "Pilgrim\u2019s",
+        "Gold\u2019n Plump",
         "Just Bare",
         "Pierce Chicken",
         "Del Dia",
@@ -679,6 +699,7 @@ export const companyData = {
         "Savoro",
         "Chicken Plus",
       ],
+      id: "fmcg9",
     },
   ],
   agriculture: [
@@ -704,6 +725,7 @@ export const companyData = {
         "Cocoa processing",
         "Emulsifiers & stabilizers",
       ],
+      id: "agriculture0",
     },
     {
       symbol: "DE",
@@ -727,6 +749,7 @@ export const companyData = {
         "Autonomous tractors",
         "John Deere Financial Services",
       ],
+      id: "agriculture1",
     },
     {
       symbol: "BG",
@@ -750,6 +773,7 @@ export const companyData = {
         "Refined sugar",
         "Plant-based proteins",
       ],
+      id: "agriculture2",
     },
     {
       symbol: "CTVA",
@@ -773,6 +797,7 @@ export const companyData = {
         "Digital ag tools",
         "Crop protection platforms",
       ],
+      id: "agriculture3",
     },
     {
       symbol: "NTR",
@@ -796,6 +821,7 @@ export const companyData = {
         "Digital crop services",
         "Specialty ag inputs",
       ],
+      id: "agriculture4",
     },
     {
       symbol: "CF",
@@ -819,6 +845,7 @@ export const companyData = {
         "Nutrient delivery systems",
         "Low-carbon fertilizer",
       ],
+      id: "agriculture5",
     },
     {
       symbol: "ANDE",
@@ -842,6 +869,7 @@ export const companyData = {
         "Specialty grains",
         "Agronomy services",
       ],
+      id: "agriculture6",
     },
     {
       symbol: "CVGW",
@@ -865,6 +893,7 @@ export const companyData = {
         "Foodservice avocado products",
         "Branded deli products",
       ],
+      id: "agriculture7",
     },
     {
       symbol: "FDP",
@@ -888,6 +917,7 @@ export const companyData = {
         "Plant-based products",
         "Snack fruit packs",
       ],
+      id: "agriculture8",
     },
     {
       symbol: "IPI",
@@ -911,6 +941,7 @@ export const companyData = {
         "Irrigation-grade minerals",
         "Agricultural minerals",
       ],
+      id: "agriculture9",
     },
   ],
   automotive: [
@@ -936,6 +967,7 @@ export const companyData = {
         "Megapack",
         "Solar Roof",
       ],
+      id: "automotive0",
     },
     {
       symbol: "F",
@@ -959,6 +991,7 @@ export const companyData = {
         "Maverick",
         "E-Transit",
       ],
+      id: "automotive1",
     },
     {
       symbol: "GM",
@@ -982,6 +1015,7 @@ export const companyData = {
         "Cruise (Autonomous)",
         "OnStar",
       ],
+      id: "automotive2",
     },
     {
       symbol: "RIVN",
@@ -1005,6 +1039,7 @@ export const companyData = {
         "Gear Tunnel Accessories",
         "Rivian App",
       ],
+      id: "automotive3",
     },
     {
       symbol: "LCID",
@@ -1028,6 +1063,7 @@ export const companyData = {
         "Glass Cockpit Interface",
         "Over-the-Air Updates",
       ],
+      id: "automotive4",
     },
     {
       symbol: "NIO",
@@ -1051,6 +1087,7 @@ export const companyData = {
         "BaaS (Battery-as-a-Service)",
         "Banyan Operating System",
       ],
+      id: "automotive5",
     },
     {
       symbol: "TM",
@@ -1074,6 +1111,7 @@ export const companyData = {
         "Mirai (Hydrogen)",
         "Innova",
       ],
+      id: "automotive6",
     },
     {
       symbol: "HMC",
@@ -1097,6 +1135,7 @@ export const companyData = {
         "Clarity",
         "HondaJet",
       ],
+      id: "automotive7",
     },
     {
       symbol: "HYMTF",
@@ -1120,6 +1159,7 @@ export const companyData = {
         "IONIQ 5",
         "Staria",
       ],
+      id: "automotive8",
     },
     {
       symbol: "APTV",
@@ -1143,6 +1183,7 @@ export const companyData = {
         "Vehicle Data Management",
         "Over-the-Air Software Updates",
       ],
+      id: "automotive9",
     },
   ],
   spaceTech: [
@@ -1168,6 +1209,7 @@ export const companyData = {
         "PAC-3 MSE",
         "Hypersonic Glide Vehicle (ARRW)",
       ],
+      id: "spaceTech0",
     },
     {
       symbol: "NOC",
@@ -1191,6 +1233,7 @@ export const companyData = {
         "Advanced Battle Management System",
         "Space Launch Support Systems",
       ],
+      id: "spaceTech1",
     },
     {
       symbol: "BA",
@@ -1214,6 +1257,7 @@ export const companyData = {
         "Starliner Spacecraft",
         "X-37B Spaceplane",
       ],
+      id: "spaceTech2",
     },
     {
       symbol: "RTX",
@@ -1237,6 +1281,7 @@ export const companyData = {
         "LTAMDS Radar",
         "Peregrine Missile",
       ],
+      id: "spaceTech3",
     },
     {
       symbol: "RKLB",
@@ -1260,6 +1305,7 @@ export const companyData = {
         "Autonomous Flight Termination System",
         "Mission Control Center (NZ)",
       ],
+      id: "spaceTech4",
     },
     {
       symbol: "MAXR",
@@ -1283,6 +1329,7 @@ export const companyData = {
         "Spacecraft Buses",
         "Deep Space Exploration Systems",
       ],
+      id: "spaceTech5",
     },
     {
       symbol: "IRDM",
@@ -1306,6 +1353,7 @@ export const companyData = {
         "Global Data Services",
         "IoT M2M Services",
       ],
+      id: "spaceTech6",
     },
     {
       symbol: "SPCE",
@@ -1329,6 +1377,7 @@ export const companyData = {
         "Microgravity Research Missions",
         "High-Altitude Test Flights",
       ],
+      id: "spaceTech7",
     },
     {
       symbol: "ASTR",
@@ -1352,6 +1401,7 @@ export const companyData = {
         "Dedicated Payload Deployment",
         "Orbital Transport Services",
       ],
+      id: "spaceTech8",
     },
     {
       symbol: "RDW",
@@ -1375,6 +1425,7 @@ export const companyData = {
         "In-space Robotics",
         "Digital Engineering Solutions",
       ],
+      id: "spaceTech9",
     },
   ],
   ai: [
@@ -1400,6 +1451,7 @@ export const companyData = {
         "AI Enterprise Suite",
         "H100 Hopper GPU",
       ],
+      id: "ai0",
     },
     {
       symbol: "GOOGL",
@@ -1423,6 +1475,7 @@ export const companyData = {
         "Vertex AI",
         "TensorFlow",
       ],
+      id: "ai1",
     },
     {
       symbol: "MSFT",
@@ -1446,6 +1499,7 @@ export const companyData = {
         "LinkedIn",
         "Bing Chat Enterprise",
       ],
+      id: "ai2",
     },
     {
       symbol: "AMZN",
@@ -1469,6 +1523,7 @@ export const companyData = {
         "AWS Lambda",
         "Amazon Polly",
       ],
+      id: "ai3",
     },
     {
       symbol: "META",
@@ -1492,6 +1547,7 @@ export const companyData = {
         "Meta AI Assistant",
         "Ray-Ban Meta Glasses",
       ],
+      id: "ai4",
     },
     {
       symbol: "IBM",
@@ -1515,6 +1571,7 @@ export const companyData = {
         "AIOps",
         "IBM Cloud Object Storage",
       ],
+      id: "ai5",
     },
     {
       symbol: "PLTR",
@@ -1538,6 +1595,7 @@ export const companyData = {
         "Digital Twin Simulations",
         "Operational Intelligence Platforms",
       ],
+      id: "ai6",
     },
     {
       symbol: "AI",
@@ -1561,6 +1619,7 @@ export const companyData = {
         "C3 AI Smart Grid",
         "C3 AI Ex Machina",
       ],
+      id: "ai7",
     },
     {
       symbol: "SOUN",
@@ -1584,6 +1643,7 @@ export const companyData = {
         "AI for Hospitality",
         "Speech-to-Meaning Engine",
       ],
+      id: "ai8",
     },
     {
       symbol: "BBAI",
@@ -1607,6 +1667,7 @@ export const companyData = {
         "Computer Vision for Defense",
         "AI Mission Planning Software",
       ],
+      id: "ai9",
     },
   ],
   banking: [
@@ -1632,6 +1693,7 @@ export const companyData = {
         "Auto Loans",
         "Business Banking Solutions",
       ],
+      id: "banking0",
     },
     {
       symbol: "BAC",
@@ -1655,6 +1717,7 @@ export const companyData = {
         "Wealth Management",
         "Credit Cards",
       ],
+      id: "banking1",
     },
     {
       symbol: "C",
@@ -1678,6 +1741,7 @@ export const companyData = {
         "Institutional Clients Group",
         "Citi Flex Loan",
       ],
+      id: "banking2",
     },
     {
       symbol: "WFC",
@@ -1701,6 +1765,7 @@ export const companyData = {
         "Commercial Real Estate Services",
         "Wealth and Investment Management",
       ],
+      id: "banking3",
     },
     {
       symbol: "GS",
@@ -1724,6 +1789,7 @@ export const companyData = {
         "Consumer Banking",
         "Goldman Sachs Insights",
       ],
+      id: "banking4",
     },
     {
       symbol: "MS",
@@ -1747,6 +1813,7 @@ export const companyData = {
         "Portfolio Management",
         "Sustainable Investing Solutions",
       ],
+      id: "banking5",
     },
     {
       symbol: "USB",
@@ -1770,6 +1837,7 @@ export const companyData = {
         "Personal Loans",
         "Digital Banking Tools",
       ],
+      id: "banking6",
     },
     {
       symbol: "PNC",
@@ -1793,6 +1861,7 @@ export const companyData = {
         "PNC Mobile App",
         "Small Business Loans",
       ],
+      id: "banking7",
     },
     {
       symbol: "TFC",
@@ -1816,6 +1885,7 @@ export const companyData = {
         "Loan Services",
         "Insurance Solutions",
       ],
+      id: "banking8",
     },
     {
       symbol: "COF",
@@ -1829,7 +1899,7 @@ export const companyData = {
       marketCap: "51B",
       topProducts: [
         "Capital One Credit Cards",
-        "Capital One Cafés",
+        "Capital One Caf\u00e9s",
         "Auto Finance",
         "360 Performance Savings",
         "Mobile App",
@@ -1839,6 +1909,7 @@ export const companyData = {
         "Commercial Banking",
         "Machine Learning Fraud Detection",
       ],
+      id: "banking9",
     },
   ],
   healthCare: [
@@ -1864,6 +1935,7 @@ export const companyData = {
         "Health Savings Accounts (HSA)",
         "Care Coordination Services",
       ],
+      id: "healthCare0",
     },
     {
       symbol: "PFE",
@@ -1887,6 +1959,7 @@ export const companyData = {
         "Lyrica (nerve pain)",
         "Vyndaqel (ATTR-CM)",
       ],
+      id: "healthCare1",
     },
     {
       symbol: "JNJ",
@@ -1910,6 +1983,7 @@ export const companyData = {
         "OneTouch Diabetes Products",
         "Neutrogena (skincare)",
       ],
+      id: "healthCare2",
     },
     {
       symbol: "MRNA",
@@ -1933,6 +2007,7 @@ export const companyData = {
         "Personalized Cancer Therapies",
         "Moderna Genomics Platform",
       ],
+      id: "healthCare3",
     },
     {
       symbol: "MRK",
@@ -1956,6 +2031,7 @@ export const companyData = {
         "ProQuad (MMRV vaccine)",
         "Cubicin (antibiotic)",
       ],
+      id: "healthCare4",
     },
     {
       symbol: "ABBV",
@@ -1979,6 +2055,7 @@ export const companyData = {
         "Lupron (hormone therapy)",
         "Allergan Aesthetics",
       ],
+      id: "healthCare5",
     },
     {
       symbol: "BMY",
@@ -2002,6 +2079,7 @@ export const companyData = {
         "Sprycel (leukemia)",
         "Empliciti (multiple myeloma)",
       ],
+      id: "healthCare6",
     },
     {
       symbol: "GILD",
@@ -2025,6 +2103,7 @@ export const companyData = {
         "Yescarta (CAR-T)",
         "Hepcludex",
       ],
+      id: "healthCare7",
     },
     {
       symbol: "LLY",
@@ -2038,7 +2117,7 @@ export const companyData = {
       marketCap: "850B",
       topProducts: [
         "Mounjaro (type 2 diabetes/obesity)",
-        "Alzheimer’s Drug Donanemab (pipeline)",
+        "Alzheimer\u2019s Drug Donanemab (pipeline)",
         "Zyprexa (mental health)",
         "Trulicity (diabetes)",
         "Cymbalta (depression)",
@@ -2048,6 +2127,7 @@ export const companyData = {
         "Emgality (migraine)",
         "Taltz (psoriasis)",
       ],
+      id: "healthCare8",
     },
     {
       symbol: "CVS",
@@ -2071,6 +2151,7 @@ export const companyData = {
         "Prescription Delivery",
         "Wellness Products",
       ],
+      id: "healthCare9",
     },
   ],
   realestate: [
@@ -2096,6 +2177,7 @@ export const companyData = {
         "Global Tower Leasing",
         "Broadcast Infrastructure",
       ],
+      id: "realestate0",
     },
     {
       symbol: "PLD",
@@ -2119,6 +2201,7 @@ export const companyData = {
         "High-Bay Distribution Centers",
         "Cross-Dock Facilities",
       ],
+      id: "realestate1",
     },
     {
       symbol: "CCI",
@@ -2142,6 +2225,7 @@ export const companyData = {
         "Urban Wireless Nodes",
         "Private Network Hosting",
       ],
+      id: "realestate2",
     },
     {
       symbol: "EQIX",
@@ -2165,6 +2249,7 @@ export const companyData = {
         "Bare Metal Services",
         "Data Center-as-a-Service",
       ],
+      id: "realestate3",
     },
     {
       symbol: "PSA",
@@ -2188,6 +2273,7 @@ export const companyData = {
         "RV and Boat Storage",
         "Storage Insurance Services",
       ],
+      id: "realestate4",
     },
     {
       symbol: "SPG",
@@ -2211,6 +2297,7 @@ export const companyData = {
         "E-commerce Fulfillment Integration",
         "Retail Tenant Services",
       ],
+      id: "realestate5",
     },
     {
       symbol: "WELL",
@@ -2234,6 +2321,7 @@ export const companyData = {
         "Outpatient Medical Buildings",
         "Behavioral Health Facilities",
       ],
+      id: "realestate6",
     },
     {
       symbol: "O",
@@ -2257,6 +2345,7 @@ export const companyData = {
         "U.S. and International Expansion",
         "Diversified Real Estate Portfolio",
       ],
+      id: "realestate7",
     },
     {
       symbol: "AVB",
@@ -2280,6 +2369,7 @@ export const companyData = {
         "Suburban Apartment Complexes",
         "Market-Rate Housing Units",
       ],
+      id: "realestate8",
     },
     {
       symbol: "DLR",
@@ -2303,6 +2393,7 @@ export const companyData = {
         "Enterprise IT Infrastructure",
         "Edge Computing Support",
       ],
+      id: "realestate9",
     },
   ],
   energy: [
@@ -2328,6 +2419,7 @@ export const companyData = {
         "Refining & marketing",
         "Upstream exploration",
       ],
+      id: "energy0",
     },
     {
       symbol: "CVX",
@@ -2351,6 +2443,7 @@ export const companyData = {
         "Lubricants",
         "Deepwater drilling",
       ],
+      id: "energy1",
     },
     {
       symbol: "COP",
@@ -2374,6 +2467,7 @@ export const companyData = {
         "Carbon solutions",
         "Heavy oil production",
       ],
+      id: "energy2",
     },
     {
       symbol: "SLB",
@@ -2397,6 +2491,7 @@ export const companyData = {
         "Energy transition technologies",
         "Wireline services",
       ],
+      id: "energy3",
     },
     {
       symbol: "EOG",
@@ -2420,6 +2515,7 @@ export const companyData = {
         "Smart pad drilling",
         "Multi-well development",
       ],
+      id: "energy4",
     },
     {
       symbol: "OXY",
@@ -2443,6 +2539,7 @@ export const companyData = {
         "OxyChem PVC products",
         "Water recycling systems",
       ],
+      id: "energy5",
     },
     {
       symbol: "BKR",
@@ -2466,6 +2563,7 @@ export const companyData = {
         "Hydrogen technology",
         "Artificial lift systems",
       ],
+      id: "energy6",
     },
     {
       symbol: "MRO",
@@ -2489,6 +2587,7 @@ export const companyData = {
         "Upstream portfolio diversification",
         "Corporate emissions strategy",
       ],
+      id: "energy7",
     },
     {
       symbol: "DVN",
@@ -2512,6 +2611,7 @@ export const companyData = {
         "Carbon-conscious strategies",
         "Advanced analytics in drilling",
       ],
+      id: "energy8",
     },
     {
       symbol: "VLO",
@@ -2535,6 +2635,7 @@ export const companyData = {
         "Ethanol production",
         "Logistics & pipelines",
       ],
+      id: "energy9",
     },
   ],
   consumerElectronics: [
@@ -2559,6 +2660,7 @@ export const companyData = {
         "Apple TV+",
         "iCloud",
       ],
+      id: "consumerElectronics0",
     },
     {
       symbol: "MSFT",
@@ -2581,6 +2683,7 @@ export const companyData = {
         "Bing AI",
         "Copilot",
       ],
+      id: "consumerElectronics1",
     },
     {
       symbol: "GOOGL",
@@ -2603,6 +2706,7 @@ export const companyData = {
         "Bard (Gemini)",
         "Chrome OS",
       ],
+      id: "consumerElectronics2",
     },
     {
       symbol: "NVDA",
@@ -2625,6 +2729,7 @@ export const companyData = {
         "RTX Graphics Cards",
         "Hopper Architecture",
       ],
+      id: "consumerElectronics3",
     },
     {
       symbol: "AMD",
@@ -2647,6 +2752,7 @@ export const companyData = {
         "Versal AI Engines",
         "Adrenalin Software",
       ],
+      id: "consumerElectronics4",
     },
     {
       symbol: "CSCO",
@@ -2669,6 +2775,7 @@ export const companyData = {
         "ThousandEyes",
         "Umbrella Security",
       ],
+      id: "consumerElectronics5",
     },
     {
       symbol: "APH",
@@ -2691,6 +2798,7 @@ export const companyData = {
         "Industrial Power Connectors",
         "High-Speed Interconnects",
       ],
+      id: "consumerElectronics6",
     },
     {
       symbol: "ANET",
@@ -2713,6 +2821,7 @@ export const companyData = {
         "Cloud Networking Platforms",
         "Next-gen Routing",
       ],
+      id: "consumerElectronics7",
     },
     {
       symbol: "DELL",
@@ -2735,6 +2844,7 @@ export const companyData = {
         "Dell CloudIQ",
         "Display Monitors",
       ],
+      id: "consumerElectronics8",
     },
     {
       symbol: "CDNS",
@@ -2757,6 +2867,7 @@ export const companyData = {
         "Xcelium Parallel Simulator",
         "Custom Compiler Suite",
       ],
+      id: "consumerElectronics9",
     },
   ],
   "airline&logistics": [
@@ -2781,6 +2892,7 @@ export const companyData = {
         "Returns Manager",
         "Billing Center",
       ],
+      id: "airline&logistics0",
     },
     {
       symbol: "FDX",
@@ -2803,6 +2915,7 @@ export const companyData = {
         "FedEx Supply Chain",
         "FedEx Delivery Manager",
       ],
+      id: "airline&logistics1",
     },
     {
       symbol: "ODFL",
@@ -2825,6 +2938,7 @@ export const companyData = {
         "Supply Chain Consulting",
         "OD Web Tools",
       ],
+      id: "airline&logistics2",
     },
     {
       symbol: "DAL",
@@ -2847,6 +2961,7 @@ export const companyData = {
         "Delta Vacations",
         "Fly Delta App",
       ],
+      id: "airline&logistics3",
     },
     {
       symbol: "UAL",
@@ -2869,6 +2984,7 @@ export const companyData = {
         "United Private Screening",
         "Wi-Fi on Board",
       ],
+      id: "airline&logistics4",
     },
     {
       symbol: "LUV",
@@ -2891,6 +3007,7 @@ export const companyData = {
         "In-flight Messaging",
         "Southwest Vacations",
       ],
+      id: "airline&logistics5",
     },
     {
       symbol: "EXPD",
@@ -2913,6 +3030,7 @@ export const companyData = {
         "Expeditors Order Management",
         "Transportation Management",
       ],
+      id: "airline&logistics6",
     },
     {
       symbol: "JBLU",
@@ -2935,6 +3053,7 @@ export const companyData = {
         "Carbon Offset Program",
         "Seatback Entertainment",
       ],
+      id: "airline&logistics7",
     },
     {
       symbol: "ALK",
@@ -2957,6 +3076,7 @@ export const companyData = {
         "Mobile Check-in",
         "Sustainable Aviation Fuel Program",
       ],
+      id: "airline&logistics8",
     },
     {
       symbol: "AAL",
@@ -2979,6 +3099,7 @@ export const companyData = {
         "Cargo Services",
         "AA Mobile App",
       ],
+      id: "airline&logistics9",
     },
   ],
   "media&entertainement": [
@@ -3003,6 +3124,7 @@ export const companyData = {
         "Narcos",
         "The Witcher",
       ],
+      id: "media&entertainement0",
     },
     {
       symbol: "DIS",
@@ -3025,6 +3147,7 @@ export const companyData = {
         "National Geographic",
         "ABC Network",
       ],
+      id: "media&entertainement1",
     },
     {
       symbol: "CMCSA",
@@ -3047,6 +3170,7 @@ export const companyData = {
         "Telemundo",
         "Fandango",
       ],
+      id: "media&entertainement2",
     },
     {
       symbol: "LYV",
@@ -3069,6 +3193,7 @@ export const companyData = {
         "Rolling Loud",
         "VIP Nation",
       ],
+      id: "media&entertainement3",
     },
     {
       symbol: "WBD",
@@ -3091,6 +3216,7 @@ export const companyData = {
         "Animal Planet",
         "HBO Originals",
       ],
+      id: "media&entertainement4",
     },
     {
       symbol: "FWONA",
@@ -3113,6 +3239,7 @@ export const companyData = {
         "F1 Hospitality",
         "F1 Data & Insights",
       ],
+      id: "media&entertainement5",
     },
     {
       symbol: "FOX",
@@ -3135,6 +3262,7 @@ export const companyData = {
         "Fox Broadcasting Company",
         "Fox Bet",
       ],
+      id: "media&entertainement6",
     },
     {
       symbol: "PARA",
@@ -3157,6 +3285,7 @@ export const companyData = {
         "Smithsonian Channel",
         "CBS News",
       ],
+      id: "media&entertainement7",
     },
     {
       symbol: "ATVI",
@@ -3177,8 +3306,9 @@ export const companyData = {
         "Hearthstone",
         "StarCraft",
         "Crash Bandicoot",
-        "Tony Hawk’s Pro Skater",
+        "Tony Hawk\u2019s Pro Skater",
       ],
+      id: "media&entertainement8",
     },
     {
       symbol: "MGM",
@@ -3201,6 +3331,7 @@ export const companyData = {
         "Luxor",
         "MGM Signature",
       ],
+      id: "media&entertainement9",
     },
   ],
 };

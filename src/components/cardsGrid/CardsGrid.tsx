@@ -5,7 +5,7 @@ import {
 import { Company, companyData } from "@/constants/constant";
 import { selectCompaniesByNumber, shuffleArray } from "@/utils/common";
 import Image from "next/image";
-import React, { useCallback, useMemo, useState } from "react";
+import React, { useCallback, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
 import AnimatedButton from "../animatedButton/AnimatedButton";
 import { signInWithPopup } from "firebase/auth";
@@ -32,12 +32,15 @@ const CardsGrid: React.FC<CardsGridProps> = ({
 
   const [shuffledData, setShuffledData] = useState(() => extractedCompanyData);
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
+  const [tooltipIndex, setTooltipIndex] = useState<number | null>(null);
+
+  const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const { prevStep, setInterestsData, interestsData, user, setUser } =
     useAppStore();
 
   const selectedCardIds = useMemo(
-    () => new Set(selectedCard.map((card) => card.symbol)),
+    () => new Set(selectedCard.map((card) => card?.id)),
     [selectedCard]
   );
 
@@ -45,16 +48,18 @@ const CardsGrid: React.FC<CardsGridProps> = ({
     setShuffledData(shuffleArray(extractedCompanyData));
   }, [extractedCompanyData]);
 
+  console.log(extractedCompanyData);
+
   const handleCardSelect = useCallback(
     (item: Company) => {
-      const isSelected = selectedCardIds.has(item.symbol);
+      const isSelected = selectedCardIds.has(item?.id);
       if (!isSelected && selectedCard.length === 4) {
         toast.error("Please select only 4 cards");
         return;
       }
       setSelectedCard((prev) =>
         isSelected
-          ? prev.filter((card) => card.symbol !== item.symbol)
+          ? prev.filter((card) => card?.id !== item?.id)
           : [...prev, item]
       );
     },
@@ -122,30 +127,67 @@ const CardsGrid: React.FC<CardsGridProps> = ({
           >
             <RotateCcw className="mr-1.5 h-4 w-4" /> Reset
           </button> */}
+
           <AnimatedButton
-            className=" flex justify-center items-center"
+            className="text-base sm:text-lg flex justify-center items-center"
+            onClick={() => setSelectedCard([])}
+          >
+            {/* <Shuffle className="mr-1.5 h-4 w-4" /> */}
+            Clear
+          </AnimatedButton>
+          <AnimatedButton
+            className="text-base sm:text-lg flex justify-center items-center"
             onClick={handleShuffle}
           >
-            <Shuffle className="mr-1.5 h-4 w-4" />
-            Surprise Me
+            {/* <Shuffle className="mr-1.5 h-4 w-4" /> */}
+            Shuffle
           </AnimatedButton>
         </motion.div>
       </div>
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
         {shuffledData?.slice(0, 10).map((card, idx) => {
-          const isSelected = selectedCardIds.has(card.symbol);
+          const isSelected = selectedCardIds.has(card?.id);
           const isHovered = hoveredCard === idx;
 
+          const handleTouchStart = () => {
+            longPressTimeout.current = setTimeout(() => {
+              setHoveredCard(idx);
+              setTooltipIndex(null); // hide tooltip on long press
+            }, 400);
+
+            // Show tooltip briefly for short touches
+            setTooltipIndex(idx);
+            setTimeout(() => setTooltipIndex(null), 1200);
+          };
+
+          const handleTouchEnd = () => {
+            if (longPressTimeout.current)
+              clearTimeout(longPressTimeout.current);
+            setHoveredCard(null);
+          };
+
+          const handleTouchMove = () => {
+            if (longPressTimeout.current)
+              clearTimeout(longPressTimeout.current);
+            setHoveredCard(null);
+          };
           return (
             <motion.div
               key={idx}
-              className="w-[10rem] h-[14rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] perspective-1000"
+              className="w-[9rem] h-[12rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] perspective-1000"
               onMouseEnter={() => setHoveredCard(idx)}
               onMouseLeave={() => setHoveredCard(null)}
-              onTouchStart={() => setHoveredCard(idx)}
-              onTouchEnd={() => setHoveredCard(null)}
+              onTouchStart={handleTouchStart}
+              onTouchEnd={handleTouchEnd}
+              onTouchMove={handleTouchMove}
               onClick={() => handleCardSelect(card)}
             >
+              {/* ✅ Tooltip */}
+              {tooltipIndex === idx && (
+                <div className="absolute -top-8 left-1/2 -translate-x-1/2 z-20 bg-gray-800 text-white text-xs px-3 py-1 rounded shadow-lg pointer-events-none animate-fadeIn">
+                  Long press to see products
+                </div>
+              )}
               <motion.div
                 className="relative w-full h-full rounded-xl transition-transform duration-500"
                 animate={{ rotateY: isHovered ? 180 : 0 }}
@@ -173,12 +215,13 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                       alt={card.name}
                       width={100}
                       height={100}
-                      className="transition-transform duration-300 hover:scale-110"
+                      className="transition-transform duration-300 hover:scale-110 "
                     />
+                    {/* w-12 h-12 sm:w-14 sm:h-14 md:w-max md:h-max */}
                   </div>
 
                   <h3
-                    className={`text-sm md:text-xl font-bold capitalize ${
+                    className={`text-xs sm:text-sm md:text-xl font-bold capitalize ${
                       isSelected ? "text-green-700" : "text-gray-800"
                     }`}
                   >
@@ -188,10 +231,10 @@ const CardsGrid: React.FC<CardsGridProps> = ({
 
                 {/* BACK */}
                 <div className="absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-start justify-center bg-white rounded-xl p-5 shadow">
-                  <h4 className="text-lg font-semibold text-gray-700 mb-2 w-full text-center">
+                  <h4 className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700 mb-2 w-full text-center">
                     Top Products
                   </h4>
-                  <ul className="list-disc list-inside text-gray-600 text-sm space-y-1 overflow-y-auto no-scrollbar max-h-[90%]">
+                  <ul className="list-disc list-inside text-gray-600 text-xs  sm:text-sm font-semibold space-y-1 overflow-y-auto no-scrollbar max-h-[90%]">
                     {(card.topProducts ?? []).map((product, i) => (
                       <li key={i}>{product}</li>
                     ))}
@@ -221,7 +264,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         {selectedCard?.length >= 4 ? (
           <AnimatedButton
             name="Reveal"
-            className="px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
+            className="text-base sm:text-lg font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
             onClick={handleReveal}
           />
         ) : (
