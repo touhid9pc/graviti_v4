@@ -84,7 +84,7 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
             </h2>
           </div>
           {/* Main message */}
-          {/* <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
+          <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
             Your stock choices?{" "}
             <span className="font-semibold text-purple-600">Impressive</span>.
             If you’d invested
@@ -99,16 +99,16 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
               ₹{profit.toFixed(2)}
             </span>{" "}
             by now.
-          </p> */}
+          </p>
 
           {/* Total display */}
-          {/* <p className="text-base sm:text-lg text-[#444]">
+          <p className="text-base sm:text-lg text-[#444]">
             That brings your total to{" "}
             <span className="font-semibold text-black">
               ₹{total.toFixed(2)}
             </span>{" "}
             💸
-          </p> */}
+          </p>
         </motion.div>
       )}
 
