@@ -90,6 +90,22 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         toast.success(
           `Signed in successfully. Great to have you here ${result?.user?.displayName} 🙌.`
         );
+        setInterestsData({
+          companies: selectedCard,
+          triviaScore: 49,
+          timestamp: new Date(),
+        });
+
+        await addDoc(collection(firebaseDb, "interests"), {
+          companies: selectedCard,
+          uid: `${user?.uid}`,
+          timestamp: new Date(),
+        });
+        setShowReveal(true);
+        setTimeout(() => {
+          setLoading(false);
+          scrollToSection();
+        }, 300);
       }
       if (user) {
         setInterestsData({
