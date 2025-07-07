@@ -1,3 +1,5 @@
+import { LucideIcon, TrendingUp, UserCheck, Wallet } from 'lucide-react';
+
 export interface CarouselCardData {
   id: number;
   title: string;
@@ -3346,27 +3348,34 @@ export const gravitiFeatures: string[] = [
   "User-friendly platform powered by proprietary technology",
 ];
 
-interface InvestmentStep {
+
+export interface InvestmentStep {
+  icon: LucideIcon;
   title: string;
   description: string;
+  image: string;
 }
-
 export const investmentSteps: InvestmentStep[] = [
   {
+    icon: UserCheck,
     title: "Complete Your KYC",
     description: "Secure, quick onboarding to unlock full platform access.",
+    image: "/screenshot.png",
   },
   {
+    icon: Wallet,
     title: "Add Funds",
     description: "Easily fund your account in INR via India’s LRS.",
+    image: "/screenshot2.png",
   },
   {
+    icon: TrendingUp,
     title: "Start Investing",
     description:
       "Choose your own assets or invest in curated baskets designed for performance.",
+    image: "/screenshot3.png",
   },
 ];
-
 export interface InvestmentOptions {
   title: string;
   description: string;

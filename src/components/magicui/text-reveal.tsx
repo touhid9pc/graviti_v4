@@ -22,16 +22,16 @@ export const TextReveal: FC<TextRevealProps> = ({ children, className }) => {
   const words = children.split(" ");
 
   return (
-    <div ref={targetRef} className={cn("relative z-0 h-[200vh]", className)}>
+    <div ref={targetRef} className={cn("relative z-0 md:h-[200vh]", className)}>
       <div
         className={
-          "sticky top-0 mx-auto flex h-[50%] max-w-4xl items-center bg-transparent px-[1rem] py-[5rem]"
+          "sticky top-0 mx-auto flex h-[60%] px-[1rem] py-[5rem]"
         }
       >
         <span
           ref={targetRef}
           className={
-            "flex flex-wrap p-5 text-base font-bold text-slate-500 md:p-8 md:text-xl lg:p-10 lg:text-2xl xl:text-3xl"
+            "flex flex-wrap p-0 text-base font-bold text-slate-500 md:p-8 md:text-xl lg:p-10 lg:text-2xl " 
           }
         >
           {words.map((word, i) => {
@@ -57,10 +57,15 @@ interface WordProps {
 
 const Word: FC<WordProps> = ({ children, progress, range }) => {
   const opacity = useTransform(progress, range, [0, 1]);
+  const scale = useTransform(progress, range, [0.8, 1]); // scale from 0.8 to 1
+
   return (
-    <span className="xl:lg-3 relative mx-1 lg:mx-1.5">
+    <span className="relative mx-1 lg:mx-1">
       <span className="absolute opacity-30">{children}</span>
-      <motion.span style={{ opacity: opacity }} className={"text-slate-900 "}>
+      <motion.span
+        style={{ opacity: opacity, scale: scale }}
+        className="text-slate-900"
+      >
         {children}
       </motion.span>
     </span>
