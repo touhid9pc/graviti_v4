@@ -7,7 +7,6 @@ import {
 import toast from "react-hot-toast";
 
 export function shuffleArray<T>(array: T[]): T[] {
-  console.log({ array });
   const newArr = [...array];
   for (let i = newArr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * (i + 1));
@@ -15,6 +14,25 @@ export function shuffleArray<T>(array: T[]): T[] {
     [newArr[i], newArr[j]] = [newArr[j], newArr[i]];
   }
   return newArr;
+}
+
+function getRandomSample(arr, count: number) {
+  const shuffled = [...arr].sort(() => 0.5 - Math.random());
+  return shuffled.slice(0, count);
+}
+
+export function pickRandomCompaniesPerCategory(data, count = 10) {
+  const categories = Object.keys(data);
+  const randomCategories = getRandomSample(categories, count);
+
+  const result = randomCategories.map((category) => {
+    const companies = data[category];
+    const randomCompany =
+      companies[Math.floor(Math.random() * companies.length)];
+    return { company: randomCompany };
+  });
+
+  return result;
 }
 
 export function calculateStockProfit(

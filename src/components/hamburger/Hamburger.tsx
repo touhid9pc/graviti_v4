@@ -16,15 +16,14 @@ const HamburgerMenu = () => {
 
   const toggleMenu = () => setOpen((prev) => !prev);
 
-  // Detect scroll direction
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
 
       if (currentY > lastScrollY && currentY > 50) {
-        setShowNavbar(false); // scrolling down
+        setShowNavbar(false);
       } else {
-        setShowNavbar(true); // scrolling up
+        setShowNavbar(true);
       }
 
       setLastScrollY(currentY);
@@ -46,7 +45,6 @@ const HamburgerMenu = () => {
           Logo
         </Link> */}
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6">
           {links.map((link) => (
             <Link
@@ -59,7 +57,6 @@ const HamburgerMenu = () => {
           ))}
         </nav>
 
-        {/* Hamburger Icon */}
         <button
           onClick={toggleMenu}
           aria-label="Toggle Menu"
@@ -79,14 +76,13 @@ const HamburgerMenu = () => {
             />
             <span
               className={`block h-0.5 w-6 bg-black transition-transform duration-300 ${
-                open ? "-rotate-45 -translate-y-1" : ""
+                open ? "-rotate-45 -translate-y-2.5" : ""
               }`}
             />
           </div>
         </button>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {open && (
           <>
@@ -95,7 +91,7 @@ const HamburgerMenu = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="fixed top-0 right-0 h-full w-64 bg-white p-6 shadow-lg z-40 flex flex-col space-y-6 md:hidden"
+              className="fixed top-0 right-0 h-full w-64 bg-white/10 backdrop-blur-lg p-6 shadow-lg z-40 flex flex-col space-y-6 md:hidden"
             >
               {links.map((link) => (
                 <Link
@@ -109,9 +105,8 @@ const HamburgerMenu = () => {
               ))}
             </motion.nav>
 
-            {/* Overlay */}
             <motion.div
-              className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
+              className="fixed inset-0 bg-white/10 backdrop-blur-sm z-30"
               onClick={toggleMenu}
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
