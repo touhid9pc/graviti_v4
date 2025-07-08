@@ -121,9 +121,6 @@ function AboutSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative group px-6 py-8 max-w-xl w-full text-center"
             >
-              {/* Glassy layered background using before/after */}
-              <div className="absolute inset-0 before:absolute before:inset-0 before:bg-white/10 before:backdrop-blur-md before:border before:border-slate-200/20 before:transition-all before:duration-500 group-hover:before:bg-white/20 after:absolute after:inset-0 after:bg-gradient-to-br after:from-white/0 after:to-blue-50/10 z-[-1]" />
-
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Vision
               </h3>
@@ -142,9 +139,6 @@ function AboutSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="relative group px-6 py-8 max-w-xl w-full text-center"
             >
-              {/* Glassy layered background using before/after */}
-              <div className="absolute inset-0 before:absolute before:inset-0 before:bg-white/10 before:backdrop-blur-md before:border before:border-slate-200/20 before:transition-all before:duration-500 group-hover:before:bg-white/20 after:absolute after:inset-0 after:bg-gradient-to-br after:from-white/0 after:to-purple-50/10 z-[-1]" />
-
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Mission
               </h3>
