@@ -5,10 +5,6 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SplitText from "gsap/SplitText";
 
-if (typeof window !== "undefined") {
-  gsap.registerPlugin(ScrollTrigger, SplitText);
-}
-
 interface TextRevealProps {
   children: string;
   className?: string;
@@ -19,6 +15,8 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
   const paragraphRef = useRef<HTMLParagraphElement>(null);
 
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger, SplitText);
+
     if (!wrapperRef.current || !paragraphRef.current) return;
 
     const split = new SplitText(paragraphRef.current, {
@@ -26,15 +24,12 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
       wordsClass: "reveal-word",
     });
 
-    // Calculate scroll duration dynamically
-    const scrollLength =
-      window.innerHeight / 2 + paragraphRef.current.scrollHeight;
-
     const animation = gsap.fromTo(
       split.words,
-      { opacity: 0.2 },
+      { opacity: 0.2, scale: 0.97 },
       {
         opacity: 1,
+        scale: 1,
         ease: "none",
         stagger: 0.05,
         scrollTrigger: {
@@ -42,7 +37,11 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
           pin: true,
           scrub: 1,
           start: "top top",
-          end: `+=${scrollLength}`,
+          end: () => {
+            // Dynamically calculate scroll length without using window
+            const height = paragraphRef.current?.offsetHeight ?? 0;
+            return `+=${height * 2}`; // Customize multiplier as needed
+          },
           anticipatePin: 1,
           markers: false,
         },
@@ -62,7 +61,7 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
     >
       <p
         ref={paragraphRef}
-        className="text-sm md:text-xl w-full max-w-4xl mx-auto lg:text-2xl xl:text-3xl font-semibold text-slate-900 leading-relaxed text-start md:text-center lg:text-start"
+        className="text-[0.9rem] md:text-xl w-full max-w-4xl mx-auto lg:text-2xl xl:text-3xl font-semibold text-slate-900 leading-relaxed text-start md:text-center lg:text-start"
       >
         {children}
       </p>
