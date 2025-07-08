@@ -3,10 +3,20 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { categories } from "@/constants/companyStocksImages";
 
+type categoryType = {
+  id: string;
+  title: string;
+  svgPath: string;
+};
+interface FancyDropdownProps {
+  selectedCategory: categoryType;
+  setSelectedCategory: (category: categoryType) => void;
+}
+
 export default function FancyDropdown({
   selectedCategory,
   setSelectedCategory,
-}) {
+}: FancyDropdownProps) {
   const [open, setOpen] = useState(false);
 
   return (

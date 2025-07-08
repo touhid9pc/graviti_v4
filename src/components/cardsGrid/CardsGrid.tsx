@@ -28,6 +28,12 @@ interface CardsGridProps {
   setShowReveal: (value: boolean) => void;
 }
 
+type categoryType = {
+  id: string;
+  title: string;
+  svgPath: string;
+};
+
 const CardsGrid: React.FC<CardsGridProps> = ({
   scrollToSection,
   proceedRef,
@@ -43,7 +49,9 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   const [tooltipIndex, setTooltipIndex] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
 
-  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
+  const [selectedCategory, setSelectedCategory] = useState<categoryType>(
+    categories[0]
+  );
 
   const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 

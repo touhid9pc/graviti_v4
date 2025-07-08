@@ -16,12 +16,12 @@ export function shuffleArray<T>(array: T[]): T[] {
   return newArr;
 }
 
-function getRandomSample(arr, count: number) {
+function getRandomSample(arr: any, count: number) {
   const shuffled = [...arr].sort(() => 0.5 - Math.random());
   return shuffled.slice(0, count);
 }
 
-export function pickRandomCompaniesPerCategory(data, count = 10) {
+export function pickRandomCompaniesPerCategory(data: any, count = 10) {
   const categories = Object.keys(data);
   const randomCategories = getRandomSample(categories, count);
 
