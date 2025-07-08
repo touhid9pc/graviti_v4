@@ -211,107 +211,109 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         </div>
 
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
-          {companyData[selectedCategory?.id]?.map((card, idx) => {
-            const isSelected = selectedCardIds.has(card?.id);
-            const isHovered = hoveredCard === idx;
+          {(companyData as any)[selectedCategory?.id]?.map(
+            (card: Company, idx: number) => {
+              const isSelected = selectedCardIds.has(card?.id);
+              const isHovered = hoveredCard === idx;
 
-            const handleTouchStart = () => {
-              longPressTimeout.current = setTimeout(() => {
-                setHoveredCard(idx);
-                setTooltipIndex(null);
-              }, 500);
+              const handleTouchStart = () => {
+                longPressTimeout.current = setTimeout(() => {
+                  setHoveredCard(idx);
+                  setTooltipIndex(null);
+                }, 500);
 
-              setTooltipIndex(card?.id);
-              setTimeout(() => setTooltipIndex(null), 1200);
-            };
+                setTooltipIndex(card?.id);
+                setTimeout(() => setTooltipIndex(null), 1200);
+              };
 
-            const handleTouchEnd = () => {
-              if (longPressTimeout.current)
-                clearTimeout(longPressTimeout.current);
-              setHoveredCard(null);
-            };
+              const handleTouchEnd = () => {
+                if (longPressTimeout.current)
+                  clearTimeout(longPressTimeout.current);
+                setHoveredCard(null);
+              };
 
-            const handleTouchMove = () => {
-              if (longPressTimeout.current)
-                clearTimeout(longPressTimeout.current);
-              setHoveredCard(null);
-            };
-            return (
-              <motion.div
-                key={idx}
-                className="w-[9rem] h-[12rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] perspective-1000"
-                onMouseEnter={() => {
-                  setTimeout(() => {
-                    setHoveredCard(idx);
-                  }, 500);
-                }}
-                onMouseLeave={() => setHoveredCard(null)}
-                onTouchStart={handleTouchStart}
-                onTouchEnd={handleTouchEnd}
-                onTouchMove={handleTouchMove}
-                onClick={() => handleCardSelect(card)}
-              >
+              const handleTouchMove = () => {
+                if (longPressTimeout.current)
+                  clearTimeout(longPressTimeout.current);
+                setHoveredCard(null);
+              };
+              return (
                 <motion.div
-                  className="relative w-full h-full rounded-xl transition-transform duration-500"
-                  animate={{ rotateY: isHovered ? 180 : 0 }}
-                  transition={{ duration: 0.1 }}
-                  style={{ transformStyle: "preserve-3d" }}
+                  key={idx}
+                  className="w-[9rem] h-[12rem] sm:w-[13rem] sm:h-[17rem] md:w-[15rem] md:h-[19rem] lg:h-[22rem] max-w-[17rem] max-h-[22rem] perspective-1000"
+                  onMouseEnter={() => {
+                    setTimeout(() => {
+                      setHoveredCard(idx);
+                    }, 500);
+                  }}
+                  onMouseLeave={() => setHoveredCard(null)}
+                  onTouchStart={handleTouchStart}
+                  onTouchEnd={handleTouchEnd}
+                  onTouchMove={handleTouchMove}
+                  onClick={() => handleCardSelect(card)}
                 >
-                  {/* FRONT */}
-                  <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center bg-white rounded-xl p-6 shadow">
-                    {isSelected && (
-                      <div className="absolute top-2 right-2 z-30 rounded-full p-1 flex items-center justify-center bg-green-200">
-                        <Check
-                          size={30}
-                          color="#1a1a1a"
-                          className="drop-shadow-md"
+                  <motion.div
+                    className="relative w-full h-full rounded-xl transition-transform duration-500"
+                    animate={{ rotateY: isHovered ? 180 : 0 }}
+                    transition={{ duration: 0.1 }}
+                    style={{ transformStyle: "preserve-3d" }}
+                  >
+                    {/* FRONT */}
+                    <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center bg-white rounded-xl p-6 shadow">
+                      {isSelected && (
+                        <div className="absolute top-2 right-2 z-30 rounded-full p-1 flex items-center justify-center bg-green-200">
+                          <Check
+                            size={30}
+                            color="#1a1a1a"
+                            className="drop-shadow-md"
+                          />
+                        </div>
+                      )}
+
+                      <div className="mb-6 h-[60%] flex items-center justify-center">
+                        <Image
+                          src={
+                            companiesImages[card.symbol as CompanySymbol] ||
+                            "/fallback.webp"
+                          }
+                          alt={card.name}
+                          width={100}
+                          height={100}
+                          className="transition-transform duration-300 hover:scale-110 "
                         />
                       </div>
-                    )}
 
-                    <div className="mb-6 h-[60%] flex items-center justify-center">
-                      <Image
-                        src={
-                          companiesImages[card.symbol as CompanySymbol] ||
-                          "/fallback.webp"
-                        }
-                        alt={card.name}
-                        width={100}
-                        height={100}
-                        className="transition-transform duration-300 hover:scale-110 "
-                      />
+                      <h3
+                        className={`text-xs sm:text-sm md:text-xl font-bold capitalize text-center ${
+                          isSelected ? "text-green-700" : "text-gray-800"
+                        }`}
+                      >
+                        {card.name}
+                      </h3>
                     </div>
 
-                    <h3
-                      className={`text-xs sm:text-sm md:text-xl font-bold capitalize text-center ${
-                        isSelected ? "text-green-700" : "text-gray-800"
-                      }`}
+                    {/* BACK */}
+                    <div
+                      className={`absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-start justify-center  ${
+                        isSelected
+                          ? "bg-green-100/20 border border-green-200"
+                          : "bg-white"
+                      }  rounded-xl p-5 shadow`}
                     >
-                      {card.name}
-                    </h3>
-                  </div>
-
-                  {/* BACK */}
-                  <div
-                    className={`absolute inset-0 backface-hidden rotate-y-180 flex flex-col items-start justify-center  ${
-                      isSelected
-                        ? "bg-green-100/20 border border-green-200"
-                        : "bg-white"
-                    }  rounded-xl p-5 shadow`}
-                  >
-                    <h4 className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700 mb-2 w-full text-center">
-                      Top Products
-                    </h4>
-                    <ul className="list-disc list-inside text-gray-600 text-xs  sm:text-sm font-semibold space-y-1 overflow-y-auto no-scrollbar max-h-[90%]">
-                      {(card.topProducts ?? []).map((product, i) => (
-                        <li key={i}>{product}</li>
-                      ))}
-                    </ul>
-                  </div>
+                      <h4 className="text-xs sm:text-sm md:text-lg font-semibold text-gray-700 mb-2 w-full text-center">
+                        Top Products
+                      </h4>
+                      <ul className="list-disc list-inside text-gray-600 text-xs  sm:text-sm font-semibold space-y-1 overflow-y-auto no-scrollbar max-h-[90%]">
+                        {(card.topProducts ?? []).map((product, i) => (
+                          <li key={i}>{product}</li>
+                        ))}
+                      </ul>
+                    </div>
+                  </motion.div>
                 </motion.div>
-              </motion.div>
-            );
-          })}
+              );
+            }
+          )}
         </div>
 
         {/* <div className="text-center mt-20">
