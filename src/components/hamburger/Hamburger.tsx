@@ -38,7 +38,9 @@ const HamburgerMenu = () => {
       initial={{ y: 0 }}
       animate={{ y: showNavbar ? 0 : "-100%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className="fixed top-0 left-0 w-full z-50"
+      className={`fixed top-0 left-0 w-full z-50 ${
+        lastScrollY > 20 && "bg-[#FAF9F6] shadow-xl"
+      }`}
     >
       <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-end">
         {/* <Link href="/" className="text-xl font-bold text-black">
@@ -50,7 +52,7 @@ const HamburgerMenu = () => {
             <Link
               key={link.href}
               href={link.href}
-              className="text-gray-700 hover:text-[#1a1a1a] transition font-semibold"
+              className="text-[#1a1a1a] transition font-bold"
             >
               {link.name}
             </Link>

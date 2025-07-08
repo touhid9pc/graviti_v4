@@ -173,9 +173,9 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         />
         <div className="hidden md:flex flex-row flex-wrap justify-center items-center mb-10 gap-6">
           {categories?.map((item, idx) => (
-            <div
+            <AnimatedButton
               key={item.id}
-              className={`relative group border border-slate-300 rounded-full p-4 cursor-pointer transition-all ${
+              className={`!p-4 relative group border border-slate-300 rounded-full cursor-pointer transition-all ${
                 selectedCategory?.id === item?.id ? "bg-[#FAF9F6]" : ""
               }`}
               onClick={() => setSelectedCategory(item)}
@@ -188,11 +188,10 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                 className="rounded-md"
               />
 
-              {/* Tooltip */}
               <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#FAF9F6] text-[#1a1a1a] text-sm px-3 py-1 font-semibold rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 leading-10">
                 {item?.title}
               </div>
-            </div>
+            </AnimatedButton>
           ))}
         </div>
 

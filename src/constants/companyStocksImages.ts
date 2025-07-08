@@ -216,7 +216,7 @@ export const companiesImages: Record<CompanySymbol, string> = {
   COP: "/assets/all_stocks/Conoco_Phillips.png",
   SLB: "/assets/all_stocks/Schlumberger.png",
   EOG: "/assets/all_stocks/EOG_Resources.png",
-  OXY: "/aassets/all_stocks/Occidental_Petroleum.png",
+  OXY: "/assets/all_stocks/Occidental_Petroleum.png",
   BKR: "/assets/all_stocks/Baker_Hughes.png",
   MRO: "/assets/all_stocks/Marathon_Oil.png",
   DVN: "/assets/all_stocks/Devon_Energy.png",
