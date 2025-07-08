@@ -16,15 +16,14 @@ const HamburgerMenu = () => {
 
   const toggleMenu = () => setOpen((prev) => !prev);
 
-  // Detect scroll direction
   useEffect(() => {
     const handleScroll = () => {
       const currentY = window.scrollY;
 
       if (currentY > lastScrollY && currentY > 50) {
-        setShowNavbar(false); // scrolling down
+        setShowNavbar(false);
       } else {
-        setShowNavbar(true); // scrolling up
+        setShowNavbar(true);
       }
 
       setLastScrollY(currentY);
@@ -46,7 +45,6 @@ const HamburgerMenu = () => {
           Logo
         </Link> */}
 
-        {/* Desktop Nav */}
         <nav className="hidden md:flex space-x-6">
           {links.map((link) => (
             <Link
@@ -59,7 +57,6 @@ const HamburgerMenu = () => {
           ))}
         </nav>
 
-        {/* Hamburger Icon */}
         <button
           onClick={toggleMenu}
           aria-label="Toggle Menu"
@@ -86,7 +83,6 @@ const HamburgerMenu = () => {
         </button>
       </div>
 
-      {/* Mobile Nav */}
       <AnimatePresence>
         {open && (
           <>
@@ -109,7 +105,6 @@ const HamburgerMenu = () => {
               ))}
             </motion.nav>
 
-            {/* Overlay */}
             <motion.div
               className="fixed inset-0 bg-black/30 backdrop-blur-sm z-30"
               onClick={toggleMenu}

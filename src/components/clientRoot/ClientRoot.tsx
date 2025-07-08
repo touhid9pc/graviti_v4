@@ -7,7 +7,11 @@ import HamburgerMenu from "@/components/hamburger/Hamburger";
 const ClientRoot = () => {
   const { user } = useAppStore();
 
-  return <>{user && <HamburgerMenu />}</>;
+  return (
+    <>
+      <HamburgerMenu />
+    </>
+  );
 };
 
 export default ClientRoot;

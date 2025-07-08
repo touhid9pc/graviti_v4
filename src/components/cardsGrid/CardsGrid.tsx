@@ -1,9 +1,14 @@
 import {
+  categories,
   companiesImages,
   CompanySymbol,
 } from "@/constants/companyStocksImages";
 import { Company, companyData } from "@/constants/constant";
-import { selectCompaniesByNumber, shuffleArray } from "@/utils/common";
+import {
+  pickRandomCompaniesPerCategory,
+  selectCompaniesByNumber,
+  shuffleArray,
+} from "@/utils/common";
 import Image from "next/image";
 import React, { useCallback, useMemo, useRef, useState } from "react";
 import toast from "react-hot-toast";
@@ -15,6 +20,7 @@ import { useAppStore } from "@/store/useStore";
 import { Check, Shuffle } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShinyButton } from "../magicui/shiny-button";
+import FancyDropdown from "../fancyDropdown/FancyDropdown";
 
 interface CardsGridProps {
   scrollToSection: () => void;
@@ -31,11 +37,13 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   const extractedCompanyData = selectCompaniesByNumber(companyData as any, 1);
 
   const [shuffledData, setShuffledData] = useState(() =>
-    shuffleArray(extractedCompanyData)
+    pickRandomCompaniesPerCategory(companyData)
   );
   const [selectedCard, setSelectedCard] = useState<Company[]>([]);
   const [tooltipIndex, setTooltipIndex] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(false);
+
+  const [selectedCategory, setSelectedCategory] = useState(categories[0]);
 
   const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 
@@ -48,7 +56,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   );
 
   const handleShuffle = useCallback(() => {
-    setShuffledData(shuffleArray(extractedCompanyData));
+    setShuffledData(pickRandomCompaniesPerCategory(companyData));
   }, [extractedCompanyData]);
 
   const handleCardSelect = useCallback(
@@ -151,6 +159,35 @@ const CardsGrid: React.FC<CardsGridProps> = ({
         </div>
       )}
       <div className="min-h-screen px-2 sm:px-6 lg:px-8">
+        <FancyDropdown
+          selectedCategory={selectedCategory}
+          setSelectedCategory={setSelectedCategory}
+        />
+        <div className="hidden md:flex flex-row flex-wrap justify-center items-center mb-10 gap-6">
+          {categories?.map((item, idx) => (
+            <div
+              key={item.id}
+              className={`relative group border border-slate-300 rounded-full p-4 cursor-pointer transition-all ${
+                selectedCategory?.id === item?.id ? "bg-[#FAF9F6]" : ""
+              }`}
+              onClick={() => setSelectedCategory(item)}
+            >
+              <Image
+                src={item?.svgPath}
+                alt={item?.title}
+                width={28}
+                height={28}
+                className="rounded-md"
+              />
+
+              {/* Tooltip */}
+              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#FAF9F6] text-[#1a1a1a] text-sm px-3 py-1 font-semibold rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 leading-10">
+                {item?.title}
+              </div>
+            </div>
+          ))}
+        </div>
+
         <div className="w-full flex flex-col items-center z-20 gap-4 mb-6 md:mb-10">
           <motion.div
             initial={{ y: 50, opacity: 0.1 }}
@@ -158,41 +195,32 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             transition={{ duration: 1 }}
             className="flex flex-wrap justify-center gap-4"
           >
-            {/* <button
-            className="px-4 py-1.5 text-xs sm:text-sm font-semibold rounded-full bg-gradient-to-r from-indigo-600 to-purple-600 text-white shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
-            onClick={handleReset}
-          >
-            <RotateCcw className="mr-1.5 h-4 w-4" /> Reset
-          </button> */}
-
             <AnimatedButton
               className="text-base sm:text-lg flex justify-center items-center"
               onClick={() => setSelectedCard([])}
             >
-              {/* <Shuffle className="mr-1.5 h-4 w-4" /> */}
               Clear
             </AnimatedButton>
-            <AnimatedButton
+            {/* <AnimatedButton
               className="text-base sm:text-lg flex justify-center items-center !bg-[#1a1a1a] !text-[#FAF9F6]"
               onClick={handleShuffle}
             >
-              {/* <Shuffle className="mr-1.5 h-4 w-4" /> */}
               Shuffle
-            </AnimatedButton>
+            </AnimatedButton> */}
           </motion.div>
         </div>
+
         <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4 sm:gap-6 md:gap-8">
-          {shuffledData?.slice(0, 10).map((card, idx) => {
+          {companyData[selectedCategory?.id]?.map((card, idx) => {
             const isSelected = selectedCardIds.has(card?.id);
             const isHovered = hoveredCard === idx;
 
             const handleTouchStart = () => {
               longPressTimeout.current = setTimeout(() => {
                 setHoveredCard(idx);
-                setTooltipIndex(null); // hide tooltip on long press
+                setTooltipIndex(null);
               }, 500);
 
-              // Show tooltip briefly for short touches
               setTooltipIndex(card?.id);
               setTimeout(() => setTooltipIndex(null), 1200);
             };
@@ -252,7 +280,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                         height={100}
                         className="transition-transform duration-300 hover:scale-110 "
                       />
-                      {/* w-12 h-12 sm:w-14 sm:h-14 md:w-max md:h-max */}
                     </div>
 
                     <h3

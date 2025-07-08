@@ -246,3 +246,88 @@ export const companiesImages: Record<CompanySymbol, string> = {
   ATVI: "/assets/all_stocks/ATVI_BIG.png",
   MGM: "/assets/all_stocks/MGM_BIG.png",
 };
+
+export const sectors = [
+  "it",
+  "fmcg",
+  "agriculture",
+  "automotive",
+  "automotive",
+  "spaceTech",
+  "ai",
+  "banking",
+  "healthCare",
+  "realestate",
+  "energy",
+  "consumerElectronics",
+  "airline&logistics",
+  "media&entertainement",
+];
+
+export const categories = [
+  {
+    id: "it",
+    title: "Information Technology",
+    svgPath: "/assets/svg/it.svg",
+  },
+  {
+    id: "fmcg",
+    title: "Fast-Moving Consumer Goods",
+    svgPath: "/assets/svg/fmcg.svg",
+  },
+  {
+    id: "agriculture",
+    title: "Agriculture",
+    svgPath: "/assets/svg/agriculture.svg",
+  },
+  {
+    id: "automotive",
+    title: "Automotive",
+    svgPath: "/assets/svg/automotive.svg",
+  },
+  {
+    id: "spaceTech",
+    title: "Space Technology",
+    svgPath: "/assets/svg/space.svg",
+  },
+  {
+    id: "ai",
+    title: "Artificial Intelligence",
+    svgPath: "/assets/svg/ai.svg",
+  },
+  {
+    id: "banking",
+    title: "Banking & Finance",
+    svgPath: "/assets/svg/bank.svg",
+  },
+  {
+    id: "healthCare",
+    title: "Health Care",
+    svgPath: "/assets/svg/hospital.svg",
+  },
+  {
+    id: "realestate",
+    title: "Real Estate",
+    svgPath: "/assets/svg/realEstate.svg",
+  },
+  {
+    id: "energy",
+    title: "Energy",
+    svgPath: "/assets/svg/energy.svg",
+  },
+  {
+    id: "consumerElectronics",
+    title: "Consumer Electronics",
+    svgPath: "/assets/svg/consumerElectronics.svg",
+  },
+  {
+    id: "airline&logistics",
+    title: "Airline & Logistics",
+    svgPath: "/assets/svg/airline.svg",
+  },
+  {
+    id: "media&entertainement",
+    title: "Media & Entertainment",
+    svgPath: "/assets/svg/mediaElectronics.svg",
+  },
+];
