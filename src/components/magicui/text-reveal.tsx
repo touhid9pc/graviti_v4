@@ -26,10 +26,10 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
 
     const animation = gsap.fromTo(
       split.words,
-      { opacity: 0.2, scale: 0.97 },
+      { opacity: 0.2 },
       {
         opacity: 1,
-        scale: 1,
+
         ease: "none",
         stagger: 0.05,
         scrollTrigger: {

@@ -8,6 +8,7 @@ import {
   investmentSteps,
 } from "@/constants/constant";
 import { useEffect, useRef, useState } from "react";
+import RollingText from "@/components/ui/rolling-text";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/src/ScrollTrigger";
 import TextReveal from "@/components/magicui/text-reveal";
@@ -17,8 +18,6 @@ gsap.registerPlugin(ScrollTrigger);
 const messages = ["Smart Investing", "Global Access", "Complete Control"];
 
 function AboutSection() {
-  const [index, setIndex] = useState(0);
-
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const barRefs = useRef<(HTMLDivElement | null)[]>([]);
 
@@ -69,20 +68,12 @@ function AboutSection() {
     return () => ctx.revert();
   }, []);
 
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setIndex((prev) => (prev + 1) % messages.length);
-    }, 1000); // change every 3 seconds
-
-    return () => clearInterval(interval);
-  }, []);
-
   const mid = Math.ceil(gravitiFeatures.length / 2);
   const leftItems = gravitiFeatures.slice(0, mid);
   const rightItems = gravitiFeatures.slice(mid);
 
   return (
-    <section className="flex flex-col w-full max-w-7xl space-y-12 md:space-y-4 mx-auto px-4 sm:px-4 py-6 md:py-0 md:px-8 text-slate-900">
+    <section className="flex flex-col w-full max-w-7xl space-y-12 md:space-y-4 mx-auto px-4 sm:px-4 py-20 md:py-0 md:px-8 text-slate-900">
       {/* About Hero Section */}
       <div className="w-full flex flex-col justify-center items-center min-h-[100dvh]">
         <motion.div
@@ -112,8 +103,8 @@ function AboutSection() {
         </motion.div>
 
         {/* Vision & Mission */}
-        <div className="w-full px-4 mt-20">
-          <div className="flex flex-col lg:flex-row justify-center items-center text-center gap-20 relative">
+        <div className="w-full px-4 mt-0 lg:mt-20">
+          <div className="flex flex-col lg:flex-row justify-center items-center text-center  relative">
             {/* Vision */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -168,26 +159,28 @@ function AboutSection() {
           Transform Your Financial Future in 3 Simple Steps
         </span>
 
-        <div className="flex flex-col lg:flex-row items-center justify-center  w-full gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 w-full items-start justify-items-center">
           {investmentSteps.map((step, i) => (
             <div
               key={i}
               ref={(el: any) => (cardRefs.current[i] = el)}
-              className="relative w-full lg:w-[30%] h-[14rem] shadow-md rounded-xl border border-slate-300 p-4 sm:p-5 flex flex-col justify-start bg-transparent transition-all duration-500 overflow-hidden"
+              className="relative w-full h-[12rem] shadow-md rounded-xl p-4 sm:p-5 flex flex-col justify-start bg-transparent transition-all duration-500 overflow-hidden"
             >
-              <div className="absolute top-2 right-2 w-[30px] h-1.5  rounded overflow-hidden">
+              <div className="absolute top-2 right-2 w-[30px] h-1.5 rounded overflow-hidden">
                 <div
                   ref={(el: any) => (barRefs.current[i] = el)}
                   className="h-full w-0 bg-blue-700 rounded"
                 ></div>
               </div>
-              <div className="text-4xl lg:text-5xl font-extrabold text-slate-900 mb-2">
+
+              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-11 right-0 opacity-20 font-extrabold text-blue-900 absolute z-10">
                 {String(i + 1).padStart(2, "0")}
               </div>
-              <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-1">
+
+              <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-1 z-20">
                 {step.title}
               </h3>
-              <p className="text-sm sm:text-base font-semibold text-slate-600">
+              <p className="text-sm sm:text-base font-semibold text-slate-600 z-20">
                 {step.description}
               </p>
             </div>
@@ -205,9 +198,12 @@ function AboutSection() {
           className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
           bgCut
         />
-        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-900 ">
-          {messages[index]}
-        </span>
+
+        <RollingText
+          messages={messages}
+          className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-900"
+          textClassName="transition-opacity duration-300"
+        />
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-800 text-sm md:text-base  font-semibold leading-relaxed">
           <div className="hidden md:block absolute inset-y-0 left-1/2 w-px bg-blue-600 transform -translate-x-1/2" />
           <div className="flex flex-col space-y-6 px-4">
