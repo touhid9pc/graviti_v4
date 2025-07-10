@@ -247,12 +247,12 @@ const CardsGrid: React.FC<CardsGridProps> = ({
               //   setHoveredCard(null);
               // };
 
-              const handleFlip = (e) => {
+              const handleFlip = (e: { stopPropagation: () => void }) => {
                 e.stopPropagation();
                 setHoveredCard(idx);
               };
 
-              const handleFlipBack = (e) => {
+              const handleFlipBack = (e: { stopPropagation: () => void }) => {
                 e.stopPropagation();
                 setHoveredCard(null);
               };

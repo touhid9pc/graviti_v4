@@ -61,7 +61,7 @@ export default function AnimatedBlob() {
           xmlns="http://www.w3.org/2000/svg"
           preserveAspectRatio="xMidYMid meet"
           className={`absolute ${
-            sizeMap[blob.size]
+            (sizeMap as any)[blob.size]
           } blur-3xl opacity-20 pointer-events-none`}
           style={{
             top: blob.top,
