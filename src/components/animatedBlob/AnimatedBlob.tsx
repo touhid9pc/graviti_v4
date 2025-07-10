@@ -37,7 +37,7 @@ const sizeMap = {
 
 export default function AnimatedBlob() {
   return (
-    <div className="fixed inset-0 h-full -z-10 overflow-hidden bg-black">
+    <div className="fixed inset-0 h-screen -z-10 overflow-x-hidden no-scrollbar bg-black">
       {/* Shared filter definition */}
       {/* <svg width="0" height="0">
         <defs>
