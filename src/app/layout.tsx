@@ -1,13 +1,10 @@
+import ClientRoot from "@/components/clientRoot/ClientRoot";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono, Manrope } from "next/font/google";
-import "./globals.css";
+import Script from "next/script";
 import { Toaster } from "react-hot-toast";
-import ClickTracker from "@/components/clickTracker/ClickTracker";
-import { Suspense } from "react";
-import { SmoothCursor } from "@/components/ui/smooth-cursor";
-import HamburgerMenu from "@/components/hamburger/Hamburger";
-import { useAppStore } from "@/store/useStore";
-import ClientRoot from "@/components/clientRoot/ClientRoot";
+import "./globals.css";
+import { GoogleAnalytics } from "@next/third-parties/google";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -34,12 +31,35 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const GA_ID = process.env.NEXT_PUBLIC_GA_ID!;
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics Script */}
+        {/* <Script
+          strategy="afterInteractive"
+          src={`https://www.googletagmanager.com/gtag/js?id=${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}`}
+        />
+        <Script
+          id="gtag-init"
+          strategy="afterInteractive"
+          dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', ${process.env.NEXT_PUBLIC_FIREBASE_MEASUREMENT_ID}, {
+                page_path: window.location.pathname,
+              });
+            `,
+          }}
+        /> */}
+        <GoogleAnalytics gaId={GA_ID} />
+      </head>
       <body className={`${manrope.variable} antialiased select-none`}>
         <ClientRoot />
 
-        <ClickTracker />
+        {/* <ClickTracker /> */}
         {/* <SmoothCursor /> */}
         <Toaster
           position="top-center"

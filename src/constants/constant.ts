@@ -1,4 +1,4 @@
-import { LucideIcon, TrendingUp, UserCheck, Wallet } from 'lucide-react';
+import { LucideIcon, TrendingUp, UserCheck, Wallet } from "lucide-react";
 
 export interface CarouselCardData {
   id: number;
@@ -3347,7 +3347,6 @@ export const gravitiFeatures: string[] = [
   "Expert-curated strategies for hands-off investing",
   "User-friendly platform powered by proprietary technology",
 ];
-
 
 export interface InvestmentStep {
   icon: LucideIcon;

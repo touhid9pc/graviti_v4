@@ -78,7 +78,7 @@ const SectionOne: React.FC<SectionOneProps> = ({ scrollToSecondSection }) => {
         </video> */}
 
         {/* <Image
-          src={"/background.png"}
+          src={"/background1.webp"}
           alt="bg-image"
           fill
           className="absolute inset-0 w-screen h-screen object-cover"

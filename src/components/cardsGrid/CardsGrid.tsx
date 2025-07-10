@@ -88,6 +88,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
     try {
       if (!user) {
         const result = await signInWithPopup(auth, googleAuthProvider);
+        console.log({ result });
         const userRef = doc(firebaseDb, "users", result?.user?.uid);
 
         const searchParams = new URLSearchParams(window.location.search);

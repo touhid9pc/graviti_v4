@@ -16,7 +16,7 @@ const firebaseConfig = {
 const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 const googleAuthProvider = new GoogleAuthProvider();
-const firebaseDb = getFirestore(firebaseApp);
+const firebaseDb = getFirestore(firebaseApp, "graviti-user");
 
 let analytics: Analytics | null = null;
 
