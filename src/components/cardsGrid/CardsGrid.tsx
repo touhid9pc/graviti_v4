@@ -21,6 +21,7 @@ import { Check, ChevronLeft, Info, Shuffle } from "lucide-react";
 import { motion } from "framer-motion";
 import { ShinyButton } from "../magicui/shiny-button";
 import FancyDropdown from "../fancyDropdown/FancyDropdown";
+import { IoMdCheckmarkCircleOutline } from "react-icons/io";
 
 interface CardsGridProps {
   scrollToSection: () => void;
@@ -52,8 +53,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   const [selectedCategory, setSelectedCategory] = useState<categoryType>(
     categories[0]
   );
-
-  const longPressTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const { prevStep, setInterestsData, interestsData, user, setUser } =
     useAppStore();
@@ -88,7 +87,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
     try {
       if (!user) {
         const result = await signInWithPopup(auth, googleAuthProvider);
-        console.log({ result });
         const userRef = doc(firebaseDb, "users", result?.user?.uid);
 
         const searchParams = new URLSearchParams(window.location.search);
@@ -162,39 +160,47 @@ const CardsGrid: React.FC<CardsGridProps> = ({
 
   return (
     <>
-      {tooltipIndex && (
-        <div className="fixed top-20 left-1/2 -translate-x-1/2  z-[10]  bg-gray-800 text-white text-xs px-3 py-1 w-max rounded shadow-lg pointer-events-none animate-fadeIn">
-          Long press to see products
-        </div>
-      )}
       <div className="min-h-screen px-2 sm:px-6 lg:px-8">
         <FancyDropdown
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
         />
         <div className="hidden md:flex flex-row flex-wrap justify-center items-center mb-10 gap-6">
-          {categories?.map((item, idx) => (
-            <AnimatedButton
-              key={item.id}
-              className={`!p-4 relative group border border-slate-300 rounded-full cursor-pointer transition-all  ${
-                selectedCategory?.id === item?.id ? "bg-[#FAF9F6]" : ""
-              }`}
-              spanClassName={"invert"}
-              onClick={() => setSelectedCategory(item)}
-            >
-              <Image
-                src={item?.svgPath}
-                alt={item?.title}
-                width={28}
-                height={28}
-                className="rounded-md"
-              />
+          {categories?.map((item, idx) => {
+            const isCategoryhasId = selectedCard?.some(
+              (data) => data?.category === item?.id
+            );
 
-              <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#FAF9F6] text-[#1a1a1a] text-sm px-3 py-1 font-semibold rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 leading-10">
-                {item?.title}
-              </div>
-            </AnimatedButton>
-          ))}
+            return (
+              <AnimatedButton
+                key={item.id}
+                className={`!p-4 relative group border border-slate-300 rounded-full cursor-pointer transition-all  ${
+                  selectedCategory?.id === item?.id ? "bg-[#FAF9F6]" : ""
+                }`}
+                spanClassName={"invert"}
+                onClick={() => setSelectedCategory(item)}
+              >
+                {isCategoryhasId && (
+                  // <Check className="text-black absolute -top-[80%] -right-[50%]" />
+                  <IoMdCheckmarkCircleOutline
+                    size={22}
+                    className="text-pink-600 absolute -top-[80%] -right-[50%]"
+                  />
+                )}
+                <Image
+                  src={item?.svgPath}
+                  alt={item?.title}
+                  width={28}
+                  height={28}
+                  className="rounded-md"
+                />
+
+                <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#FAF9F6] text-[#1a1a1a] text-sm px-3 py-1 font-semibold rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 leading-10">
+                  {item?.title}
+                </div>
+              </AnimatedButton>
+            );
+          })}
         </div>
 
         <div className="w-full flex flex-col items-center z-20 gap-4 mb-6 md:mb-10">
@@ -224,28 +230,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             (card: Company, idx: number) => {
               const isSelected = selectedCardIds.has(card?.id);
               const isHovered = hoveredCard === idx;
-
-              // const handleTouchStart = () => {
-              //   longPressTimeout.current = setTimeout(() => {
-              //     setHoveredCard(idx);
-              //     setTooltipIndex(null);
-              //   }, 500);
-
-              //   setTooltipIndex(card?.id);
-              //   setTimeout(() => setTooltipIndex(null), 1200);
-              // };
-
-              // const handleTouchEnd = () => {
-              //   if (longPressTimeout.current)
-              //     clearTimeout(longPressTimeout.current);
-              //   setHoveredCard(null);
-              // };
-
-              // const handleTouchMove = () => {
-              //   if (longPressTimeout.current)
-              //     clearTimeout(longPressTimeout.current);
-              //   setHoveredCard(null);
-              // };
 
               const handleFlip = (e: { stopPropagation: () => void }) => {
                 e.stopPropagation();

@@ -114,9 +114,7 @@ export default function Home() {
             scrollToSection={scrollToSection}
             setShowReveal={setShowReveal}
           />
-          {/* {showReveal && */}
-          <SectionThree sectionRef={sectionRef} />
-          {/* } */}
+          {showReveal && <SectionThree sectionRef={sectionRef} />}
         </>
       )}
     </main>

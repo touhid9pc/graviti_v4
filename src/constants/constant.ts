@@ -215,6 +215,7 @@ export type Company = {
   marketCap: string;
   topProducts: string[];
   id: string;
+  category: string;
 };
 
 export type CompanyDataset = Record<string, Company[]>;
@@ -244,6 +245,7 @@ export const companyData = {
         "iCloud",
       ],
       id: "it0",
+      category: "it",
     },
     {
       symbol: "MSFT",
@@ -268,6 +270,7 @@ export const companyData = {
         "LinkedIn",
       ],
       id: "it1",
+      category: "it",
     },
     {
       symbol: "NVDA",
@@ -292,6 +295,7 @@ export const companyData = {
         "NVLink",
       ],
       id: "it2",
+      category: "it",
     },
     {
       symbol: "ADBE",
@@ -316,6 +320,7 @@ export const companyData = {
         "Creative Cloud",
       ],
       id: "it3",
+      category: "it",
     },
     {
       symbol: "INTC",
@@ -340,6 +345,7 @@ export const companyData = {
         "Thunderbolt",
       ],
       id: "it4",
+      category: "it",
     },
     {
       symbol: "AMD",
@@ -364,6 +370,7 @@ export const companyData = {
         "AMD Software Suite",
       ],
       id: "it5",
+      category: "it",
     },
     {
       symbol: "CRM",
@@ -388,6 +395,7 @@ export const companyData = {
         "Salesforce Platform",
       ],
       id: "it6",
+      category: "it",
     },
     {
       symbol: "NOW",
@@ -412,6 +420,7 @@ export const companyData = {
         "Industry-specific solutions",
       ],
       id: "it7",
+      category: "it",
     },
     {
       symbol: "CSCO",
@@ -436,6 +445,7 @@ export const companyData = {
         "Security Cloud",
       ],
       id: "it8",
+      category: "it",
     },
     {
       symbol: "ORCL",
@@ -460,6 +470,7 @@ export const companyData = {
         "OCI AI Services",
       ],
       id: "it9",
+      category: "it",
     },
   ],
   fmcg: [
@@ -486,6 +497,7 @@ export const companyData = {
         "Cheetos",
       ],
       id: "fmcg0",
+      category: "fmcg",
     },
     {
       symbol: "KO",
@@ -510,6 +522,7 @@ export const companyData = {
         "Gold Peak Tea",
       ],
       id: "fmcg1",
+      category: "fmcg",
     },
     {
       symbol: "PG",
@@ -534,6 +547,7 @@ export const companyData = {
         "Old Spice",
       ],
       id: "fmcg2",
+      category: "fmcg",
     },
     {
       symbol: "MDLZ",
@@ -558,6 +572,7 @@ export const companyData = {
         "Ritz",
       ],
       id: "fmcg3",
+      category: "fmcg",
     },
     {
       symbol: "CL",
@@ -582,6 +597,7 @@ export const companyData = {
         "Hill's Pet Nutrition",
       ],
       id: "fmcg4",
+      category: "fmcg",
     },
     {
       symbol: "MO",
@@ -606,6 +622,7 @@ export const companyData = {
         "Helix Innovations",
       ],
       id: "fmcg5",
+      category: "fmcg",
     },
     {
       symbol: "KVUE",
@@ -630,6 +647,7 @@ export const companyData = {
         "Benadryl",
       ],
       id: "fmcg6",
+      category: "fmcg",
     },
     {
       symbol: "KMB",
@@ -654,6 +672,7 @@ export const companyData = {
         "Andrex",
       ],
       id: "fmcg7",
+      category: "fmcg",
     },
     {
       symbol: "TSN",
@@ -678,6 +697,7 @@ export const companyData = {
         "NatureRaised Farms",
       ],
       id: "fmcg8",
+      category: "fmcg",
     },
     {
       symbol: "PPC",
@@ -702,6 +722,7 @@ export const companyData = {
         "Chicken Plus",
       ],
       id: "fmcg9",
+      category: "fmcg",
     },
   ],
   agriculture: [
@@ -728,6 +749,7 @@ export const companyData = {
         "Emulsifiers & stabilizers",
       ],
       id: "agriculture0",
+      category: "agriculture",
     },
     {
       symbol: "DE",
@@ -752,6 +774,7 @@ export const companyData = {
         "John Deere Financial Services",
       ],
       id: "agriculture1",
+      category: "agriculture",
     },
     {
       symbol: "BG",
@@ -776,6 +799,7 @@ export const companyData = {
         "Plant-based proteins",
       ],
       id: "agriculture2",
+      category: "agriculture",
     },
     {
       symbol: "CTVA",
@@ -800,6 +824,7 @@ export const companyData = {
         "Crop protection platforms",
       ],
       id: "agriculture3",
+      category: "agriculture",
     },
     {
       symbol: "NTR",
@@ -824,6 +849,7 @@ export const companyData = {
         "Specialty ag inputs",
       ],
       id: "agriculture4",
+      category: "agriculture",
     },
     {
       symbol: "CF",
@@ -848,6 +874,7 @@ export const companyData = {
         "Low-carbon fertilizer",
       ],
       id: "agriculture5",
+      category: "agriculture",
     },
     {
       symbol: "ANDE",
@@ -872,6 +899,7 @@ export const companyData = {
         "Agronomy services",
       ],
       id: "agriculture6",
+      category: "agriculture",
     },
     {
       symbol: "CVGW",
@@ -896,6 +924,7 @@ export const companyData = {
         "Branded deli products",
       ],
       id: "agriculture7",
+      category: "agriculture",
     },
     {
       symbol: "FDP",
@@ -920,6 +949,7 @@ export const companyData = {
         "Snack fruit packs",
       ],
       id: "agriculture8",
+      category: "agriculture",
     },
     {
       symbol: "IPI",
@@ -944,6 +974,7 @@ export const companyData = {
         "Agricultural minerals",
       ],
       id: "agriculture9",
+      category: "agriculture",
     },
   ],
   automotive: [
@@ -970,6 +1001,7 @@ export const companyData = {
         "Solar Roof",
       ],
       id: "automotive0",
+      category: "automotive",
     },
     {
       symbol: "F",
@@ -994,6 +1026,7 @@ export const companyData = {
         "E-Transit",
       ],
       id: "automotive1",
+      category: "automotive",
     },
     {
       symbol: "GM",
@@ -1018,6 +1051,7 @@ export const companyData = {
         "OnStar",
       ],
       id: "automotive2",
+      category: "automotive",
     },
     {
       symbol: "RIVN",
@@ -1042,6 +1076,7 @@ export const companyData = {
         "Rivian App",
       ],
       id: "automotive3",
+      category: "automotive",
     },
     {
       symbol: "LCID",
@@ -1066,6 +1101,7 @@ export const companyData = {
         "Over-the-Air Updates",
       ],
       id: "automotive4",
+      category: "automotive",
     },
     {
       symbol: "NIO",
@@ -1090,6 +1126,7 @@ export const companyData = {
         "Banyan Operating System",
       ],
       id: "automotive5",
+      category: "automotive",
     },
     {
       symbol: "TM",
@@ -1114,6 +1151,7 @@ export const companyData = {
         "Innova",
       ],
       id: "automotive6",
+      category: "automotive",
     },
     {
       symbol: "HMC",
@@ -1138,6 +1176,7 @@ export const companyData = {
         "HondaJet",
       ],
       id: "automotive7",
+      category: "automotive",
     },
     {
       symbol: "HYMTF",
@@ -1162,6 +1201,7 @@ export const companyData = {
         "Staria",
       ],
       id: "automotive8",
+      category: "automotive",
     },
     {
       symbol: "APTV",
@@ -1186,6 +1226,7 @@ export const companyData = {
         "Over-the-Air Software Updates",
       ],
       id: "automotive9",
+      category: "automotive",
     },
   ],
   spaceTech: [
@@ -1212,6 +1253,7 @@ export const companyData = {
         "Hypersonic Glide Vehicle (ARRW)",
       ],
       id: "spaceTech0",
+      category: "spaceTech",
     },
     {
       symbol: "NOC",
@@ -1236,6 +1278,7 @@ export const companyData = {
         "Space Launch Support Systems",
       ],
       id: "spaceTech1",
+      category: "spaceTech",
     },
     {
       symbol: "BA",
@@ -1260,6 +1303,7 @@ export const companyData = {
         "X-37B Spaceplane",
       ],
       id: "spaceTech2",
+      category: "spaceTech",
     },
     {
       symbol: "RTX",
@@ -1284,6 +1328,7 @@ export const companyData = {
         "Peregrine Missile",
       ],
       id: "spaceTech3",
+      category: "spaceTech",
     },
     {
       symbol: "RKLB",
@@ -1308,6 +1353,7 @@ export const companyData = {
         "Mission Control Center (NZ)",
       ],
       id: "spaceTech4",
+      category: "spaceTech",
     },
     {
       symbol: "MAXR",
@@ -1332,6 +1378,7 @@ export const companyData = {
         "Deep Space Exploration Systems",
       ],
       id: "spaceTech5",
+      category: "spaceTech",
     },
     {
       symbol: "IRDM",
@@ -1356,6 +1403,7 @@ export const companyData = {
         "IoT M2M Services",
       ],
       id: "spaceTech6",
+      category: "spaceTech",
     },
     {
       symbol: "SPCE",
@@ -1380,6 +1428,7 @@ export const companyData = {
         "High-Altitude Test Flights",
       ],
       id: "spaceTech7",
+      category: "spaceTech",
     },
     {
       symbol: "ASTR",
@@ -1404,6 +1453,7 @@ export const companyData = {
         "Orbital Transport Services",
       ],
       id: "spaceTech8",
+      category: "spaceTech",
     },
     {
       symbol: "RDW",
@@ -1428,6 +1478,7 @@ export const companyData = {
         "Digital Engineering Solutions",
       ],
       id: "spaceTech9",
+      category: "spaceTech",
     },
   ],
   ai: [
@@ -1454,6 +1505,7 @@ export const companyData = {
         "H100 Hopper GPU",
       ],
       id: "ai0",
+      category: "ai",
     },
     {
       symbol: "GOOGL",
@@ -1478,6 +1530,7 @@ export const companyData = {
         "TensorFlow",
       ],
       id: "ai1",
+      category: "ai",
     },
     {
       symbol: "MSFT",
@@ -1502,6 +1555,7 @@ export const companyData = {
         "Bing Chat Enterprise",
       ],
       id: "ai2",
+      category: "ai",
     },
     {
       symbol: "AMZN",
@@ -1526,6 +1580,7 @@ export const companyData = {
         "Amazon Polly",
       ],
       id: "ai3",
+      category: "ai",
     },
     {
       symbol: "META",
@@ -1550,6 +1605,7 @@ export const companyData = {
         "Ray-Ban Meta Glasses",
       ],
       id: "ai4",
+      category: "ai",
     },
     {
       symbol: "IBM",
@@ -1574,6 +1630,7 @@ export const companyData = {
         "IBM Cloud Object Storage",
       ],
       id: "ai5",
+      category: "ai",
     },
     {
       symbol: "PLTR",
@@ -1598,6 +1655,7 @@ export const companyData = {
         "Operational Intelligence Platforms",
       ],
       id: "ai6",
+      category: "ai",
     },
     {
       symbol: "AI",
@@ -1622,6 +1680,7 @@ export const companyData = {
         "C3 AI Ex Machina",
       ],
       id: "ai7",
+      category: "ai",
     },
     {
       symbol: "SOUN",
@@ -1646,6 +1705,7 @@ export const companyData = {
         "Speech-to-Meaning Engine",
       ],
       id: "ai8",
+      category: "ai",
     },
     {
       symbol: "BBAI",
@@ -1670,6 +1730,7 @@ export const companyData = {
         "AI Mission Planning Software",
       ],
       id: "ai9",
+      category: "ai",
     },
   ],
   banking: [
@@ -1696,6 +1757,7 @@ export const companyData = {
         "Business Banking Solutions",
       ],
       id: "banking0",
+      category: "banking",
     },
     {
       symbol: "BAC",
@@ -1720,6 +1782,7 @@ export const companyData = {
         "Credit Cards",
       ],
       id: "banking1",
+      category: "banking",
     },
     {
       symbol: "C",
@@ -1744,6 +1807,7 @@ export const companyData = {
         "Citi Flex Loan",
       ],
       id: "banking2",
+      category: "banking",
     },
     {
       symbol: "WFC",
@@ -1768,6 +1832,7 @@ export const companyData = {
         "Wealth and Investment Management",
       ],
       id: "banking3",
+      category: "banking",
     },
     {
       symbol: "GS",
@@ -1792,6 +1857,7 @@ export const companyData = {
         "Goldman Sachs Insights",
       ],
       id: "banking4",
+      category: "banking",
     },
     {
       symbol: "MS",
@@ -1816,6 +1882,7 @@ export const companyData = {
         "Sustainable Investing Solutions",
       ],
       id: "banking5",
+      category: "banking",
     },
     {
       symbol: "USB",
@@ -1840,6 +1907,7 @@ export const companyData = {
         "Digital Banking Tools",
       ],
       id: "banking6",
+      category: "banking",
     },
     {
       symbol: "PNC",
@@ -1864,6 +1932,7 @@ export const companyData = {
         "Small Business Loans",
       ],
       id: "banking7",
+      category: "banking",
     },
     {
       symbol: "TFC",
@@ -1888,6 +1957,7 @@ export const companyData = {
         "Insurance Solutions",
       ],
       id: "banking8",
+      category: "banking",
     },
     {
       symbol: "COF",
@@ -1912,6 +1982,7 @@ export const companyData = {
         "Machine Learning Fraud Detection",
       ],
       id: "banking9",
+      category: "banking",
     },
   ],
   healthCare: [
@@ -1938,6 +2009,7 @@ export const companyData = {
         "Care Coordination Services",
       ],
       id: "healthCare0",
+      category: "healthCare",
     },
     {
       symbol: "PFE",
@@ -1962,6 +2034,7 @@ export const companyData = {
         "Vyndaqel (ATTR-CM)",
       ],
       id: "healthCare1",
+      category: "healthCare",
     },
     {
       symbol: "JNJ",
@@ -1986,6 +2059,7 @@ export const companyData = {
         "Neutrogena (skincare)",
       ],
       id: "healthCare2",
+      category: "healthCare",
     },
     {
       symbol: "MRNA",
@@ -2010,6 +2084,7 @@ export const companyData = {
         "Moderna Genomics Platform",
       ],
       id: "healthCare3",
+      category: "healthCare",
     },
     {
       symbol: "MRK",
@@ -2034,6 +2109,7 @@ export const companyData = {
         "Cubicin (antibiotic)",
       ],
       id: "healthCare4",
+      category: "healthCare",
     },
     {
       symbol: "ABBV",
@@ -2058,6 +2134,7 @@ export const companyData = {
         "Allergan Aesthetics",
       ],
       id: "healthCare5",
+      category: "healthCare",
     },
     {
       symbol: "BMY",
@@ -2082,6 +2159,7 @@ export const companyData = {
         "Empliciti (multiple myeloma)",
       ],
       id: "healthCare6",
+      category: "healthCare",
     },
     {
       symbol: "GILD",
@@ -2106,6 +2184,7 @@ export const companyData = {
         "Hepcludex",
       ],
       id: "healthCare7",
+      category: "healthCare",
     },
     {
       symbol: "LLY",
@@ -2130,6 +2209,7 @@ export const companyData = {
         "Taltz (psoriasis)",
       ],
       id: "healthCare8",
+      category: "healthCare",
     },
     {
       symbol: "CVS",
@@ -2154,6 +2234,7 @@ export const companyData = {
         "Wellness Products",
       ],
       id: "healthCare9",
+      category: "healthCare",
     },
   ],
   realestate: [
@@ -2180,6 +2261,7 @@ export const companyData = {
         "Broadcast Infrastructure",
       ],
       id: "realestate0",
+      category: "realestate",
     },
     {
       symbol: "PLD",
@@ -2204,6 +2286,7 @@ export const companyData = {
         "Cross-Dock Facilities",
       ],
       id: "realestate1",
+      category: "realestate",
     },
     {
       symbol: "CCI",
@@ -2228,6 +2311,7 @@ export const companyData = {
         "Private Network Hosting",
       ],
       id: "realestate2",
+      category: "realestate",
     },
     {
       symbol: "EQIX",
@@ -2252,6 +2336,7 @@ export const companyData = {
         "Data Center-as-a-Service",
       ],
       id: "realestate3",
+      category: "realestate",
     },
     {
       symbol: "PSA",
@@ -2276,6 +2361,7 @@ export const companyData = {
         "Storage Insurance Services",
       ],
       id: "realestate4",
+      category: "realestate",
     },
     {
       symbol: "SPG",
@@ -2300,6 +2386,7 @@ export const companyData = {
         "Retail Tenant Services",
       ],
       id: "realestate5",
+      category: "realestate",
     },
     {
       symbol: "WELL",
@@ -2324,6 +2411,7 @@ export const companyData = {
         "Behavioral Health Facilities",
       ],
       id: "realestate6",
+      category: "realestate",
     },
     {
       symbol: "O",
@@ -2348,6 +2436,7 @@ export const companyData = {
         "Diversified Real Estate Portfolio",
       ],
       id: "realestate7",
+      category: "realestate",
     },
     {
       symbol: "AVB",
@@ -2372,6 +2461,7 @@ export const companyData = {
         "Market-Rate Housing Units",
       ],
       id: "realestate8",
+      category: "realestate",
     },
     {
       symbol: "DLR",
@@ -2396,6 +2486,7 @@ export const companyData = {
         "Edge Computing Support",
       ],
       id: "realestate9",
+      category: "realestate",
     },
   ],
   energy: [
@@ -2422,6 +2513,7 @@ export const companyData = {
         "Upstream exploration",
       ],
       id: "energy0",
+      category: "energy",
     },
     {
       symbol: "CVX",
@@ -2446,6 +2538,7 @@ export const companyData = {
         "Deepwater drilling",
       ],
       id: "energy1",
+      category: "energy",
     },
     {
       symbol: "COP",
@@ -2470,6 +2563,7 @@ export const companyData = {
         "Heavy oil production",
       ],
       id: "energy2",
+      category: "energy",
     },
     {
       symbol: "SLB",
@@ -2494,6 +2588,7 @@ export const companyData = {
         "Wireline services",
       ],
       id: "energy3",
+      category: "energy",
     },
     {
       symbol: "EOG",
@@ -2518,6 +2613,7 @@ export const companyData = {
         "Multi-well development",
       ],
       id: "energy4",
+      category: "energy",
     },
     {
       symbol: "OXY",
@@ -2542,6 +2638,7 @@ export const companyData = {
         "Water recycling systems",
       ],
       id: "energy5",
+      category: "energy",
     },
     {
       symbol: "BKR",
@@ -2566,6 +2663,7 @@ export const companyData = {
         "Artificial lift systems",
       ],
       id: "energy6",
+      category: "energy",
     },
     {
       symbol: "MRO",
@@ -2590,6 +2688,7 @@ export const companyData = {
         "Corporate emissions strategy",
       ],
       id: "energy7",
+      category: "energy",
     },
     {
       symbol: "DVN",
@@ -2614,6 +2713,7 @@ export const companyData = {
         "Advanced analytics in drilling",
       ],
       id: "energy8",
+      category: "energy",
     },
     {
       symbol: "VLO",
@@ -2638,6 +2738,7 @@ export const companyData = {
         "Logistics & pipelines",
       ],
       id: "energy9",
+      category: "energy",
     },
   ],
   consumerElectronics: [
@@ -2663,6 +2764,7 @@ export const companyData = {
         "iCloud",
       ],
       id: "consumerElectronics0",
+      category: "consumerElectronics",
     },
     {
       symbol: "MSFT",
@@ -2686,6 +2788,7 @@ export const companyData = {
         "Copilot",
       ],
       id: "consumerElectronics1",
+      category: "consumerElectronics",
     },
     {
       symbol: "GOOGL",
@@ -2709,6 +2812,7 @@ export const companyData = {
         "Chrome OS",
       ],
       id: "consumerElectronics2",
+      category: "consumerElectronics",
     },
     {
       symbol: "NVDA",
@@ -2732,6 +2836,7 @@ export const companyData = {
         "Hopper Architecture",
       ],
       id: "consumerElectronics3",
+      category: "consumerElectronics",
     },
     {
       symbol: "AMD",
@@ -2755,6 +2860,7 @@ export const companyData = {
         "Adrenalin Software",
       ],
       id: "consumerElectronics4",
+      category: "consumerElectronics",
     },
     {
       symbol: "CSCO",
@@ -2778,6 +2884,7 @@ export const companyData = {
         "Umbrella Security",
       ],
       id: "consumerElectronics5",
+      category: "consumerElectronics",
     },
     {
       symbol: "APH",
@@ -2801,6 +2908,7 @@ export const companyData = {
         "High-Speed Interconnects",
       ],
       id: "consumerElectronics6",
+      category: "consumerElectronics",
     },
     {
       symbol: "ANET",
@@ -2824,6 +2932,7 @@ export const companyData = {
         "Next-gen Routing",
       ],
       id: "consumerElectronics7",
+      category: "consumerElectronics",
     },
     {
       symbol: "DELL",
@@ -2847,6 +2956,7 @@ export const companyData = {
         "Display Monitors",
       ],
       id: "consumerElectronics8",
+      category: "consumerElectronics",
     },
     {
       symbol: "CDNS",
@@ -2870,6 +2980,7 @@ export const companyData = {
         "Custom Compiler Suite",
       ],
       id: "consumerElectronics9",
+      category: "consumerElectronics",
     },
   ],
   "airline&logistics": [
@@ -2895,6 +3006,7 @@ export const companyData = {
         "Billing Center",
       ],
       id: "airline&logistics0",
+      category: "airline&logistics",
     },
     {
       symbol: "FDX",
@@ -2918,6 +3030,7 @@ export const companyData = {
         "FedEx Delivery Manager",
       ],
       id: "airline&logistics1",
+      category: "airline&logistics",
     },
     {
       symbol: "ODFL",
@@ -2941,6 +3054,7 @@ export const companyData = {
         "OD Web Tools",
       ],
       id: "airline&logistics2",
+      category: "airline&logistics",
     },
     {
       symbol: "DAL",
@@ -2964,6 +3078,7 @@ export const companyData = {
         "Fly Delta App",
       ],
       id: "airline&logistics3",
+      category: "airline&logistics",
     },
     {
       symbol: "UAL",
@@ -2987,6 +3102,7 @@ export const companyData = {
         "Wi-Fi on Board",
       ],
       id: "airline&logistics4",
+      category: "airline&logistics",
     },
     {
       symbol: "LUV",
@@ -3010,6 +3126,7 @@ export const companyData = {
         "Southwest Vacations",
       ],
       id: "airline&logistics5",
+      category: "airline&logistics",
     },
     {
       symbol: "EXPD",
@@ -3033,6 +3150,7 @@ export const companyData = {
         "Transportation Management",
       ],
       id: "airline&logistics6",
+      category: "airline&logistics",
     },
     {
       symbol: "JBLU",
@@ -3056,6 +3174,7 @@ export const companyData = {
         "Seatback Entertainment",
       ],
       id: "airline&logistics7",
+      category: "airline&logistics",
     },
     {
       symbol: "ALK",
@@ -3079,6 +3198,7 @@ export const companyData = {
         "Sustainable Aviation Fuel Program",
       ],
       id: "airline&logistics8",
+      category: "airline&logistics",
     },
     {
       symbol: "AAL",
@@ -3102,6 +3222,7 @@ export const companyData = {
         "AA Mobile App",
       ],
       id: "airline&logistics9",
+      category: "airline&logistics",
     },
   ],
   "media&entertainement": [
@@ -3127,6 +3248,7 @@ export const companyData = {
         "The Witcher",
       ],
       id: "media&entertainement0",
+      category: "media&entertainement",
     },
     {
       symbol: "DIS",
@@ -3150,6 +3272,7 @@ export const companyData = {
         "ABC Network",
       ],
       id: "media&entertainement1",
+      category: "media&entertainement",
     },
     {
       symbol: "CMCSA",
@@ -3173,6 +3296,7 @@ export const companyData = {
         "Fandango",
       ],
       id: "media&entertainement2",
+      category: "media&entertainement",
     },
     {
       symbol: "LYV",
@@ -3196,6 +3320,7 @@ export const companyData = {
         "VIP Nation",
       ],
       id: "media&entertainement3",
+      category: "media&entertainement",
     },
     {
       symbol: "WBD",
@@ -3219,6 +3344,7 @@ export const companyData = {
         "HBO Originals",
       ],
       id: "media&entertainement4",
+      category: "media&entertainement",
     },
     {
       symbol: "FWONA",
@@ -3242,6 +3368,7 @@ export const companyData = {
         "F1 Data & Insights",
       ],
       id: "media&entertainement5",
+      category: "media&entertainement",
     },
     {
       symbol: "FOX",
@@ -3265,6 +3392,7 @@ export const companyData = {
         "Fox Bet",
       ],
       id: "media&entertainement6",
+      category: "media&entertainement",
     },
     {
       symbol: "PARA",
@@ -3288,6 +3416,7 @@ export const companyData = {
         "CBS News",
       ],
       id: "media&entertainement7",
+      category: "media&entertainement",
     },
     {
       symbol: "ATVI",
@@ -3311,6 +3440,7 @@ export const companyData = {
         "Tony Hawk\u2019s Pro Skater",
       ],
       id: "media&entertainement8",
+      category: "media&entertainement",
     },
     {
       symbol: "MGM",
@@ -3334,6 +3464,7 @@ export const companyData = {
         "MGM Signature",
       ],
       id: "media&entertainement9",
+      category: "media&entertainement",
     },
   ],
 };

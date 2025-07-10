@@ -173,7 +173,7 @@ function AboutSection() {
                 ></div>
               </div>
 
-              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-11 right-0 opacity-20 font-extrabold text-blue-900 absolute z-10">
+              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-8 right-0 opacity-20 font-extrabold text-blue-900 absolute z-10">
                 {String(i + 1).padStart(2, "0")}
               </div>
 
