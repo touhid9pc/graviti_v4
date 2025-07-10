@@ -60,54 +60,52 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
   return (
     <div
       ref={sectionRef}
-      className="min-h-screen w-full flex  flex-col items-center justify-center px-4 sm:px-8 md:px-12"
+      className="min-h-screen w-full flex flex-col items-center justify-center px-4 sm:px-8 md:px-12 bg-transparent"
     >
       {user && (
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
-          className="w-full max-w-2xl text-center space-y-6  rounded-tl-xl rounded-br-xl bg-orange-200/20 border-amber-950/10 shadow-md px-8 py-14 "
+          className="w-full max-w-2xl text-center space-y-6 rounded-2xl bg-white/5 border border-white/10 shadow-xl backdrop-blur-md px-6 sm:px-8 py-12 sm:py-16 transition-all duration-300"
         >
           {/* Heading */}
           <div className="flex justify-center items-center space-x-4">
-            {/* <button
-            className="p-2 lg:p-4 text-sm sm:text-base  font-semibold rounded-xl bg-white text-black border border-gray-200"
-            onClick={prevStep}
-          >
-            <ChevronLeft />
-          </button> */}
-            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-snug tracking-tight text-[#1a1a1a] ">
+            <h2 className="text-2xl sm:text-3xl md:text-4xl font-extrabold leading-snug tracking-tight text-white">
               Wow, you would’ve gained{" "}
-              <span className="text-green-600">{`${stockResult?.percentageGrowth}%`}</span>{" "}
+              <span className="text-green-400">{`${stockResult?.percentageGrowth}%`}</span>{" "}
               on your favourite brands
             </h2>
           </div>
+
           {/* Main message */}
-          <p className="text-base sm:text-lg md:text-xl text-[#333] font-medium px-2">
+          <p className="text-base sm:text-lg md:text-xl text-gray-300 font-medium px-2">
             Your stock choices?{" "}
-            <span className="font-semibold text-purple-600">Impressive</span>.
+            <span className="font-semibold text-purple-400">Impressive</span>.
             If you’d invested
             <input
               type="number"
               value={investment}
               onChange={handleChange}
-              className="mx-1 w-[80px] sm:w-[100px] bg-transparent border-b-2 border-[#888] text-black font-semibold text-center focus:outline-none focus:border-black transition-all"
+              onWheel={(e) =>
+                e.target instanceof HTMLElement && e.target.blur()
+              }
+              className="mx-1 w-[80px] sm:w-[100px] bg-transparent border-b-2 border-white/50 text-white font-semibold text-center focus:outline-none focus:border-white transition-all placeholder-white/40"
+              placeholder="₹1000"
             />
             rupees, you'd have earned{" "}
-            <span className="text-green-600 font-bold">
+            <span className="text-green-400 font-bold">
               ₹{profit.toFixed(2)}
             </span>{" "}
             by now.
           </p>
 
           {/* Total display */}
-          <p className="text-base sm:text-lg text-[#444]">
+          <p className="text-base sm:text-lg text-gray-300">
             That brings your total to{" "}
-            <span className="font-semibold text-black">
+            <span className="font-semibold text-white">
               ₹{total.toFixed(2)}
             </span>{" "}
-            💸
           </p>
         </motion.div>
       )}

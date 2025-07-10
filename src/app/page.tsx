@@ -1,5 +1,6 @@
 "use client";
 
+import AnimatedBlob from "@/components/animatedBlob/AnimatedBlob";
 import SectionOne from "@/components/sections/SectionOne";
 import SectionStocks from "@/components/sections/SectionStocks";
 import SectionThree from "@/components/sections/SectionThree";
@@ -97,7 +98,9 @@ export default function Home() {
   // };
 
   return (
-    <main className="flex flex-col items-center space-y-4 bg-gradient-to-br from-[#FAF9F6] via-[#FFF] to-[#FAF9F6]">
+    // <main className="flex flex-col items-center space-y-4 bg-gradient-to-br from-[#FAF9F6] via-[#FFF] to-[#FAF9F6]">
+    <main className="flex flex-col items-center space-y-4">
+      <AnimatedBlob />
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
       <SectionOne scrollToSecondSection={scrollToSecondSection} />
       {proceed && (
@@ -111,7 +114,9 @@ export default function Home() {
             scrollToSection={scrollToSection}
             setShowReveal={setShowReveal}
           />
-          {showReveal && <SectionThree sectionRef={sectionRef} />}
+          {/* {showReveal && */}
+          <SectionThree sectionRef={sectionRef} />
+          {/* } */}
         </>
       )}
     </main>

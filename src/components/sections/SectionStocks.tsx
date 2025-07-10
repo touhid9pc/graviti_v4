@@ -26,7 +26,7 @@ const SectionStocks: React.FC<SectionTwoProps> = ({
     >
       {/* <TextComponent /> */}
       {/* <div className="flex flex-col items-center text-center"> */}
-      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#1a1a1a] text-center px-4">
+      <h2 className="text-2xl md:text-3xl lg:text-4xl font-bold text-[#FAF9F6] text-center px-4">
         Select 4 favourite brands to see how much wealth you would’ve made
       </h2>
       {/* </div> */}

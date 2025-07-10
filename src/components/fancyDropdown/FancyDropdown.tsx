@@ -1,3 +1,5 @@
+"use client";
+
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
@@ -8,6 +10,7 @@ type categoryType = {
   title: string;
   svgPath: string;
 };
+
 interface FancyDropdownProps {
   selectedCategory: categoryType;
   setSelectedCategory: (category: categoryType) => void;
@@ -23,7 +26,7 @@ export default function FancyDropdown({
     <div className="relative w-full mx-auto my-10 z-50 md:hidden">
       <button
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between gap-4 rounded-xl  text-[#1a1a1a] px-4 py-3 text-left shadow-sm  transition-colors"
+        className="flex w-full items-center justify-between gap-4 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md text-white px-4 py-3 text-left shadow-inner hover:backdrop-blur-lg transition-colors"
       >
         <div className="flex items-center gap-3">
           <Image
@@ -31,14 +34,14 @@ export default function FancyDropdown({
             alt={selectedCategory.title}
             width={28}
             height={28}
-            className="rounded-md"
+            className="rounded-md invert"
           />
-          <span className="text-base sm:text-lg font-semibold">
+          <span className="text-base sm:text-lg font-semibold text-white">
             {selectedCategory.title}
           </span>
         </div>
         <svg
-          className={`w-5 h-5 transition-transform ${
+          className={`w-5 h-5 transition-transform text-white ${
             open ? "rotate-180" : "rotate-0"
           }`}
           fill="none"
@@ -62,12 +65,12 @@ export default function FancyDropdown({
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: -10 }}
             transition={{ duration: 0.2 }}
-            className="absolute mt-2 w-full bg-white rounded-xl shadow-xl z-10 overflow-hidden max-h-[60vh] overflow-y-auto"
+            className="absolute mt-2 w-full bg-white/5 border border-white/10 backdrop-blur-xl rounded-xl shadow-2xl z-10 overflow-hidden max-h-[60vh] overflow-y-auto no-scrollbar"
           >
             {categories.map((cat) => (
               <li
                 key={cat.id}
-                className="flex items-center gap-3 px-4 py-3 hover:bg-gray-100 cursor-pointer transition-colors"
+                className="flex items-center gap-3 px-4 py-3 hover:bg-white/10 transition-colors cursor-pointer"
                 onClick={() => {
                   setSelectedCategory(cat);
                   setOpen(false);
@@ -78,9 +81,9 @@ export default function FancyDropdown({
                   alt={cat.title}
                   width={28}
                   height={28}
-                  className="rounded-md"
+                  className="rounded-md invert"
                 />
-                <span className="text-sm sm:text-base font-medium text-gray-800">
+                <span className="text-sm sm:text-base font-medium text-white">
                   {cat.title}
                 </span>
               </li>

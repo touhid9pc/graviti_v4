@@ -8,6 +8,7 @@ interface AnimatedButtonProps
   name?: string;
   className?: string;
   children?: React.ReactNode;
+  spanClassName?: string;
 }
 
 export default function AnimatedButton({
@@ -15,6 +16,7 @@ export default function AnimatedButton({
   className = "",
   children,
   disabled,
+  spanClassName,
   ...props
 }: AnimatedButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -83,23 +85,31 @@ export default function AnimatedButton({
       ref={btnRef}
       disabled={disabled}
       className={`
-        group relative w-max rounded-full 
-      py-2 px-6 text-sm sm:text-base
-        font-medium backdrop-blur-md border border-white/20 bg-[#FAF9F6]
-        ring-1 ring-white/10 transition-all duration-300  text-black hover:shadow-xl hover:ring-white/20
-        active:scale-95 active:ring-white/30
-        focus:outline-none focus:ring-2 focus:ring-white/30
-        disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
-        ${className}
-      `}
+    group relative w-max rounded-full 
+    py-2 px-6 text-sm sm:text-base font-medium
+    backdrop-blur-md border border-white/10 bg-white/5
+    text-white ring-1 ring-white/10 shadow-inner
+    hover:bg-white/10 hover:ring-white/20 hover:shadow-xl
+    active:scale-95 active:ring-white/30
+    focus:outline-none focus:ring-2 focus:ring-white/30
+    disabled:opacity-50 disabled:cursor-not-allowed disabled:pointer-events-none
+    transition-all duration-300 !cursor-pointer
+    ${className}
+  `}
       {...props}
     >
       <span
         ref={textRef}
-        className="flex justify-center items-center relative z-10"
+        className={`flex justify-center items-center relative z-10 ${spanClassName}`}
       >
         {children || name}
       </span>
+
+      {/* Optional: Glow Effect */}
+      <span
+        className="absolute inset-0 rounded-full bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-30 group-hover:opacity-50 transition duration-300 blur-xl"
+        aria-hidden
+      />
     </button>
   );
 }
