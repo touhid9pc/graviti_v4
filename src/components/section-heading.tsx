@@ -2,12 +2,12 @@ import React from "react";
 
 const UniqueHeading = ({
   text = "Your Heading",
-  textColor = "text-slate-900",
+  textColor = "text-slate-50",
   bgCut = false,
   bgCutColor = "bg-blue-200",
   highlight = "",
   highlightColor = "bg-white/30", // transparent white
-  highlightTextColor = "text-slate-900", // visible on light background
+  highlightTextColor = "text-slate-50", // visible on light background
   className = "",
 }) => {
   const highlightIndex = text.indexOf(highlight);

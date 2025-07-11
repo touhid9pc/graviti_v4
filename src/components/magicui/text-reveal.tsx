@@ -26,7 +26,7 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
 
     const animation = gsap.fromTo(
       split.words,
-      { opacity: 0.2 },
+      { opacity: 0.5 },
       {
         opacity: 1,
 
@@ -61,7 +61,7 @@ const TextReveal: React.FC<TextRevealProps> = ({ children, className }) => {
     >
       <p
         ref={paragraphRef}
-        className="text-[0.9rem] md:text-xl w-full max-w-4xl mx-auto lg:text-2xl xl:text-3xl font-semibold text-slate-900 leading-relaxed text-start md:text-center lg:text-start"
+        className="text-[0.9rem] md:text-xl w-full max-w-4xl mx-auto lg:text-2xl xl:text-3xl font-semibold text-slate-50 leading-relaxed text-start md:text-center lg:text-start"
       >
         {children}
       </p>

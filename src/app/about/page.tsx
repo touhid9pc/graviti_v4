@@ -12,6 +12,7 @@ import RollingText from "@/components/ui/rolling-text";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/src/ScrollTrigger";
 import TextReveal from "@/components/magicui/text-reveal";
+import AnimatedBlob from "@/components/animatedBlob/AnimatedBlob";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -47,8 +48,7 @@ function AboutSection() {
             });
 
             gsap.to(card, {
-              background: "linear-gradient(to bottom right, #dfedff, #e2e8f0)",
-
+              background: "rgba(255,255,255,0.2)",
               duration: 0,
             });
           },
@@ -73,8 +73,9 @@ function AboutSection() {
   const rightItems = gravitiFeatures.slice(mid);
 
   return (
-    <section className="flex flex-col w-full max-w-7xl space-y-12 md:space-y-4 mx-auto px-4 sm:px-4 py-20 md:py-0 md:px-8 text-slate-900">
+    <section className="flex flex-col w-full max-w-7xl space-y-12 md:space-y-4 mx-auto px-4 sm:px-4 py-20 md:py-0 md:px-8 text-slate-50">
       {/* About Hero Section */}
+      <AnimatedBlob/>
       <div className="w-full flex flex-col justify-center items-center min-h-[100dvh]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -85,16 +86,16 @@ function AboutSection() {
           <UniqueHeading
             text="About Us"
             bgCut
-            className="text-3xl sm:text-4xl md:text-5xl text-slate-900 "
+            className="text-3xl sm:text-4xl md:text-5xl text-slate-50 "
           />
           <div className="max-w-4xl flex items-center my-4 px-4">
-            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-slate-700">
-              <span className="font-bold text-lg sm:text-xl md:text-2xl text-slate-900">
+            <p className="text-base sm:text-lg md:text-xl leading-relaxed text-slate-50">
+              <span className="font-bold text-lg sm:text-xl md:text-2xl text-slate-50">
                 Graviti.Finance
               </span>{" "}
               is a user-friendly trading platform that allows Indian investors
               to access global digital assets and{" "}
-              <span className="font-extrabold text-2xl text-blue-900">
+              <span className="font-extrabold text-2xl text-blue-400">
                 U.S. stocks
               </span>{" "}
               securely, transparently, and at low cost.
@@ -112,11 +113,11 @@ function AboutSection() {
               transition={{ duration: 0.8, delay: 0.2 }}
               className="relative group px-6 py-8 max-w-xl w-full text-center"
             >
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-50 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Vision
               </h3>
               <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-blue-500 to-slate-500 mb-6 transition-all duration-500 group-hover:w-20" />
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed tracking-tight">
+              <p className="text-base sm:text-lg text-slate-50 leading-relaxed tracking-tight">
                 To empower Indian investors with smooth, secure access to the
                 world’s most powerful digital and equity investment
                 opportunities.
@@ -130,11 +131,11 @@ function AboutSection() {
               transition={{ duration: 0.8, delay: 0.4 }}
               className="relative group px-6 py-8 max-w-xl w-full text-center"
             >
-              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-900 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
+              <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-50 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Mission
               </h3>
               <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-slate-500 to-blue-500 mb-6 transition-all duration-500 group-hover:w-20" />
-              <p className="text-base sm:text-lg text-slate-600 leading-relaxed tracking-tight">
+              <p className="text-base sm:text-lg text-slate-50 leading-relaxed tracking-tight">
                 To simplify global investing through a regulated, low-cost
                 platform powered by expert insights and advanced technology —
                 minimizing risk and helping investors build long-term wealth
@@ -147,7 +148,7 @@ function AboutSection() {
 
       {/* HOW IT WORKS */}
       <div className="w-full flex flex-col items-center justify-center gap-8 px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-900">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400">
           HOW IT WORKS?
         </span>
         <UniqueHeading
@@ -155,7 +156,7 @@ function AboutSection() {
           className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
           bgCut
         />
-        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-900 ">
+        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
           Transform Your Financial Future in 3 Simple Steps
         </span>
 
@@ -164,23 +165,23 @@ function AboutSection() {
             <div
               key={i}
               ref={(el: any) => (cardRefs.current[i] = el)}
-              className="relative w-full h-[12rem] shadow-md rounded-xl p-4 sm:p-5 flex flex-col justify-start bg-transparent transition-all duration-500 overflow-hidden"
+              className="relative w-full border-[1px] border-slate-100/50 h-[12rem] shadow-md rounded-xl p-4 sm:p-5 flex flex-col justify-start bg-transparent transition-all duration-500 overflow-hidden"
             >
               <div className="absolute top-2 right-2 w-[30px] h-1.5 rounded overflow-hidden">
                 <div
                   ref={(el: any) => (barRefs.current[i] = el)}
-                  className="h-full w-0 bg-blue-700 rounded"
+                  className="h-full w-0 bg-blue-400 rounded"
                 ></div>
               </div>
 
-              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-8 right-0 opacity-20 font-extrabold text-blue-900 absolute z-10">
+              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-8 right-0 opacity-50 font-extrabold text-slate-400 absolute z-10">
                 {String(i + 1).padStart(2, "0")}
               </div>
 
-              <h3 className="text-base sm:text-lg font-bold text-slate-800 mb-1 z-20">
+              <h3 className="text-base sm:text-lg font-bold text-slate-50 mb-1 z-20">
                 {step.title}
               </h3>
-              <p className="text-sm sm:text-base font-semibold text-slate-600 z-20">
+              <p className="text-sm sm:text-base font-semibold text-slate-50 z-20">
                 {step.description}
               </p>
             </div>
@@ -190,7 +191,7 @@ function AboutSection() {
 
       {/* WHY CHOOSE US */}
       <div className="w-full gap-8 flex flex-col items-center justify-center px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-900 ">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
           WHY CHOOSE US?
         </span>
         <UniqueHeading
@@ -201,21 +202,21 @@ function AboutSection() {
 
         <RollingText
           messages={messages}
-          className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-900"
+          className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400"
           textClassName="transition-opacity duration-300"
         />
-        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-800 text-sm md:text-base  font-semibold leading-relaxed">
+        <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-50 text-sm md:text-base  font-semibold leading-relaxed">
           <div className="hidden md:block absolute inset-y-0 left-1/2 w-px bg-blue-600 transform -translate-x-1/2" />
           <div className="flex flex-col space-y-6 px-4">
             {leftItems.map((feature, i) => (
-              <div key={i} className="flex items-center gap-4 text-slate-900">
+              <div key={i} className="flex items-center gap-4 text-slate-50">
                 {feature}
               </div>
             ))}
           </div>
           <div className="flex flex-col space-y-6 px-4">
             {rightItems.map((feature, i) => (
-              <div key={i} className="flex items-center gap-4 text-slate-900">
+              <div key={i} className="flex items-center gap-4 text-slate-50">
                 {feature}
               </div>
             ))}
@@ -244,7 +245,7 @@ function AboutSection() {
 
       {/* INVESTMENT OPTIONS */}
       <div className="w-full flex flex-col justify-center gap-8 items-center px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-900 ">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
           INVESTMENT OPTIONS
         </span>
         <UniqueHeading
@@ -252,7 +253,7 @@ function AboutSection() {
           className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
           bgCut
         />
-        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-900 ">
+        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
           Maximise Potential with Limitless Investment Options
         </span>
 
@@ -260,7 +261,7 @@ function AboutSection() {
           {investmentOptions.map((item, idx) => (
             <div
               key={idx}
-              className="group relative flex-1 min-w-[280px] max-w-sm p-6 bg-sand-300 text-slate-900 rounded-sm overflow-hidden cursor-pointer shadow-md hover:shadow-lg transition-shadow"
+              className="group relative flex-1 min-w-[280px] max-w-sm p-6 bg-sand-300 text-slate-50 rounded-sm overflow-hidden cursor-pointer shadow-md hover:shadow-lg transition-shadow"
             >
               <div className="absolute top-0 left-0 w-16 h-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-200 to-slate-300 opacity-60 transform scale-50 origin-top-left transition-transform duration-500 group-hover:scale-[1.5]" />
               <div className="absolute bottom-0 right-0 w-20 h-40 translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-tl from-slate-300 to-blue-200 opacity-60 transform scale-50 origin-bottom-right transition-transform duration-500 group-hover:scale-[2.5]" />

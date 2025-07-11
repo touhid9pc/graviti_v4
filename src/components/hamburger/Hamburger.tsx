@@ -64,9 +64,7 @@ const HamburgerMenu = () => {
             <Link
               key={link.href}
               href={link.href}
-              className={`${
-                pathname === "/about" ? " text-[#1a1a1a]" : "text-[#FAF9F6]"
-              } transition font-bold`}
+              className={`text-[#FAF9F6] transition font-bold`}
             >
               {link.name}
             </Link>
@@ -81,21 +79,15 @@ const HamburgerMenu = () => {
         >
           <div className="space-y-1.5">
             <span
-              className={`block h-0.5 w-6  ${
-                pathname === "/about" ? " bg-[#1a1a1a]" : "bg-[#FAF9F6]"
-              } transition-transform duration-300 ${
+              className={`block h-0.5 w-6 bg-[#FAF9F6] transition-transform duration-300 ${
                 open ? "rotate-45 translate-y-1.5" : ""
               }`}
             />
             <span
-              className={`block h-0.5 w-6 ${
-                pathname === "/about" ? " bg-[#1a1a1a]" : "bg-[#FAF9F6]"
-              } transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
+              className={`block h-0.5 w-6 bg-[#FAF9F6] transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
             />
             <span
-              className={`block h-0.5 w-6 ${
-                pathname === "/about" ? " bg-[#1a1a1a]" : "bg-[#FAF9F6]"
-              } transition-transform duration-300 ${
+              className={`block h-0.5 w-6 bg-[#FAF9F6] transition-transform duration-300 ${
                 open ? "-rotate-45 -translate-y-2.5" : ""
               }`}
             />
@@ -118,9 +110,7 @@ const HamburgerMenu = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={` ${
-                    pathname === "/about" ? " text-[#1a1a1a]" : "text-[#FAF9F6]"
-                  } text-lg font-medium hover:text-[#FAF9F6] transition`}
+                  className={`  text-lg font-medium text-[#FAF9F6]/70 hover:text-[#FAF9F6] duration-200 transition`}
                 >
                   {link.name}
                 </Link>
