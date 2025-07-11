@@ -151,7 +151,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
   if (loading) {
     return (
       <div className="w-full h-screen flex items-center justify-center backdrop-blur-sm">
-        <div className="text-xl md:text-2xl font-bold text-gray-800 animate-pulse tracking-wide">
+        <div className="text-xl md:text-2xl font-bold text-[#fAf9F6] animate-pulse tracking-wide">
           loading...
         </div>
       </div>

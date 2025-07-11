@@ -5,6 +5,7 @@ import Script from "next/script";
 import { Toaster } from "react-hot-toast";
 import "./globals.css";
 import { GoogleAnalytics } from "@next/third-parties/google";
+import Footer from "@/components/footer/Footer";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -97,6 +98,7 @@ export default function RootLayout({
         />
         {children}
       </body>
+      <Footer />
     </html>
   );
 }
