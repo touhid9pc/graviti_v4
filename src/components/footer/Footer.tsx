@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
         <div className="flex flex-col justify-between">
           <p className="h-full">
-            We love to hear from you, Reach out us on 
+            We love to hear from you, reach out us on 
             <br/>
             <Link href={"mailto:info@graviti.finance"} className={`${linkClass} font-bold text-xl!`}>info@graviti.finance</Link>
           </p>
