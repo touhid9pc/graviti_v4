@@ -113,7 +113,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
 
         await addDoc(collection(firebaseDb, "interests"), {
           companies: selectedCard,
-          uid: `${user?.uid}`,
+          uid: `${result?.user?.uid}`,
           timestamp: new Date(),
         });
         setShowReveal(true);
@@ -271,7 +271,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                         </div>
                       )}
 
-                      <div className="mb-6 h-[60%] w-full p-2 flex items-center rounded-xl bg-white  justify-center">
+                      <div className="mb-6 h-[60%] w-full p-2 flex items-center rounded-xl bg-gradient-to-r from-white  to-gray-300 justify-center">
                         <Image
                           src={
                             companiesImages[card.symbol as CompanySymbol] ||
@@ -284,19 +284,6 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                         />
                       </div>
 
-                      {/* <div className="p-2 rounded-full bg-white/90 shadow-md">
-                        <Image
-                          src={
-                            companiesImages[card.symbol as CompanySymbol] ||
-                            "/fallback.webp"
-                          }
-                          alt={card.name}
-                          width={100}
-                          height={100}
-                          className="transition-transform duration-300 hover:scale-110 object-contain"
-                        />
-                      </div> */}
-
                       <h3
                         className={`text-sm md:text-xl font-bold capitalize text-center ${
                           isSelected ? "text-green-400" : "text-white"
@@ -307,7 +294,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
 
                       <p
                         onClick={handleFlip}
-                        className={`text-xs sm:text-sm xl:text-lg mt-2 underline text-center text-white/50`}
+                        className={`text-xs sm:text-sm xl:text-base mt-2 underline text-center text-white/50`}
                       >
                         more details
                       </p>
