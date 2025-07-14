@@ -29,55 +29,45 @@ const blobs = [
   },
 ];
 
-const sizeMap = {
-  sm: "w-[400px] h-[400px]",
-  md: "w-[600px] h-[600px]",
-  lg: "w-[800px] h-[800px]",
+const sizeMap: Record<
+  string,
+  { width: number; height: number; className: string }
+> = {
+  sm: { width: 400, height: 400, className: "w-[400px] h-[400px]" },
+  md: { width: 600, height: 600, className: "w-[600px] h-[600px]" },
+  lg: { width: 800, height: 800, className: "w-[800px] h-[800px]" },
 };
 
 export default function AnimatedBlob() {
   return (
     <div className="fixed inset-0 h-screen -z-10 overflow-x-hidden no-scrollbar bg-black">
-      {/* Shared filter definition */}
-      {/* <svg width="0" height="0">
-        <defs>
-          <filter
-            id="blob-gaussian-blur"
-            x="-50%"
-            y="-50%"
-            width="200%"
-            height="200%"
+      {blobs.map((blob) => {
+        const size = sizeMap[blob.size];
+        return (
+          <svg
+            key={blob.id}
+            viewBox="0 0 200 200"
+            xmlns="http://www.w3.org/2000/svg"
+            preserveAspectRatio="xMidYMid meet"
+            width={size.width}
+            height={size.height}
+            className={`absolute ${size.className} blur-3xl opacity-20 pointer-events-none`}
+            style={{
+              top: blob.top,
+              bottom: blob.bottom,
+              left: blob.left,
+              right: blob.right,
+              willChange: "transform",
+            }}
           >
-            <feGaussianBlur stdDeviation="60" />
-          </filter>
-        </defs>
-      </svg> */}
-
-      {/* Blobs */}
-      {blobs.map((blob) => (
-        <svg
-          key={blob.id}
-          viewBox="0 0 200 200"
-          xmlns="http://www.w3.org/2000/svg"
-          preserveAspectRatio="xMidYMid meet"
-          className={`absolute ${
-            (sizeMap as any)[blob.size]
-          } blur-3xl opacity-20 pointer-events-none`}
-          style={{
-            top: blob.top,
-            bottom: blob.bottom,
-            left: blob.left,
-            right: blob.right,
-          }}
-        >
-          <path
-            fill={blob.color}
-            d={blob.path}
-            transform="translate(100 100)"
-            filter="url(#blob-gaussian-blur)"
-          />
-        </svg>
-      ))}
+            <path
+              fill={blob.color}
+              d={blob.path}
+              transform="translate(100 100)"
+            />
+          </svg>
+        );
+      })}
     </div>
   );
 }
