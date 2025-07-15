@@ -86,8 +86,10 @@ export default function Footer() {
           <div className="flex flex-col justify-between gap-6">
             <div className="">
               <h3 className={sectionTitleClass}>Contact</h3>
-              <div className="flex flex-col lg:flex-row items-start lg:items-center gap-2 lg:gap-5">
-                <p className="text-sm sm:text-base">Reach out to us at:</p>
+              <div className="flex flex-col lg:flex-col   gap-2 w-full lg:gap-3">
+                <p className="text-sm sm:text-base">
+                  We would love to hear from you:
+                </p>
                 <Link
                   href="mailto:info@graviti.finance"
                   className={`${linkClass} font-extrabold text-lg`}
