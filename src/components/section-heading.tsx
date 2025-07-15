@@ -4,7 +4,7 @@ const UniqueHeading = ({
   text = "Your Heading",
   textColor = "text-slate-50",
   bgCut = false,
-  bgCutColor = "bg-blue-200",
+  bgCutColor = "bg-emerald-200",
   highlight = "",
   highlightColor = "bg-white/30", // transparent white
   highlightTextColor = "text-slate-50", // visible on light background
@@ -24,12 +24,10 @@ const UniqueHeading = ({
           className={`
             absolute inset-0 -z-10 rounded-xl
             transform  -skew-y-3 translate-y-4 -translate-x-6
-            ${bgCutColor} opacity-50
+            ${bgCutColor} opacity-35
           `}
         />
       )}
-
-     
 
       <h1
         className={`font-extrabold tracking-tight relative ${textColor}`}

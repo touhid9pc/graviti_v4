@@ -4,10 +4,12 @@ import React, { useEffect, useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import Banner from "../banner/Banner";
 
 const links = [
   { name: "Home", href: "/" },
   { name: "About", href: "/about" },
+  { name: "Rewards", href: "/rewards" },
 ];
 
 const HamburgerMenu = () => {
@@ -51,22 +53,25 @@ const HamburgerMenu = () => {
       initial={{ y: 0 }}
       animate={{ y: showNavbar ? 0 : "-100%" }}
       transition={{ duration: 0.3, ease: "easeInOut" }}
-      className={`fixed top-0 left-0 w-full z-50 
+      className={`fixed  top-0 left-0 w-full z-40 
        `}
     >
-      <div className="max-w-7xl mx-auto px-4 py-4 flex items-center justify-end">
+      <Banner />
+      <div className="max-w-[1400px]  mx-auto  px-4 py-4 relative flex  items-center justify-end">
         {/* <Link href="/" className="text-xl font-bold text-black">
           Logo
         </Link> */}
 
         <nav className="hidden md:flex space-x-6">
           {links.map((link) => (
-            <Link
-              key={link.href}
-              href={link.href}
-              className={`text-[#FAF9F6] transition font-bold`}
-            >
-              {link.name}
+            <Link key={link.href} href={link.href}>
+              <span
+                className={`text-slate-50 transition font-bold ${
+                  link.name === "Rewards" ? "hidden" : "block"
+                }`}
+              >
+                {link.name}
+              </span>
             </Link>
           ))}
         </nav>
@@ -84,7 +89,9 @@ const HamburgerMenu = () => {
               }`}
             />
             <span
-              className={`block h-0.5 w-6 bg-[#FAF9F6] transition-opacity duration-300 ${open ? "opacity-0" : ""}`}
+              className={`block h-0.5 w-6 bg-[#FAF9F6] transition-opacity duration-300 ${
+                open ? "opacity-0" : ""
+              }`}
             />
             <span
               className={`block h-0.5 w-6 bg-[#FAF9F6] transition-transform duration-300 ${
@@ -110,7 +117,7 @@ const HamburgerMenu = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`  text-lg font-medium text-[#FAF9F6]/70 hover:text-[#FAF9F6] duration-200 transition`}
+                  className={`  text-lg font-medium text-slate-50 hover:text-slate-50/80 duration-200 transition`}
                 >
                   {link.name}
                 </Link>
