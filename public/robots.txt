@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://graviti.finance
+
+# Sitemaps
+Sitemap: https://graviti.finance/sitemap.xml
