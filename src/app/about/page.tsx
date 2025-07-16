@@ -75,7 +75,7 @@ function AboutSection() {
   return (
     <section className="flex flex-col w-full max-w-7xl space-y-12 md:space-y-4 mx-auto px-4 sm:px-4 py-20 md:py-0 md:px-8 text-slate-50">
       {/* About Hero Section */}
-      <AnimatedBlob/>
+      <AnimatedBlob />
       <div className="w-full flex flex-col justify-center items-center min-h-[100dvh]">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
@@ -95,7 +95,7 @@ function AboutSection() {
               </span>{" "}
               is a user-friendly trading platform that allows Indian investors
               to access global digital assets and{" "}
-              <span className="font-extrabold text-2xl text-blue-400">
+              <span className="font-extrabold text-2xl text-emerald-400">
                 U.S. stocks
               </span>{" "}
               securely, transparently, and at low cost.
@@ -116,7 +116,7 @@ function AboutSection() {
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-50 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Vision
               </h3>
-              <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-blue-500 to-slate-500 mb-6 transition-all duration-500 group-hover:w-20" />
+              <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-emerald-500 to-slate-500 mb-6 transition-all duration-500 group-hover:w-20" />
               <p className="text-base sm:text-lg text-slate-50 leading-relaxed tracking-tight">
                 To empower Indian investors with smooth, secure access to the
                 world’s most powerful digital and equity investment
@@ -134,7 +134,7 @@ function AboutSection() {
               <h3 className="text-2xl sm:text-3xl md:text-4xl font-semibold text-slate-50 mb-4 tracking-tight group-hover:tracking-wider transition-all duration-300">
                 Mission
               </h3>
-              <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-slate-500 to-blue-500 mb-6 transition-all duration-500 group-hover:w-20" />
+              <div className="w-14 h-[2px] mx-auto bg-gradient-to-r from-slate-500 to-emerald-500 mb-6 transition-all duration-500 group-hover:w-20" />
               <p className="text-base sm:text-lg text-slate-50 leading-relaxed tracking-tight">
                 To simplify global investing through a regulated, low-cost
                 platform powered by expert insights and advanced technology —
@@ -148,15 +148,15 @@ function AboutSection() {
 
       {/* HOW IT WORKS */}
       <div className="w-full flex flex-col items-center justify-center gap-8 px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-emerald-400">
           HOW IT WORKS?
         </span>
         <UniqueHeading
           text="Just 3 steps to get started"
-          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
+          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-emerald-700"
           bgCut
         />
-        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
+        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-emerald-400 ">
           Transform Your Financial Future in 3 Simple Steps
         </span>
 
@@ -170,11 +170,11 @@ function AboutSection() {
               <div className="absolute top-2 right-2 w-[30px] h-1.5 rounded overflow-hidden">
                 <div
                   ref={(el: any) => (barRefs.current[i] = el)}
-                  className="h-full w-0 bg-blue-400 rounded"
+                  className="h-full w-0 bg-emerald-400 rounded"
                 ></div>
               </div>
 
-              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-8 right-0 opacity-50 font-extrabold text-slate-400 absolute z-10">
+              <div className="text-[9rem] lg:text-[7rem] -bottom-16 lg:-bottom-8 right-0 opacity-50 font-extrabold text-emerald-200/70 absolute z-10">
                 {String(i + 1).padStart(2, "0")}
               </div>
 
@@ -191,22 +191,22 @@ function AboutSection() {
 
       {/* WHY CHOOSE US */}
       <div className="w-full gap-8 flex flex-col items-center justify-center px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-emerald-400 ">
           WHY CHOOSE US?
         </span>
         <UniqueHeading
           text="Why Graviti Finance?"
-          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
+          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-emerald-700"
           bgCut
         />
 
         <RollingText
           messages={messages}
-          className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400"
+          className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-emerald-400"
           textClassName="transition-opacity duration-300"
         />
         <div className="relative grid grid-cols-1 md:grid-cols-2 gap-8 text-slate-50 text-sm md:text-base  font-semibold leading-relaxed">
-          <div className="hidden md:block absolute inset-y-0 left-1/2 w-px bg-blue-600 transform -translate-x-1/2" />
+          <div className="hidden md:block absolute inset-y-0 left-1/2 w-px bg-emerald-600 transform -translate-x-1/2" />
           <div className="flex flex-col space-y-6 px-4">
             {leftItems.map((feature, i) => (
               <div key={i} className="flex items-center gap-4 text-slate-50">
@@ -245,15 +245,15 @@ function AboutSection() {
 
       {/* INVESTMENT OPTIONS */}
       <div className="w-full flex flex-col justify-center gap-8 items-center px-4 min-h-[100dvh]">
-        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
+        <span className="font-mono font-semibold tracking-wide text-xs sm:text-sm md:text-base text-emerald-400 ">
           INVESTMENT OPTIONS
         </span>
         <UniqueHeading
           text="Where can you invest?"
-          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-blue-700"
+          className="text-3xl mb-3 sm:text-4xl md:text-5xl text-center text-emerald-700"
           bgCut
         />
-        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-blue-400 ">
+        <span className="font-mono font-semibold text-center tracking-wide text-xs sm:text-sm md:text-base text-emerald-400 ">
           Maximise Potential with Limitless Investment Options
         </span>
 
@@ -263,8 +263,8 @@ function AboutSection() {
               key={idx}
               className="group relative flex-1 min-w-[280px] max-w-sm p-6 bg-sand-300 text-slate-50 rounded-sm overflow-hidden cursor-pointer shadow-md hover:shadow-lg transition-shadow"
             >
-              <div className="absolute top-0 left-0 w-16 h-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-blue-200 to-slate-300 opacity-60 transform scale-50 origin-top-left transition-transform duration-500 group-hover:scale-[1.5]" />
-              <div className="absolute bottom-0 right-0 w-20 h-40 translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-tl from-slate-300 to-blue-200 opacity-60 transform scale-50 origin-bottom-right transition-transform duration-500 group-hover:scale-[2.5]" />
+              <div className="absolute top-0 left-0 w-16 h-32 -translate-x-1/2 -translate-y-1/2 rounded-full bg-gradient-to-br from-emerald-200 to-slate-300 opacity-30 transform scale-50 origin-top-left transition-transform duration-500 group-hover:scale-[1.5]" />
+              <div className="absolute bottom-0 right-0 w-20 h-40 translate-x-1/2 translate-y-1/2 rounded-full bg-gradient-to-tl from-slate-300 to-emerald-200 opacity-30 transform scale-50 origin-bottom-right transition-transform duration-500 group-hover:scale-[2.5]" />
               <h3 className="relative z-10 text-lg font-extrabold tracking-wide">
                 {item.title}
               </h3>

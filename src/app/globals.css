@@ -145,3 +145,8 @@ body {
 .no-scrollbar::-webkit-scrollbar {
   display: none; /* Chrome, Safari, Opera */
 }
+
+/* Custom overlay class */
+.overlay-gradient {
+  border-image: fill 0 linear-gradient(#0003, #000);
+}

@@ -5,6 +5,7 @@ import { useAppStore } from "@/store/useStore";
 import HamburgerMenu from "@/components/hamburger/Hamburger";
 import { useClickTracker } from "@/hooks/useClickTracker";
 import { usePageView } from "@/hooks/usePageView";
+import Banner from "../banner/Banner";
 
 const ClientRoot = () => {
   const { user } = useAppStore();
@@ -14,6 +15,7 @@ const ClientRoot = () => {
 
   return (
     <>
+      {/* <Banner /> */}
       <HamburgerMenu />
     </>
   );

@@ -101,6 +101,7 @@ export default function Home() {
     // <main className="flex flex-col items-center space-y-4 bg-gradient-to-br from-[#FAF9F6] via-[#FFF] to-[#FAF9F6]">
     <main className="flex flex-col items-center ">
       <AnimatedBlob />
+
       {/* <div className="w-full">{renderStepComponent(step)}</div> */}
       <SectionOne scrollToSecondSection={scrollToSecondSection} />
       {proceed && (
