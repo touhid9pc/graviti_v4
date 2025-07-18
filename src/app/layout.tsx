@@ -23,7 +23,7 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "Graviti Fiance",
+  title: "Graviti Finance",
   description: "Portal to the your digital assets",
 };
 
