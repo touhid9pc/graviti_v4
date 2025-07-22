@@ -34,8 +34,6 @@ export function useClickTracker() {
           innerHtml: target?.innerHTML,
         });
       }
-
-      console.log({ target });
     };
 
     document.addEventListener("click", handleClick);

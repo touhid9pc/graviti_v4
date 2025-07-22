@@ -123,7 +123,7 @@ const SectionOne: React.FC<SectionOneProps> = ({ scrollToSecondSection }) => {
         </div>
 
         {!isProceed && (
-          <div ref={buttonRef} onClick={(e) => console.log(e.target)}>
+          <div ref={buttonRef}>
             <AnimatedButton
               className="!font-bold !z-11"
               id="cta-proceed"

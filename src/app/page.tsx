@@ -42,7 +42,6 @@ export default function Home() {
         const now = new Date();
 
         if (now > expirationTime) {
-          console.log("🔥 Token expired — logging out user");
           toast.error("Token expired");
           setUser(null);
           setInterestsData({

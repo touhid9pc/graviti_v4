@@ -331,8 +331,6 @@ export default function Dock() {
     const centerX = (deviceSize.width - gridDimensions.width) / 2;
     const centerY = (deviceSize.height - gridDimensions.height) / 2;
 
-    console.log(centerX, centerY);
-
     return {
       x: Math.max(
         Math.min(centerX, dragConstraints.right),
