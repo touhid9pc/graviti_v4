@@ -118,7 +118,8 @@ const HamburgerMenu = () => {
                   key={link.href}
                   href={link.href}
                   onClick={() => setOpen(false)}
-                  className={`  text-lg font-medium text-slate-50 hover:text-slate-50/80 duration-200 transition`}
+                  className={`text-lg font-medium text-slate-50 hover:text-slate-50/80 duration-200 transition`}
+                  id={`${link?.name}-menu`}
                 >
                   {link.name}
                 </Link>
