@@ -9,6 +9,7 @@ interface AnimatedButtonProps
   className?: string;
   children?: React.ReactNode;
   spanClassName?: string;
+  id?: string;
 }
 
 export default function AnimatedButton({
@@ -17,6 +18,7 @@ export default function AnimatedButton({
   children,
   disabled,
   spanClassName,
+  id,
   ...props
 }: AnimatedButtonProps) {
   const btnRef = useRef<HTMLButtonElement>(null);
@@ -96,20 +98,22 @@ export default function AnimatedButton({
     transition-all duration-300 !cursor-pointer
     ${className}
   `}
+      id={id}
       {...props}
     >
       <span
         ref={textRef}
-        className={`flex justify-center items-center relative z-10 ${spanClassName}`}
+        className={`flex justify-center items-center relative ${spanClassName}`}
+        id={id}
       >
         {children || name}
       </span>
 
       {/* Optional: Glow Effect */}
-      <span
+      {/* <span
         className="absolute inset-0 rounded-full bg-gradient-to-r from-white/10 via-transparent to-white/10 opacity-30 group-hover:opacity-50 transition duration-300 blur-xl"
         aria-hidden
-      />
+      /> */}
     </button>
   );
 }

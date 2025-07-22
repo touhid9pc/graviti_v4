@@ -69,6 +69,7 @@ const HamburgerMenu = () => {
                 className={`text-slate-50 transition font-bold ${
                   link.name === "Rewards" ? "hidden" : "block"
                 }`}
+                id={`${link?.name}-menu`}
               >
                 {link.name}
               </span>

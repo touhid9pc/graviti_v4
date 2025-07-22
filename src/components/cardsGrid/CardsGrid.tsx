@@ -177,6 +177,8 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                 className={`!p-4 relative group border border-slate-300 rounded-full cursor-pointer transition-all  ${
                   selectedCategory?.id === item?.id ? "bg-[#FAF9F6]" : ""
                 }`}
+                id={`${item?.title}-category`}
+                data-analytics={`${item?.title}_category`}
                 spanClassName={"invert"}
                 onClick={() => setSelectedCategory(item)}
               >
@@ -193,6 +195,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                   width={28}
                   height={28}
                   className="rounded-md"
+                  id={`${item?.title}-category`}
                 />
 
                 <div className="absolute bottom-full mb-2 left-1/2 -translate-x-1/2 whitespace-nowrap bg-[#FAF9F6] text-[#1a1a1a] text-sm px-3 py-1 font-semibold rounded shadow-md opacity-0 group-hover:opacity-100 transition-opacity duration-200 z-20 leading-10">
@@ -213,6 +216,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
             <AnimatedButton
               className="text-base sm:text-lg flex justify-center items-center"
               onClick={() => setSelectedCard([])}
+              id={`cta-clear`}
             >
               Clear
             </AnimatedButton>
@@ -254,7 +258,10 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                     style={{ transformStyle: "preserve-3d" }}
                   >
                     {/* FRONT */}
-                    <div className="absolute inset-0 backface-hidden flex flex-col items-center justify-center rounded-xl p-6 shadow-inner border border-white/10 bg-white/5 backdrop-blur-md hover:backdrop-blur-xl transition-all duration-300">
+                    <div
+                      className="absolute inset-0 backface-hidden flex flex-col items-center justify-center rounded-xl p-6 shadow-inner border border-white/10 bg-white/5 backdrop-blur-md hover:backdrop-blur-xl transition-all duration-300"
+                      id={`${card?.name}-card`}
+                    >
                       {/* <div
                         onClick={handleFlip}
                         className="absolute top-2 left-2"
@@ -295,6 +302,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
                       <p
                         onClick={handleFlip}
                         className={`text-xs sm:text-sm xl:text-base mt-2 underline text-center text-white/50`}
+                        id={`${card?.name}-card-more-details`}
                       >
                         more details
                       </p>
@@ -348,6 +356,7 @@ const CardsGrid: React.FC<CardsGridProps> = ({
               name={loading ? "loading..." : "Reveal"}
               className="text-base sm:text-lg font-semibold rounded-full shadow-md hover:shadow-lg hover:scale-105 transition-all duration-200 flex items-center"
               onClick={handleReveal}
+              id={`cta-reveal`}
             />
           ) : (
             <p className="text-center text-lg md:text-xl font-semibold text-[#Faf9f6]">

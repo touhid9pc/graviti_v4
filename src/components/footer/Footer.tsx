@@ -22,20 +22,33 @@ const footerLinks = [
 
 const socialLinks = [
   {
-    logo: <IoLogoInstagram className="text-2xl sm:text-3xl" />,
+    logo: (
+      <IoLogoInstagram
+        className="text-2xl sm:text-3xl"
+        id={`instagram-social`}
+      />
+    ),
     url: "https://www.instagram.com/graviti.finance",
+    name: "Instagram",
   },
   {
-    logo: <IoLogoFacebook className="text-2xl sm:text-3xl" />,
+    logo: (
+      <IoLogoFacebook className="text-2xl sm:text-3xl" id={`facebook-social`} />
+    ),
     url: "https://www.facebook.com/graviti.finance",
+    name: "Facebook",
   },
   {
-    logo: <FaXTwitter className="text-2xl sm:text-3xl" />,
+    logo: <FaXTwitter className="text-2xl sm:text-3xl" id={`x-social`} />,
     url: "https://twitter.com/graviti_finance",
+    name: "X",
   },
   {
-    logo: <IoLogoLinkedin className="text-2xl sm:text-3xl" />,
+    logo: (
+      <IoLogoLinkedin className="text-2xl sm:text-3xl" id={`linkedin-social`} />
+    ),
     url: "https://www.linkedin.com/company/graviti-finance",
+    name: "Linkedin",
   },
 ];
 
@@ -93,6 +106,7 @@ export default function Footer() {
                 <Link
                   href="mailto:info@graviti.finance"
                   className={`${linkClass} font-extrabold text-lg`}
+                  id={`email-contact`}
                 >
                   info@graviti.finance
                 </Link>
@@ -102,7 +116,7 @@ export default function Footer() {
             <div>
               <h3 className={sectionTitleClass}>Follow Us</h3>
               <div className="flex  gap-3">
-                {socialLinks.map(({ logo, url }) => (
+                {socialLinks.map(({ logo, url, name }) => (
                   <Link
                     href={url}
                     target="_blank"
@@ -126,6 +140,7 @@ export default function Footer() {
                   href={link.href}
                   key={index}
                   className={`${linkClass} text-sm`}
+                  id={`${link?.label}-menu`}
                 >
                   {link.label}
                 </Link>

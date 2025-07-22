@@ -7,29 +7,35 @@ import { logEvent } from "firebase/analytics";
 export function useClickTracker() {
   useEffect(() => {
     const handleClick = (e: MouseEvent) => {
-      const target = e.target as HTMLElement;
+      let target = e.target as HTMLElement;
 
-      const label = target.dataset.analytics;
+      while (target && target !== document.body && !target.id) {
+        target = target.parentElement as HTMLElement;
+      }
+
+      if (!target || target === document.body) return;
+
+      const label = target.dataset.analytics || target.id;
 
       if (analytics && label) {
+        // Case 1: Explicit tracking via data-analytics
         logEvent(analytics, "click", {
           category: "interaction",
           label,
         });
       } else if (analytics) {
-        const info = {
-          tag: target.tagName,
-          text: target.textContent?.trim()?.slice(0, 100),
-          id: target.id,
-          class: target.className,
-        };
-
-        console.log({ info });
+        // Case 2: Auto-logging element details (structured, not JSON)
         logEvent(analytics, "click", {
           category: "interaction",
-          label: JSON.stringify(info),
+          tag: target.tagName,
+          text: target.textContent?.trim()?.slice(0, 100),
+          id: target.id || undefined,
+          class: target.className || undefined,
+          innerHtml: target?.innerHTML,
         });
       }
+
+      console.log({ target });
     };
 
     document.addEventListener("click", handleClick);

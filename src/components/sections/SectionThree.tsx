@@ -90,6 +90,7 @@ const SectionThree: React.FC<SectionThreeProps> = ({ sectionRef }) => {
               onWheel={(e) =>
                 e.target instanceof HTMLElement && e.target.blur()
               }
+              id="input-amount"
               className="mx-1 w-[80px] sm:w-[100px] bg-transparent border-b-2 border-white/50 text-white font-semibold text-center focus:outline-none focus:border-white transition-all placeholder-white/40"
               placeholder="₹1000"
             />

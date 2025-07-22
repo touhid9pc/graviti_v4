@@ -10,7 +10,10 @@ const Banner: React.FC = () => {
 
   return (
     <Link href="/rewards" target="_blank" className="w-full z-50">
-      <div className="w-full h-28 md:h-20 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-300 shadow-md flex items-center justify-center px-6">
+      <div
+        className="w-full h-28 md:h-20 bg-gradient-to-r from-slate-50 to-slate-100 border-b border-slate-300 shadow-md flex items-center justify-center px-6"
+        id="banner"
+      >
         <div className="max-w-screen-xl text-center">
           <h2 className="text-lg md:text-xl font-extrabold text-slate-700">
             Invest with <span className="text-emerald-600">Graviti</span> — Win

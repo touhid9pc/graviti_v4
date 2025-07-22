@@ -55,26 +55,34 @@ export function ShareCard({ stockResult }: stockResultProps) {
       {/* Social Icons */}
       <div className="flex justify-center gap-4 sm:gap-8">
         {/* WhatsApp */}
-        <AnimatedButton className="!p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-full shadow-md hover:bg-white/20 transition">
+        <AnimatedButton
+          className="!p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-full shadow-md hover:bg-white/20 transition"
+          id="cta-whatsapp-share"
+        >
           <a
             href={whatsappLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Share on WhatsApp"
             className="flex items-center"
+            id="cta-whatsapp-share"
           >
             <SiWhatsapp className="w-6 h-6 sm:w-7 sm:h-7 text-emerald-400" />
           </a>
         </AnimatedButton>
 
         {/* X (Twitter) */}
-        <AnimatedButton className="!p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-full shadow-md hover:bg-white/20 transition">
+        <AnimatedButton
+          className="!p-4 bg-white/10 backdrop-blur-md border border-white/10 rounded-full shadow-md hover:bg-white/20 transition"
+          id="cta-x-share"
+        >
           <a
             href={twitterLink}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Share on Twitter"
             className="flex items-center"
+            id="cta-x-share"
           >
             <FaXTwitter className="w-6 h-6 sm:w-7 sm:h-7 text-white" />
           </a>

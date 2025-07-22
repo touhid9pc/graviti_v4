@@ -90,6 +90,7 @@ const SectionOne: React.FC<SectionOneProps> = ({ scrollToSecondSection }) => {
         <div className="inline-flex flex-wrap justify-center items-center">
           <span
             ref={textRef}
+            id={"question-text"}
             className="text-lg sm:text-xl md:text-2xl lg:text-4xl font-black text-[#FAF9F6] text-center z-25 drop-shadow-xl relative"
           >
             <span className="inline">
@@ -122,68 +123,17 @@ const SectionOne: React.FC<SectionOneProps> = ({ scrollToSecondSection }) => {
         </div>
 
         {!isProceed && (
-          <div ref={buttonRef}>
+          <div ref={buttonRef} onClick={(e) => console.log(e.target)}>
             <AnimatedButton
+              className="!font-bold !z-11"
+              id="cta-proceed"
+              data-analytics="cta_proceed_button"
               onClick={() => {
                 setIsProceed(true);
-
                 setTimeout(() => {
                   scrollToSecondSection();
                 }, 300);
-
-                // const el = questionMarkRef.current;
-                // const rect = el?.getBoundingClientRect();
-                // const text = textRef.current;
-                // const button = buttonRef.current;
-
-                // if (el && rect && text && button) {
-                //   const centerX =
-                //     window.innerWidth / 2 - rect.left - rect.width / 2;
-                //   const centerY =
-                //     window.innerHeight / 2 - rect.top - rect.height / 2;
-
-                //   // Step 1: Quickly hide all content except '?'
-                //   gsap.to([text, button], {
-                //     opacity: 0,
-                //     duration: 0.3,
-                //     ease: "power1.out",
-                //     onComplete: () => {
-                //       // Step 2: Zoom the ? mark after content hides
-                //       gsap.to(el, {
-                //         scale: 10,
-                //         x: centerX,
-                //         y: centerY,
-                //         duration: 0.7,
-                //         ease: "power3.out",
-                //         onComplete: () => {
-                //           // Step 3: Scroll and reset
-                //           scrollToSecondSection();
-
-                //           // Reset after scroll completes
-                //           setTimeout(() => {
-                //             // Reset ? mark
-                //             gsap.to(el, {
-                //               scale: 1,
-                //               x: 0,
-                //               y: 0,
-                //               duration: 0.6,
-                //               ease: "power3.out",
-                //             });
-
-                //             // Fade text and button back in
-                //             gsap.to([text, button], {
-                //               opacity: 1,
-                //               duration: 0.4,
-                //               ease: "power1.inOut",
-                //             });
-                //           }, 1000); // wait ~1s for scroll
-                //         },
-                //       });
-                //     },
-                //   });
-                // }
               }}
-              className="!font-bold"
             >
               Proceed
             </AnimatedButton>
