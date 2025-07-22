@@ -24,7 +24,7 @@ const manrope = Manrope({
 
 export const metadata: Metadata = {
   title: "Graviti Finance",
-  description: "Portal to the your digital assets",
+  description: "Democratizing global investing for Indians.",
 };
 
 export default function RootLayout({
